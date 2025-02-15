@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using System.IO;
+using AppRobot.Models;
 
 namespace AppRobot.Classes
 {
@@ -28,11 +29,56 @@ namespace AppRobot.Classes
             _configuration = new ConfigurationBuilder().AddJsonFile(APPSETTING_FILE, false, true).Build();
         }
 
-        public static MySqlConnection Connection()
+        private static MySqlConnection Connection()
         {
             return new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING));
         }
 
 
+
+        public static User ConnectionUtilisateur(Utilisateur utilisateur)
+        {
+            MySqlConnection cn = Connection();
+
+            User user = null;
+            try
+            {
+                cn.Open();
+
+                string requete = "SELECT Id, Username, Password, Acces FROM User WHERE Username = @username AND Password = @password;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@username", utilisateur.Username);
+
+                cmd.Parameters.AddWithValue("@password", utilisateur.Password);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.HasRows)
+                {
+                    dr.Read();
+
+                    user.Id = dr.GetGuid(0);
+                    user.Username = dr.GetString(1);
+                    user.Password = dr.GetString(2);
+                    user.TypeUtilisateurs = (User.TypeUser)dr.GetInt32(3);
+                }
+
+                user = User.ObtenirTypeUser(user);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+
+            return user;
+        }
     }
 }
