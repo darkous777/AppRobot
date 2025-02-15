@@ -8,9 +8,10 @@ namespace AppRobot.Models
 {
     public abstract class Admin : User
     {
-        protected Admin(string username, string password) :base(username, password)
+        protected Admin(Guid id, string username, string password, TypeUser user) : base(id, username, password, user)
         {
         }
+
 
     }
 }

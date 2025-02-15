@@ -8,7 +8,7 @@ namespace AppRobot.Models
 {
     public abstract class Moderator : User
     {
-        protected Moderator(string username, string password) : base(username, password)
+        public Moderator(Guid id, string username, string password, TypeUser user) : base(id, username, password, user)
         {
         }
 
