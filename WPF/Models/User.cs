@@ -11,13 +11,13 @@ namespace AppRobot.Models
     {
         public enum TypeUser
         {
-            User,
-            Moderators,
-            Administrators,
+            User = 1,
+            Moderator,
+            Admin,
         }
 
 		private string _username;
-        private Guid _id;
+        private int _id;
 		private string _password;
         private TypeUser _typeUtilisateurs;
 
@@ -44,20 +44,15 @@ namespace AppRobot.Models
         /// <summary>
         /// Obtient ou définit l'identifiant unique d'une course
         /// </summary>
-        public Guid Id
+        public int Id
         {
             get { return _id; }
             set
             {
-
-                if (value == Guid.Empty)
-                {
-                    throw new ArgumentException("Le id ne peut etre null!");
-                }
                 _id = value;
             }
         }
-        protected User(Guid id, string username, string password, TypeUser user)
+        protected User(int id, string username, string password, TypeUser user)
         {
             Id = id;
             Username = username;
@@ -69,14 +64,11 @@ namespace AppRobot.Models
             switch (user.TypeUtilisateurs)
             {
                 case User.TypeUser.User:
-                    Utilisateur utilisateur = (Utilisateur)user;
-                    return utilisateur;
-                case User.TypeUser.Moderators:
-                    Moderator moderator = (Moderator)user;
-                    return moderator;
-                case User.TypeUser.Administrators:
-                    Admin admin = (Admin)user;
-                    return admin;
+                    return new Utilisateur(user.Id, user.Username, user.Password, user.TypeUtilisateurs);
+                case User.TypeUser.Moderator:
+                    return new Moderator(user.Id, user.Username, user.Password, user.TypeUtilisateurs);
+                case User.TypeUser.Admin:
+                    return new Admin(user.Id, user.Username, user.Password, user.TypeUtilisateurs);
                 default:
                     throw new ArgumentException("Invalid user type");
             }

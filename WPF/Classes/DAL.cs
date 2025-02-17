@@ -45,13 +45,16 @@ namespace AppRobot.Classes
             {
                 cn.Open();
 
-                string requete = "SELECT Id, Username, Password, Acces FROM User WHERE Username = @username AND Password = @password;";
+                string hashedPassword = PasswordHelper.HashPassword(utilisateur.Password);
+
+
+                string requete = "SELECT Id, Username, Password, TypeUser FROM User WHERE Username = @username AND Password = @password;";
 
                 MySqlCommand cmd = new MySqlCommand(requete, cn);
 
                 cmd.Parameters.AddWithValue("@username", utilisateur.Username);
 
-                cmd.Parameters.AddWithValue("@password", utilisateur.Password);
+                cmd.Parameters.AddWithValue("@password", hashedPassword);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
 
@@ -59,13 +62,13 @@ namespace AppRobot.Classes
                 {
                     dr.Read();
 
-                    user.Id = dr.GetGuid(0);
-                    user.Username = dr.GetString(1);
-                    user.Password = dr.GetString(2);
-                    user.TypeUtilisateurs = (User.TypeUser)dr.GetInt32(3);
+                    utilisateur.Id = dr.GetInt32(0);
+                    utilisateur.Username = dr.GetString(1);
+                    utilisateur.Password = dr.GetString(2);
+                    utilisateur.TypeUtilisateurs = Enum.Parse<User.TypeUser>(dr.GetString(3));
                 }
 
-                user = User.ObtenirTypeUser(user);
+                user = User.ObtenirTypeUser(utilisateur);
             }
             catch (Exception)
             {

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AppRobot.Models
 {
-    public abstract class Admin : User
+    public class Admin : User
     {
-        protected Admin(Guid id, string username, string password, TypeUser user) : base(id, username, password, user)
+        public Admin(int id, string username, string password, TypeUser user) : base(id, username, password, user)
         {
         }
 

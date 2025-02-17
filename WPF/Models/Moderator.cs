@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AppRobot.Models
 {
-    public abstract class Moderator : User
+    public class Moderator : User
     {
-        public Moderator(Guid id, string username, string password, TypeUser user) : base(id, username, password, user)
+        public Moderator(int id, string username, string password, TypeUser user) : base(id, username, password, user)
         {
         }
 

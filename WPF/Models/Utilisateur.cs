@@ -8,7 +8,7 @@ namespace AppRobot.Models
 {
     public class Utilisateur : User
     {
-        public Utilisateur(Guid id, string username, string password, TypeUser user) : base(id, username, password, user)
+        public Utilisateur(int id, string username, string password, TypeUser user) : base(id, username, password, user)
         {
         }
     }
