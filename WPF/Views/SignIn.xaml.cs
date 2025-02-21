@@ -38,8 +38,9 @@ namespace AppRobot.Views
         {
             string username = txtUser.Text;
             string password = txtPassword.Password;
+            string img = "";
 
-            Utilisateur utilisateur = new Utilisateur(0, username, password, DateOnly.FromDateTime(DateTime.Now), User.TypeUser.User);
+            Utilisateur utilisateur = new Utilisateur(0, username, password, DateOnly.FromDateTime(DateTime.Now), User.TypeUser.User, img);
             User user = DAL.ConnectionUtilisateur(utilisateur);
 
             if (user.Id > 0)

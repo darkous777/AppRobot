@@ -21,6 +21,13 @@ namespace AppRobot.Models
 		private string _password;
         private DateOnly _dateOfBirth;
         private TypeUser _typeUtilisateurs;
+        private String _image;
+
+        public String Image
+        {
+            get { return _image; }
+            set { _image = value; }
+        }
 
 
         public string Username
@@ -57,24 +64,25 @@ namespace AppRobot.Models
                 _id = value;
             }
         }
-        protected User(int id, string username, string password, DateOnly dateOfBirth, TypeUser user )
+        protected User(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img)
         {
             Id = id;
             Username = username;
             Password = password;
             DateOfBirth = dateOfBirth;
             TypeUtilisateurs = user;
+            Image = img;
         }
         public static User ObtenirTypeUser(User user)
         {
             switch (user.TypeUtilisateurs)
             {
                 case TypeUser.User:
-                    return new Utilisateur(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs );
+                    return new Utilisateur(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image);
                 case TypeUser.Moderator:
-                    return new Moderator(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs);
+                    return new Moderator(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image);
                 case TypeUser.Admin:
-                    return new Admin(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs);
+                    return new Admin(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image);
                 default:
                     return null;
             }

@@ -67,6 +67,7 @@ namespace AppRobot.Classes
                     utilisateur.Password = dr.GetString(2);
                     utilisateur.DateOfBirth = dr.GetDateOnly(3);
                     utilisateur.TypeUtilisateurs = Enum.Parse<User.TypeUser>(dr.GetString(4));
+                    utilisateur.Image = _configuration[PRODUIT_IMAGES] + dr.GetString(5);
                 }
 
                 user = User.ObtenirTypeUser(utilisateur);
