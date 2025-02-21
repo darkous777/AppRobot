@@ -19,14 +19,8 @@ namespace AppRobot.Models
 		private string _username;
         private int _id;
 		private string _password;
-        private DateTime _dateOfBirth;
+        private DateOnly _dateOfBirth;
         private TypeUser _typeUtilisateurs;
-
-        public TypeUser TypeUtilisateurs
-        {
-            get { return _typeUtilisateurs; }
-            set { _typeUtilisateurs = value; }
-        }
 
 
         public string Username
@@ -35,17 +29,21 @@ namespace AppRobot.Models
 			set { _username = value; }
 		}
 
-
 		public string Password
 		{
 			get { return _password; }
 			set { _password = value; }
 		}
 
-        public DateTime DateOfBirth
+        public DateOnly DateOfBirth
         {
             get { return _dateOfBirth; }
             set { _dateOfBirth = value; }
+        }
+        public TypeUser TypeUtilisateurs
+        {
+            get { return _typeUtilisateurs; }
+            set { _typeUtilisateurs = value; }
         }
 
         /// <summary>
@@ -59,7 +57,7 @@ namespace AppRobot.Models
                 _id = value;
             }
         }
-        protected User(int id, string username, string password, DateTime dateOfBirth, TypeUser user )
+        protected User(int id, string username, string password, DateOnly dateOfBirth, TypeUser user )
         {
             Id = id;
             Username = username;

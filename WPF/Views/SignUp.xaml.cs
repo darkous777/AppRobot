@@ -20,7 +20,15 @@ namespace AppRobot.Views
     /// </summary>
     public partial class SignUp : Window
     {
-        public DateTime DateOfBirth { get; set; }
+        private User userManipulation;
+
+        public User UserManipulation
+        {
+            get { return userManipulation; }
+            set { userManipulation = value; }
+        }
+
+
         public SignUp()
         {
             InitializeComponent();
@@ -49,6 +57,7 @@ namespace AppRobot.Views
             string username = txtUser.Text;
             string password = txtPassword.Password;
             string confirmPassword = txtConformePassword.Password;
+            DateTime? selectedDate = datePicker.SelectedDate;
 
             if (password != confirmPassword)
             {
@@ -56,15 +65,17 @@ namespace AppRobot.Views
                 return;
             }
 
-            if (DateOfBirth != default(DateTime))
+            if (selectedDate.HasValue)
             {
-                User newUser = new Utilisateur(0, username, password, DateOfBirth, User.TypeUser.User);
+                User newUser = new Utilisateur(0, username, password, DateOnly.FromDateTime(selectedDate.Value), User.TypeUser.User);
                 MessageBox.Show($"Utilisateur créé avec succès : {newUser.Username}, Date de naissance : {newUser.DateOfBirth.ToShortDateString()}");
             }
             else
             {
                 MessageBox.Show("Veuillez sélectionner une date de naissance.");
             }
+
+            // FAIRE LA FONCTION DAL QUI CRÉE LE NOUVEL UTILISATEUR ET APRÈS LA CALLER ICI
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -72,7 +83,10 @@ namespace AppRobot.Views
             DatePicker datePicker = sender as DatePicker;
             if (datePicker != null && datePicker.SelectedDate.HasValue)
             {
-                DateOfBirth = datePicker.SelectedDate.Value;
+                if (userManipulation != null)
+                {
+                    userManipulation.DateOfBirth = DateOnly.FromDateTime(datePicker.SelectedDate.Value);
+                }
             }
         }
     }
