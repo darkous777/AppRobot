@@ -18,7 +18,7 @@ namespace AppRobot.Views
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
             }
@@ -39,28 +39,24 @@ namespace AppRobot.Views
             string username = txtUser.Text;
             string password = txtPassword.Password;
 
-            Utilisateur utilisateur = new Utilisateur(0, username, password, User.TypeUser.User);
+            Utilisateur utilisateur = new Utilisateur(0, username, password, DateOnly.FromDateTime(DateTime.Now), User.TypeUser.User);
             User user = DAL.ConnectionUtilisateur(utilisateur);
 
             if (user.Id > 0)
             {
                 MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-
                 GestionUser gestion = new GestionUser(user);
 
                 gestion.Show();
 
                 this.Close();
-
-
             }
             else
             {
                 txtUser.Text = null;
                 txtPassword.Password = null;
                 MessageBox.Show("Invalid username or password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
             }
         }
 

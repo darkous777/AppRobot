@@ -30,8 +30,23 @@ namespace AppRobot.Views
 
         public GestionUser(User user)
         {
-            UserConnecter = user;
+
+
+            //switch (UserConnecter.TypeUtilisateurs)
+            //{
+            //    case User.TypeUser.User:
+
+            //    case User.TypeUser.Moderator:
+            //    case User.TypeUser.Admin:
+            //    default:
+            //        return null;
+            //}
+
             InitializeComponent();
+
+            UserConnecter = user;
+            string pass =
+            txtUser.Text = user.Username;
 
         }
 
@@ -39,7 +54,6 @@ namespace AppRobot.Views
         {
             InitializeComponent();
         }
-
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -56,6 +70,11 @@ namespace AppRobot.Views
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void btnModify_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
