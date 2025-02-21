@@ -22,19 +22,12 @@ namespace AppRobot.Models
         private DateOnly _dateOfBirth;
         private TypeUser _typeUtilisateurs;
 
-        public TypeUser TypeUtilisateurs
-        {
-            get { return _typeUtilisateurs; }
-            set { _typeUtilisateurs = value; }
-        }
-
 
         public string Username
 		{
 			get { return _username; }
 			set { _username = value; }
 		}
-
 
 		public string Password
 		{
@@ -46,6 +39,11 @@ namespace AppRobot.Models
         {
             get { return _dateOfBirth; }
             set { _dateOfBirth = value; }
+        }
+        public TypeUser TypeUtilisateurs
+        {
+            get { return _typeUtilisateurs; }
+            set { _typeUtilisateurs = value; }
         }
 
         /// <summary>
