@@ -70,7 +70,7 @@ namespace AppRobot.Models
                 case User.TypeUser.Admin:
                     return new Admin(user.Id, user.Username, user.Password, user.TypeUtilisateurs);
                 default:
-                    throw new ArgumentException("Invalid user type");
+                    return null;
             }
         }
     }

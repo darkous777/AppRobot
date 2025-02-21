@@ -49,7 +49,7 @@ namespace AppRobot.Views
             Utilisateur utilisateur = new Utilisateur(0, username, password, User.TypeUser.User);
             User user = DAL.ConnectionUtilisateur(utilisateur);
 
-            if (user != null)
+            if (user.Id > 0)
             {
                 MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -57,13 +57,17 @@ namespace AppRobot.Views
                 GestionUser gestion = new GestionUser(user);
 
                 gestion.Show();
+
                 Close();
 
 
             }
             else
             {
+                txtUser.Text = null;
+                txtPassword.Password = null;
                 MessageBox.Show("Invalid username or password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
         }
     }
