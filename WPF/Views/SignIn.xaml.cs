@@ -1,15 +1,8 @@
 ﻿using AppRobot.Classes;
 using AppRobot.Models;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AppRobot.Views
 {
@@ -58,7 +51,7 @@ namespace AppRobot.Views
 
                 gestion.Show();
 
-                Close();
+                this.Close();
 
 
             }
@@ -69,6 +62,13 @@ namespace AppRobot.Views
                 MessageBox.Show("Invalid username or password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
+        }
+
+        private void Navigate_to_SignUp(object sender, RoutedEventArgs e)
+        {
+            SignUp signUpPage = new SignUp();
+            signUpPage.Show();
+            this.Close();
         }
     }
 }
