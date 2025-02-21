@@ -8,7 +8,7 @@ namespace AppRobot.Models
 {
     public class Moderator : User
     {
-        public Moderator(int id, string username, string password, DateTime dateOfBirth, TypeUser user) : base(id, username, password, dateOfBirth, user)
+        public Moderator(int id, string username, string password, DateOnly dateOfBirth, TypeUser user) : base(id, username, password, dateOfBirth, user)
         {
         }
 

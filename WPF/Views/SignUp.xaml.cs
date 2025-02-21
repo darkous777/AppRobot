@@ -20,7 +20,7 @@ namespace AppRobot.Views
     /// </summary>
     public partial class SignUp : Window
     {
-        public DateTime DateOfBirth { get; set; }
+        public DateOnly DateOfBirth { get; set; }
         public SignUp()
         {
             InitializeComponent();
@@ -56,7 +56,7 @@ namespace AppRobot.Views
                 return;
             }
 
-            if (DateOfBirth != default(DateTime))
+            if (DateOfBirth != default(DateOnly))
             {
                 User newUser = new Utilisateur(0, username, password, DateOfBirth, User.TypeUser.User);
                 MessageBox.Show($"Utilisateur créé avec succès : {newUser.Username}, Date de naissance : {newUser.DateOfBirth.ToShortDateString()}");
@@ -72,7 +72,7 @@ namespace AppRobot.Views
             DatePicker datePicker = sender as DatePicker;
             if (datePicker != null && datePicker.SelectedDate.HasValue)
             {
-                DateOfBirth = datePicker.SelectedDate.Value;
+                DateOfBirth = DateOnly.FromDateTime(datePicker.SelectedDate.Value);
             }
         }
     }

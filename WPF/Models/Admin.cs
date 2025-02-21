@@ -8,7 +8,7 @@ namespace AppRobot.Models
 {
     public class Admin : User
     {
-        public Admin(int id, string username, string password, DateTime dateOfBirth, TypeUser user) : base(id, username, password, dateOfBirth, user)
+        public Admin(int id, string username, string password, DateOnly dateOfBirth, TypeUser user) : base(id, username, password, dateOfBirth, user)
         {
         }
 
