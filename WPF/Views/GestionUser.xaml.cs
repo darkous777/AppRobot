@@ -46,7 +46,7 @@ namespace AppRobot.Views
 
             UserConnecter = user;
             string pass =
-            txtUser.Text = user.Username;
+            txtUser.Text = UserConnecter.Username;
 
         }
 
