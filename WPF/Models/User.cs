@@ -19,6 +19,7 @@ namespace AppRobot.Models
 		private string _username;
         private int _id;
 		private string _password;
+        private DateTime _dateOfBirth;
         private TypeUser _typeUtilisateurs;
 
         public TypeUser TypeUtilisateurs
@@ -41,6 +42,12 @@ namespace AppRobot.Models
 			set { _password = value; }
 		}
 
+        public DateTime DateOfBirth
+        {
+            get { return _dateOfBirth; }
+            set { _dateOfBirth = value; }
+        }
+
         /// <summary>
         /// Obtient ou définit l'identifiant unique d'une course
         /// </summary>
@@ -52,23 +59,24 @@ namespace AppRobot.Models
                 _id = value;
             }
         }
-        protected User(int id, string username, string password, TypeUser user)
+        protected User(int id, string username, string password, DateTime dateOfBirth, TypeUser user )
         {
             Id = id;
             Username = username;
             Password = password;
+            DateOfBirth = dateOfBirth;
             TypeUtilisateurs = user;
         }
         public static User ObtenirTypeUser(User user)
         {
             switch (user.TypeUtilisateurs)
             {
-                case User.TypeUser.User:
-                    return new Utilisateur(user.Id, user.Username, user.Password, user.TypeUtilisateurs);
-                case User.TypeUser.Moderator:
-                    return new Moderator(user.Id, user.Username, user.Password, user.TypeUtilisateurs);
-                case User.TypeUser.Admin:
-                    return new Admin(user.Id, user.Username, user.Password, user.TypeUtilisateurs);
+                case TypeUser.User:
+                    return new Utilisateur(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs );
+                case TypeUser.Moderator:
+                    return new Moderator(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs);
+                case TypeUser.Admin:
+                    return new Admin(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs);
                 default:
                     return null;
             }
