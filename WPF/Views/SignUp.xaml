@@ -5,27 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppRobot.Views"
         mc:Ignorable="d"
-        Title="SignUp" Height="450" Width="800">
+        Title="SignIn" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
-            <TextBlock Text="Username" Margin="0,0,0,10" />
-            <TextBox x:Name="UsernameTextBox" Width="200" Margin="0,0,0,20" />
-
-            <TextBlock Text="Password" Margin="0,0,0,10" />
-            <PasswordBox x:Name="PasswordBox" Width="200" Margin="0,0,0,20" />
-
-            <Button Content="Login" Width="200" Click="LoginButton_Click" />
-        </StackPanel>
+        
     </Grid>
 </Window>

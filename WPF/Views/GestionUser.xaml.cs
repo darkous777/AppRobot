@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppRobot.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,19 @@ namespace AppRobot.Views
     /// </summary>
     public partial class GestionUser : Window
     {
+        private User  _user;
+
+        public User UserConnecter
+        {
+            get { return _user; }
+            set { _user = value; }
+        }
+
+        public GestionUser(User user)
+        {
+            UserConnecter = user;
+        }
+
         public GestionUser()
         {
             InitializeComponent();
