@@ -1,15 +1,8 @@
 ﻿using AppRobot.Classes;
 using AppRobot.Models;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AppRobot.Views
 {
@@ -49,7 +42,7 @@ namespace AppRobot.Views
             Utilisateur utilisateur = new Utilisateur(0, username, password, User.TypeUser.User);
             User user = DAL.ConnectionUtilisateur(utilisateur);
 
-            if (user != null)
+            if (user.Id > 0)
             {
                 MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -57,14 +50,25 @@ namespace AppRobot.Views
                 GestionUser gestion = new GestionUser(user);
 
                 gestion.Show();
-                Close();
+
+                this.Close();
 
 
             }
             else
             {
+                txtUser.Text = null;
+                txtPassword.Password = null;
                 MessageBox.Show("Invalid username or password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
+        }
+
+        private void Navigate_to_SignUp(object sender, RoutedEventArgs e)
+        {
+            SignUp signUpPage = new SignUp();
+            signUpPage.Show();
+            this.Close();
         }
     }
 }
