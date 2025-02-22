@@ -36,7 +36,7 @@ namespace AppRobot.Classes
 
 
 
-        public static User ConnectionUtilisateur(Utilisateur utilisateur)
+        public static User ConnectionUtilisateur(User utilisateur)
         {
             MySqlConnection cn = Connection();
 
@@ -84,6 +84,75 @@ namespace AppRobot.Classes
             }
 
             return user;
+        }
+
+        public static bool ModifyPasswordUser(User utilisateur)
+        {
+            MySqlConnection cn = Connection();
+            bool estUpdate = false;
+            try
+            {
+                cn.Open();
+
+                string hashedPassword = PasswordHelper.HashPassword(utilisateur.Password);
+
+                string requete = "UPDATE User SET Password = @password WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@password", hashedPassword);
+                cmd.Parameters.AddWithValue("@id", utilisateur.Id);
+
+                int excuter = cmd.ExecuteNonQuery();
+
+                estUpdate = excuter > 0;
+
+                utilisateur.Password = hashedPassword;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+            return estUpdate;
+        }
+
+        public static bool ModifyInfoUser(User utilisateur)
+        {
+            MySqlConnection cn = Connection();
+            bool estUpdate = false;
+            try
+            {
+                cn.Open();
+
+                string requete = "UPDATE User SET Username = @username, Image = @image WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@username", utilisateur.Username);
+                cmd.Parameters.AddWithValue("@id", utilisateur.Id);
+                cmd.Parameters.AddWithValue("@image", utilisateur.Image);
+
+
+                int excuter = cmd.ExecuteNonQuery();
+
+                estUpdate = excuter > 0;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+            return estUpdate;
         }
     }
 }

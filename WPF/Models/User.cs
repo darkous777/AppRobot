@@ -16,9 +16,9 @@ namespace AppRobot.Models
             Admin,
         }
 
-		private string _username;
+        private string _username;
         private int _id;
-		private string _password;
+        private string _password;
         private DateOnly _dateOfBirth;
         private TypeUser _typeUtilisateurs;
         private String _image;
@@ -31,16 +31,16 @@ namespace AppRobot.Models
 
 
         public string Username
-		{
-			get { return _username; }
-			set { _username = value; }
-		}
+        {
+            get { return _username; }
+            set { _username = value; }
+        }
 
-		public string Password
-		{
-			get { return _password; }
-			set { _password = value; }
-		}
+        public string Password
+        {
+            get { return _password; }
+            set { _password = value; }
+        }
 
         public DateOnly DateOfBirth
         {
@@ -64,7 +64,7 @@ namespace AppRobot.Models
                 _id = value;
             }
         }
-        protected User(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img)
+        public User(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img)
         {
             Id = id;
             Username = username;
@@ -73,6 +73,7 @@ namespace AppRobot.Models
             TypeUtilisateurs = user;
             Image = img;
         }
+
         public static User ObtenirTypeUser(User user)
         {
             switch (user.TypeUtilisateurs)

@@ -161,7 +161,7 @@
                     
                     
 
-                    <TextBlock Text="Anniversary"
+                    <TextBlock Text="Date of birth"
              Foreground="DarkGray"
              FontSize="12"
              FontWeight="Medium"
@@ -318,7 +318,40 @@ Padding="40,0,0,0">
            AlignmentX="Left"/>
                         </PasswordBox.Background>
                     </PasswordBox>
+                    <Button x:Name="btnModifierPassword"
+            BorderThickness="0"
+            Content="SAVE"
+            Foreground="White"
+            FontSize="12"
+            FontFamily="Montserrat"
+            Grid.Column="1"
+        Grid.Row="1"
+            Margin="0,40,0,0"
+            Click="btnModifierPassword_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#DA34AE"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#DA34AE"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="80" Height="30"
+                        CornerRadius="15"
+                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"/>
+
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </StackPanel>
+
             </Grid>
         </Border>
     </Border>
