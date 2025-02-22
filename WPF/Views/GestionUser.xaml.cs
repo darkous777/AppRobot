@@ -40,18 +40,6 @@ namespace AppRobot.Views
 
         public GestionUser(User user)
         {
-
-
-            //switch (UserConnecter.TypeUtilisateurs)
-            //{
-            //    case User.TypeUser.User:
-
-            //    case User.TypeUser.Moderator:
-            //    case User.TypeUser.Admin:
-            //    default:
-            //        return null;
-            //}
-
             InitializeComponent();
 
             UserConnecter = user;
@@ -59,13 +47,24 @@ namespace AppRobot.Views
             txtUser.Text = UserConnecter.Username;
             datePicker.SelectedDate = user.DateOfBirth.ToDateTime(TimeOnly.MinValue);
             datePicker.IsEnabled = false;
-
             AfficherImage(user.Image);
-
 
             _configuration = new ConfigurationBuilder().AddJsonFile(DAL.APPSETTING_FILE, false, true).Build();
 
+            switch (user.TypeUtilisateurs)
+            {
+                case User.TypeUser.User:
+                    btnDelete.IsEnabled = true;
 
+                    break;
+                case User.TypeUser.Moderator:
+                    btnDelete.IsEnabled = true;
+
+                    break;
+                case User.TypeUser.Admin:
+                    btnDelete.IsEnabled = false;
+                    break;
+            }
         }
 
         public GestionUser()
@@ -79,17 +78,14 @@ namespace AppRobot.Views
                 DragMove();
             }
         }
-
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
-
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
-
         private bool ValiderFormulaire()
         {
 
@@ -116,20 +112,14 @@ namespace AppRobot.Views
                 {
                     UserConnecter.Username = txtUser.Text;
 
-                    BitmapImage bi2 = imgProduit.Source as BitmapImage;
-                    string source2 = bi2.UriSource.LocalPath;
-                    if (source2 != UserConnecter.Image)
-                    {
-                        string extension2 = System.IO.Path.GetExtension(source2);
-                        string nomImage2 = Guid.NewGuid().ToString() + extension2;
-                        string destination2 = _configuration[PRODUIT_IMAGES];
+                    BitmapImage bi = imgProduit.Source as BitmapImage;
+                    string source = bi.UriSource.LocalPath;
 
-                        File.Copy(source2, destination2 + nomImage2);
-                        File.Delete(UserConnecter.Image);
-                        UserConnecter.Image = nomImage2;
-                    }
+                    UserConnecter.Image = source;
 
                     bool isUpdated = DAL.ModifyInfoUser(UserConnecter);
+
+                    AfficherImage(UserConnecter.Image);
 
                     if (isUpdated)
                     {
@@ -147,12 +137,6 @@ namespace AppRobot.Views
             }
 
         }
-
-        private void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void btnModifyImageParcourir_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -238,6 +222,39 @@ namespace AppRobot.Views
             {
                 MessageBox.Show("Le mot de passe entrée n'est pas le même que l'existant!", "Modification du mot de passe", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show($"Êtes-vous sûre de vouloir supprimer votre compte?", "Suppression d'un compte", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    bool aEteSupprimer = DAL.DeleteUser(UserConnecter);
+
+                    if (aEteSupprimer)
+                    {
+                        MessageBox.Show("Le compte a bien été supprimé", "Suppression d'un compte");
+
+                        this.Close();
+                        SignIn inscription = new SignIn();
+                        inscription.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Le compte n'a pas été suprimé, une erreur c'est produite.", "Suppression d'un compte");
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Suppression d'un produit");
+            }
+
+
         }
     }
 }

@@ -33,9 +33,6 @@ namespace AppRobot.Classes
         {
             return new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING));
         }
-
-
-
         public static User ConnectionUtilisateur(User utilisateur)
         {
             MySqlConnection cn = Connection();
@@ -85,7 +82,6 @@ namespace AppRobot.Classes
 
             return user;
         }
-
         public static bool ModifyPasswordUser(User utilisateur)
         {
             MySqlConnection cn = Connection();
@@ -120,7 +116,45 @@ namespace AppRobot.Classes
             }
             return estUpdate;
         }
+        public static string ChercheImageUser(User utilisateur)
+        {
+            MySqlConnection cn = Connection();
 
+            string img = null;
+
+            try
+            {
+                cn.Open();
+
+                string requete = "SELECT Image FROM User WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@id", utilisateur.Id);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.HasRows)
+                {
+                    dr.Read();
+
+                    img = dr.GetString(0);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+
+            return img;
+        }
         public static bool ModifyInfoUser(User utilisateur)
         {
             MySqlConnection cn = Connection();
@@ -128,6 +162,23 @@ namespace AppRobot.Classes
             try
             {
                 cn.Open();
+
+                string source = (DAL.ConnectionUtilisateur(utilisateur)).Image;
+
+                if (source != utilisateur.Image)
+                {
+                    string extension = Path.GetExtension(utilisateur.Image);
+                    string nomImage = Guid.NewGuid().ToString() + extension;
+                    string destination = _configuration[PRODUIT_IMAGES];
+
+                    File.Copy(utilisateur.Image, destination + nomImage);
+                    File.Delete(source);
+                    utilisateur.Image = nomImage;
+                }
+                else
+                {
+                    utilisateur.Image = DAL.ChercheImageUser(utilisateur);
+                }
 
                 string requete = "UPDATE User SET Username = @username, Image = @image WHERE Id = @id;";
 
@@ -153,6 +204,39 @@ namespace AppRobot.Classes
                     cn.Close();
             }
             return estUpdate;
+        }
+        public static bool DeleteUser(User user)
+        {
+            MySqlConnection cn = Connection();
+
+            bool estSupprimee = false;
+
+            try
+            {
+                cn.Open();
+
+                string requete = "DELETE FROM User WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                estSupprimee = rowsAffected > 0;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+
+            return estSupprimee;
         }
     }
 }

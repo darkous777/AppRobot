@@ -124,19 +124,84 @@
                         </Button.Template>
                     </Button>
                 </Grid>
+                <TabControl Grid.Row="1" 
+                            Grid.RowSpan="2" 
+                            Grid.Column="0" 
+                            Grid.ColumnSpan="2" 
+                            Background="Transparent"
+                            Margin="10,15,10,10">
+                    <TabItem>
+                        <TabItem.Style>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TabItem.Style>
+                        <TabItem.Template>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Width="55" Height="30"
+                        
+                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                      HorizontalAlignment="Center" Content="HOME"/>
 
-                <StackPanel Width="250"
+                                </Border>
+                            </ControlTemplate>
+                        </TabItem.Template>
+
+                    </TabItem>
+                    <TabItem Margin="5,0,0,0" 
+                                    HorizontalAlignment="Center">
+                        <TabItem.Style>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TabItem.Style>
+                        <TabItem.Template>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Width="70" Height="30"
+                      
+                      Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center" Content="ACCOUNT"/>
+
+                                </Border>
+                            </ControlTemplate>
+                        </TabItem.Template>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90*"/>
+                                    <ColumnDefinition Width="447*"/>
+                                    <ColumnDefinition Width="536*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Width="250"
                             Grid.Row="1"
                             Orientation="Vertical"
-                            Margin="0,150,0,0"
+                            Margin="54,100,143,0" Grid.Column="1"
                             >
-                    <TextBlock Text="Username"
+                                    <TextBlock Text="Username"
                                Foreground="DarkGray"
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                Margin="0,40,0,5"/>
-                    <TextBox x:Name="txtUser"
+                                    <TextBox x:Name="txtUser"
                              FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"
@@ -148,32 +213,32 @@
                              VerticalAlignment="Center"
                              Margin="0,5,0,0"
                              Padding="40,0,0,0">
-                        <TextBox.Background>
-                            <ImageBrush ImageSource="/Images/user-icon.png"
+                                        <TextBox.Background>
+                                            <ImageBrush ImageSource="/Images/user-icon.png"
                                         Stretch="None"
                                         AlignmentX="Left"/>
-                        </TextBox.Background>
-                    </TextBox>
+                                        </TextBox.Background>
+                                    </TextBox>
 
-                    
-                    
-                    
-                    
-                    
 
-                    <TextBlock Text="Date of birth"
+
+
+
+
+
+                                    <TextBlock Text="Date of birth"
              Foreground="DarkGray"
              FontSize="12"
              FontWeight="Medium"
              FontFamily="Montserrat"
              Margin="0,40,0,5"
          />
-                    <DatePicker x:Name="datePicker" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1"  Width="250" SelectedDateChanged="datePicker_SelectedDateChanged"/>
-                    <StackPanel Margin="0,40,0,0">
-                        <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image x:Name="imgProduit" Width="50" Height="50"/>
-                        </Border>
-                        <Button x:Name="btnModifierImage"
+                                    <DatePicker x:Name="datePicker" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1"  Width="250"/>
+                                    <StackPanel Margin="0,40,0,0">
+                                        <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Image x:Name="imgProduit" Width="50" Height="50"/>
+                                        </Border>
+                                        <Button x:Name="btnModifierImage"
             BorderThickness="0"
             Content="BROWSER"
             Foreground="White"
@@ -183,75 +248,76 @@
         Grid.Row="2"
             Margin="0,10,0,0"
             Click="btnModifyImageParcourir_Click">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#DA34AE"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#DA34AE"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="80" Height="30"
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#DA34AE"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#DA34AE"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="80" Height="30"
                         CornerRadius="15"
                         Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
+                                                        <ContentPresenter VerticalAlignment="Center"
                                       HorizontalAlignment="Center"/>
 
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
-                <Button x:Name="btnModify"
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Button x:Name="btnModify"
                             BorderThickness="0"
                             Content="MODIFY"
                             Foreground="White"
                             FontSize="12"
                             FontFamily="Montserrat"
+                                        VerticalAlignment="Top"
                             Grid.Column="0"
                         Grid.Row="2"
-                            Margin="0,50,0,0"
-                            Click="btnModify_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#462AD8"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#28AEED"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="150" Height="40"
+                            Margin="0,90,0,0"
+                            Click="btnModify_Click" Grid.ColumnSpan="2">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#462AD8"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#28AEED"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="150" Height="40"
                                         CornerRadius="20"
                                         Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
+                                                <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"/>
 
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <StackPanel Width="250"
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <StackPanel Width="250"
                             Grid.Row="1"
-                            Grid.Column="1"
+                            Grid.Column="2"
                             Orientation="Vertical"
-                            Margin="0,100,0,0"
+                            Margin="143,100,143,0"
                             >
-                    <TextBlock Text="Old Password"
+                                    <TextBlock Text="Old Password"
            Foreground="DarkGray"
            FontSize="12"
            FontWeight="Medium"
            FontFamily="Montserrat"
            Margin="0,50,0,5"/>
-                    <PasswordBox x:Name="txtOldPassword"
+                                    <PasswordBox x:Name="txtOldPassword"
          FontSize="13"
          FontWeight="Medium"
          FontFamily="Montserrat"
@@ -263,19 +329,19 @@
          VerticalAlignment="Center"
          Margin="0,5,0,0"
          Padding="40,0,0,0">
-                        <PasswordBox.Background>
-                            <ImageBrush ImageSource="/Images/key-icon.png"
+                                        <PasswordBox.Background>
+                                            <ImageBrush ImageSource="/Images/key-icon.png"
                     Stretch="None"
                     AlignmentX="Left"/>
-                        </PasswordBox.Background>
-                    </PasswordBox>
-                    <TextBlock Text="New Password"
+                                        </PasswordBox.Background>
+                                    </PasswordBox>
+                                    <TextBlock Text="New Password"
            Foreground="DarkGray"
            FontSize="12"
            FontWeight="Medium"
            FontFamily="Montserrat"
            Margin="0,50,0,5"/>
-                    <PasswordBox x:Name="txtNewPassword"
+                                    <PasswordBox x:Name="txtNewPassword"
          FontSize="13"
          FontWeight="Medium"
          FontFamily="Montserrat"
@@ -287,20 +353,20 @@
          VerticalAlignment="Center"
          Margin="0,5,0,0"
          Padding="40,0,0,0">
-                        <PasswordBox.Background>
-                            <ImageBrush ImageSource="/Images/key-icon.png"
+                                        <PasswordBox.Background>
+                                            <ImageBrush ImageSource="/Images/key-icon.png"
                     Stretch="None"
                     AlignmentX="Left"/>
-                        </PasswordBox.Background>
-                    </PasswordBox>
+                                        </PasswordBox.Background>
+                                    </PasswordBox>
 
-                    <TextBlock Text="Confirm New Password"
+                                    <TextBlock Text="Confirm New Password"
   Foreground="DarkGray"
   FontSize="12"
   FontWeight="Medium"
   FontFamily="Montserrat"
   Margin="0,50,0,5"/>
-                    <PasswordBox x:Name="txtConfirmNewPassword"
+                                    <PasswordBox x:Name="txtConfirmNewPassword"
 FontSize="13"
 FontWeight="Medium"
 FontFamily="Montserrat"
@@ -312,13 +378,13 @@ Height="28"
 VerticalAlignment="Center"
 Margin="0,5,0,0"
 Padding="40,0,0,0">
-                        <PasswordBox.Background>
-                            <ImageBrush ImageSource="/Images/key-icon.png"
+                                        <PasswordBox.Background>
+                                            <ImageBrush ImageSource="/Images/key-icon.png"
            Stretch="None"
            AlignmentX="Left"/>
-                        </PasswordBox.Background>
-                    </PasswordBox>
-                    <Button x:Name="btnModifierPassword"
+                                        </PasswordBox.Background>
+                                    </PasswordBox>
+                                    <Button x:Name="btnModifierPassword"
             BorderThickness="0"
             Content="SAVE"
             Foreground="White"
@@ -328,29 +394,68 @@ Padding="40,0,0,0">
         Grid.Row="1"
             Margin="0,40,0,0"
             Click="btnModifierPassword_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#DA34AE"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#DA34AE"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="80" Height="30"
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background" Value="#DA34AE"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#DA34AE"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Width="80" Height="30"
                         CornerRadius="15"
                         Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
+                                                    <ContentPresenter VerticalAlignment="Center"
                                       HorizontalAlignment="Center"/>
 
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </StackPanel>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </StackPanel>
+                                <Button x:Name="btnDelete"
+    BorderThickness="0"
+    Content="DELETE ACCOUNT"
+    Foreground="White"
+    FontSize="12"
+    FontFamily="Montserrat"
+    Grid.Column="2"
+Grid.Row="2"
+    Margin="0,90,0,0"
+    Click="btnDelete_Click">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#462AD8"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#28AEED"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Width="150" Height="40"
+                CornerRadius="20"
+                Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center"
+                              HorizontalAlignment="Center"/>
+
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </Grid>
+
+
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+
 
             </Grid>
         </Border>
