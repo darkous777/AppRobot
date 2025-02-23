@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using System.IO;
 using AppRobot.Models;
+using System.Windows.Controls.Ribbon.Primitives;
 
 namespace AppRobot.Classes
 {
@@ -165,6 +166,8 @@ namespace AppRobot.Classes
 
                 string source = (DAL.ConnectionUtilisateur(utilisateur)).Image;
 
+                string img = "";
+
                 if (source != utilisateur.Image)
                 {
                     string extension = Path.GetExtension(utilisateur.Image);
@@ -174,10 +177,11 @@ namespace AppRobot.Classes
                     File.Copy(utilisateur.Image, destination + nomImage);
                     File.Delete(source);
                     utilisateur.Image = nomImage;
+                    img = nomImage;
                 }
                 else
                 {
-                    utilisateur.Image = DAL.ChercheImageUser(utilisateur);
+                    img = DAL.ChercheImageUser(utilisateur);
                 }
 
                 string requete = "UPDATE User SET Username = @username, Image = @image WHERE Id = @id;";
@@ -186,7 +190,7 @@ namespace AppRobot.Classes
 
                 cmd.Parameters.AddWithValue("@username", utilisateur.Username);
                 cmd.Parameters.AddWithValue("@id", utilisateur.Id);
-                cmd.Parameters.AddWithValue("@image", utilisateur.Image);
+                cmd.Parameters.AddWithValue("@image", img);
 
 
                 int excuter = cmd.ExecuteNonQuery();
@@ -237,6 +241,79 @@ namespace AppRobot.Classes
             }
 
             return estSupprimee;
+        }
+
+        public static List<User> ObtainListUsers(User.TypeUser typeUser, string username = null)
+        {
+            MySqlConnection cn = Connection();
+
+            List<User> users = new List<User>();
+            User user = null;
+            try
+            {
+                cn.Open();
+
+                string requete = "SELECT * FROM User ";
+
+                if (typeUser == User.TypeUser.Admin)
+                {
+                    if (username is not null)
+                    {
+                        requete += "WHERE Username LIKE @username;";
+                    }
+                    else
+                    {
+                        requete += "WHERE Id > 0;";
+                    }
+                }
+                else if (typeUser == User.TypeUser.Moderator)
+                {
+                    if (username is not null)
+                    {
+                        requete += "WHERE Username LIKE @username AND TypeUser != 'Admin';";
+                    }
+                    else
+                    {
+                        requete += "WHERE TypeUser != 'Admin';";
+                    }
+                }
+                
+                
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@username", $"%{username}%");
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Utilisateur u = new Utilisateur(
+                    dr.GetInt32(0),
+                    dr.GetString(1),
+                    dr.GetString(2),
+                    dr.GetDateOnly(3),
+                    Enum.Parse<User.TypeUser>(dr.GetString(4)),
+                    _configuration[PRODUIT_IMAGES] + dr.GetString(5));
+
+                    user = User.ObtenirTypeUser(u);
+
+                    users.Add(user);
+                }
+
+                dr.Close();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+
+            return users;
         }
     }
 }

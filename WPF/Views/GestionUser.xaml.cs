@@ -51,13 +51,18 @@ namespace AppRobot.Views
 
             _configuration = new ConfigurationBuilder().AddJsonFile(DAL.APPSETTING_FILE, false, true).Build();
 
+            afficherListUser(UserConnecter.TypeUtilisateurs, "");
+
             switch (user.TypeUtilisateurs)
             {
                 case User.TypeUser.User:
+                    tbLstUser.Visibility = Visibility.Collapsed;
                     btnDelete.IsEnabled = true;
 
                     break;
                 case User.TypeUser.Moderator:
+                    tbLstUser.Visibility = Visibility.Collapsed;
+
                     btnDelete.IsEnabled = true;
 
                     break;
@@ -67,9 +72,12 @@ namespace AppRobot.Views
             }
         }
 
-        public GestionUser()
+        private void afficherListUser(User.TypeUser typeUser, string usernameRechercher)
         {
-            InitializeComponent();
+            lstUsers.ItemsSource = null;
+
+            lstUsers.ItemsSource = DAL.ObtainListUsers(typeUser, usernameRechercher);
+
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -120,6 +128,12 @@ namespace AppRobot.Views
                     bool isUpdated = DAL.ModifyInfoUser(UserConnecter);
 
                     AfficherImage(UserConnecter.Image);
+
+                    txtOldPassword.Password = null;
+                    txtNewPassword.Password = null;
+                    txtConfirmNewPassword.Password = null;
+
+                    afficherListUser(UserConnecter.TypeUtilisateurs, "");
 
                     if (isUpdated)
                     {
@@ -223,7 +237,6 @@ namespace AppRobot.Views
                 MessageBox.Show("Le mot de passe entrée n'est pas le même que l'existant!", "Modification du mot de passe", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -234,11 +247,14 @@ namespace AppRobot.Views
                 {
                     bool aEteSupprimer = DAL.DeleteUser(UserConnecter);
 
+                    afficherListUser(UserConnecter.TypeUtilisateurs, "");
+
                     if (aEteSupprimer)
                     {
                         MessageBox.Show("Le compte a bien été supprimé", "Suppression d'un compte");
 
                         this.Close();
+
                         SignIn inscription = new SignIn();
                         inscription.Show();
                     }
@@ -255,6 +271,54 @@ namespace AppRobot.Views
             }
 
 
+        }
+        private void btnRechercherUser_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                afficherListUser(UserConnecter.TypeUtilisateurs, txtRechercher.Text);
+
+                txtRechercher.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Recherche d'un produit");
+            }
+        }
+        private void btnDeleteSelectedUser_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (lstUsers.SelectedItem != null)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"Êtes-vous sûre de vouloir supprimer le compte selectionne?", "Suppression d'un compte", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        bool aEteSupprimer = DAL.DeleteUser(lstUsers.SelectedItem as User);
+
+                        if (aEteSupprimer)
+                        {
+                            MessageBox.Show("Le compte a bien été supprimé", "Suppression d'un compte");
+
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Le compte n'a pas été suprimé, une erreur c'est produite.", "Suppression d'un compte");
+
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Suppression d'un utilisateur", MessageBoxButton.OK);
+            }
         }
     }
 }

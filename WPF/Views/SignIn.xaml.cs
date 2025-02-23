@@ -45,8 +45,6 @@ namespace AppRobot.Views
 
             if (user.Id > 0)
             {
-                MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
                 GestionUser gestion = new GestionUser(user);
 
                 gestion.Show();
