@@ -85,5 +85,55 @@ namespace AppRobot.Classes
 
             return user;
         }
+
+
+        public static void AjouterUtilisateur(Utilisateur utilisateur)
+        {
+            if (utilisateur is null)
+            {
+                throw new ArgumentNullException(nameof(utilisateur), "Le produit ne peut pas être nul.");
+            }
+
+            MySqlConnection cn = Connection();
+
+            try
+            {
+                string image = _configuration[PRODUIT_IMAGES];
+                string extension = Path.GetExtension(utilisateur.Image);
+                string nomImage = Guid.NewGuid().ToString() + extension;
+                string cheminImage = image + nomImage;
+
+                File.Copy(utilisateur.Image, cheminImage);
+
+                utilisateur.Image = nomImage;
+
+                cn.Open();
+
+                string hashedPassword = PasswordHelper.HashPassword(utilisateur.Password);
+                string requete = "INSERT INTO User (Username, Password, DateOfBirth, TypeUser, Image) VALUES (@username, @password, @dateOfBirth, @typeUser, @image);";
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@username", utilisateur.Username);
+                cmd.Parameters.AddWithValue("@password", hashedPassword);
+                cmd.Parameters.AddWithValue("@dateOfBirth", utilisateur.DateOfBirth);
+                cmd.Parameters.AddWithValue("@typeUser", utilisateur.TypeUtilisateurs.ToString());
+                cmd.Parameters.AddWithValue("@image", utilisateur.Image);
+                cmd.ExecuteNonQuery();
+
+                cn.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+        }
+
+
+        
     }
 }
