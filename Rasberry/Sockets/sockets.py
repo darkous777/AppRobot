@@ -18,11 +18,11 @@ def handle_client(conn, addr):
     while connected:
         msg_length = conn.recv(HEADER).decode(FORMAT)
         if msg_length:
-            msg_length = int(msg_length)
-            msg = conn.recv(msg_length).decode("utf-8")
-            if msg == DISCONNECT_MESSAGE:
+
+            send(conn,f"[{addr}] Connection réussite!")
+            if msg_length == DISCONNECT_MESSAGE:
                 connected = False
-            print(f"[{addr}] {msg}")
+            print(f"[{addr}] {msg_length}")
 
     conn.close()
 
@@ -35,5 +35,11 @@ def start():
         thread.start()
         print(f"[Active Connections] {threading.activeCount() - 1}")
 
+
+
+def send(conn,msg):
+    message = msg.encode(FORMAT)
+
+    conn.send(message)
 print("[Strating] server is strating")
 start()
