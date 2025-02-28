@@ -75,7 +75,7 @@ namespace AppRobot.Views
                 MessageBox.Show("Veuillez sélectionner une date de naissance.");
             }
 
-            // FAIRE LA FONCTION DAL QUI CRÉE LE NOUVEL UTILISATEUR ET APRÈS LA CALLER ICI
+            
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
