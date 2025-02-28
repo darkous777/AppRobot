@@ -602,7 +602,7 @@ namespace AppRobot.Views
         }
         private void ConnectionAvecRobot()
         {
-            ConnectionRobot = new TcpClient("10.0.0.171", 5050);
+            ConnectionRobot = new TcpClient("172.20.10.2", 5050);
             ReseauEchange = ConnectionRobot.GetStream();
         }
         private void EnvoyerEtRecevoirDonnees()
