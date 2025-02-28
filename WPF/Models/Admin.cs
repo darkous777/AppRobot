@@ -9,7 +9,7 @@ namespace AppRobot.Models
 {
     public class Admin : User, IPowerAdminModerator
     {
-        public Admin(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img) : base(id, username, password, dateOfBirth, user, img)
+        public Admin(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img, bool acces) : base(id, username, password, dateOfBirth, user, img, acces)
         {
         }
 
@@ -32,11 +32,19 @@ namespace AppRobot.Models
             return DAL.DeleteUser(userSelected);
         }
 
-        public List<User> ListUser(User.TypeUser type, string rechercheUsername)
+        public List<User> ListUser(User user, string rechercheUsername)
         {
-            return DAL.ObtainListUsers(type, rechercheUsername).Where(u => u.TypeUtilisateurs != TypeUser.Admin).ToList(); ;
+            return DAL.ObtainListUsers(user, rechercheUsername).Where(u => u.TypeUtilisateurs != TypeUser.Admin).ToList(); ;
         }
 
+        public bool BloquerUser(User user)
+        {
+            return DAL.BloquerUser(user);
+        }
+        public bool DebloquerUser(User user)
+        {
+            return DAL.DebloquerUser(user);
+        }
         public bool AttributionDeRole(User user)
         {
             return DAL.AttribueRoleDeModerator(user);
@@ -44,7 +52,7 @@ namespace AppRobot.Models
 
         public bool DeattributionDeRole(User user)
         {
-            return DAL.DéattribueRoleDeModerator(user);
+            return DAL.DeattribueRoleDeModerator(user);
         }
     }
 }

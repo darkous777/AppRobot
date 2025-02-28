@@ -67,7 +67,7 @@ namespace AppRobot.Views
 
             if (selectedDate.HasValue)
             {
-                User newUser = new Utilisateur(0, username, password, DateOnly.FromDateTime(selectedDate.Value), User.TypeUser.User, "");
+                User newUser = new Utilisateur(0, username, password, DateOnly.FromDateTime(selectedDate.Value), User.TypeUser.User, "", true);
                 MessageBox.Show($"Utilisateur créé avec succès : {newUser.Username}, Date de naissance : {newUser.DateOfBirth.ToShortDateString()}");
             }
             else

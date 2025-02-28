@@ -40,10 +40,16 @@ namespace AppRobot.Views
             string password = txtPassword.Password;
             string img = "";
 
-            Utilisateur utilisateur = new Utilisateur(0, username, password, DateOnly.FromDateTime(DateTime.Now), User.TypeUser.User, img);
+            Utilisateur utilisateur = new Utilisateur(0, username, password, DateOnly.FromDateTime(DateTime.Now), User.TypeUser.User, img, true);
             User user = DAL.ConnectionUtilisateur(utilisateur);
 
-            if (user.Id > 0)
+            if(user.Acces is false)
+            {
+                txtUser.Text = null;
+                txtPassword.Password = null;
+                MessageBox.Show("Ce compte est présentement bloqué", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (user.Id > 0)
             {
                 GestionUser gestion = new GestionUser(user);
 

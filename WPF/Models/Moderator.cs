@@ -9,7 +9,7 @@ namespace AppRobot.Models
 {
     public class Moderator : User, IPowerAdminModerator
     {
-        public Moderator(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img) : base(id, username, password, dateOfBirth, user, img)
+        public Moderator(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img, bool acces) : base(id, username, password, dateOfBirth, user, img, acces)
         {
         }
 
@@ -39,11 +39,18 @@ namespace AppRobot.Models
             return DAL.DeleteUser(userSelected);
         }
 
-
-
-        public List<User> ListUser(User.TypeUser type, string rechercheUsername)
+        public bool BloquerUser(User user)
         {
-            return DAL.ObtainListUsers(type, rechercheUsername).Where(u => u.TypeUtilisateurs != TypeUser.Admin).ToList(); ;
+            return DAL.BloquerUser(user);
+        }
+        public bool DebloquerUser(User user)
+        {
+            return DAL.DebloquerUser(user);
+        }
+
+        public List<User> ListUser(User user, string rechercheUsername)
+        {
+            return DAL.ObtainListUsers(user, rechercheUsername).Where(u => u.TypeUtilisateurs != TypeUser.Admin).ToList(); ;
         }
     }
 }

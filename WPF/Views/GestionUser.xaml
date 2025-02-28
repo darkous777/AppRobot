@@ -545,13 +545,16 @@ Grid.Row="2"
                                                            Margin="0,5,150,5"/>
                                                     <TextBlock Text="{Binding Username}"
                                                            VerticalAlignment="Center" 
-                                                               Margin="0,0,200,0"/>
+                                                               Width="150"/>
                                                     <TextBlock Text="{Binding DateOfBirth}"
-                                                               Margin="0,0,200,0"
+                                                               Width="150"
                                                                VerticalAlignment="Center" />
                                                     <TextBlock Text="{Binding TypeUtilisateurs}"
                                                                VerticalAlignment="Center"
+                                                               Width="150"
                                                                />
+                                                    <TextBlock Text="{Binding }"
+                                                               VerticalAlignment="Center"/>
 
                                                 </StackPanel>
                                             </StackPanel>
@@ -723,6 +726,154 @@ Click="btnDeloquerUserSelected_Click" Grid.ColumnSpan="3" Grid.RowSpan="2">
                                 </Button.Template>
                             </Button>
                         </Grid>
+                    </TabItem>
+                    <TabItem Margin="5,0,0,0" 
+                 HorizontalAlignment="Center">
+                        <TabItem.Style>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TabItem.Style>
+                        <TabItem.Template>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Width="130" Height="30"
+   
+   Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                 HorizontalAlignment="Center" Content="ROBOT CONNECTION"/>
+
+                                </Border>
+                            </ControlTemplate>
+                        </TabItem.Template>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel 
+                                            Grid.Column="0"
+                                            Grid.Row="0"
+                                            >
+                                    <TextBlock Text="PRESS ON THIS BUTTON FIRST!"
+Foreground="DarkGray"
+FontSize="12"
+FontWeight="Medium"
+FontFamily="Montserrat"
+Margin="0,200,0,50"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"/>
+                                    <Button x:Name="btnConnecterAvecLeRobot"
+BorderThickness="0"
+Content="CONNECTION WITH ROBOT"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+                                           
+                                            
+Click="btnConnecterAvecLeRobot_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#462AD8"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#28AEED"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Width="190" Height="60"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <Button x:Name="btnFermerConnectionAvecLeRobot"
+BorderThickness="0"
+Content="CLOSE CONNECTION"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+                                            Margin="0,150"
+                                           IsEnabled="False"
+                                            
+Click="btnFermerConnectionAvecLeRobot_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#462AD8"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#28AEED"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Width="190" Height="60"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="1">
+                                    <Button x:Name="btnVerifierConnectionRobot"
+BorderThickness="0"
+Content="TALK WITH THE ROBOT"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+                    IsEnabled = "False"                       
+                                            Margin="0,260"
+Click="btnVerifierConnectionRobot_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#462AD8"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#28AEED"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Width="190" Height="60"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </StackPanel>
+
+                            </Grid>
+                        </StackPanel>
                     </TabItem>
                 </TabControl>
 

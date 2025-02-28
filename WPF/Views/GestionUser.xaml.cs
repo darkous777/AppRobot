@@ -5,8 +5,11 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -33,6 +36,24 @@ namespace AppRobot.Views
             get { return _user; }
             set { _user = value; }
         }
+        private TcpClient _connectionRobot;
+
+        public TcpClient ConnectionRobot
+        {
+            get { return _connectionRobot; }
+            set { _connectionRobot = value; }
+        }
+
+        private NetworkStream _reseauEchange;
+
+        public NetworkStream ReseauEchange
+        {
+            get { return _reseauEchange; }
+            set { _reseauEchange = value; }
+        }
+
+
+
 
         public const string PRODUIT_IMAGES = "Images:Path";
 
@@ -82,11 +103,11 @@ namespace AppRobot.Views
 
             if (user is Admin admin)
             {
-                lstUsers.ItemsSource = admin.ListUser(typeUser, usernameRechercher);
+                lstUsers.ItemsSource = admin.ListUser(admin, usernameRechercher);
             }
             else if (user is Moderator moderator)
             {
-                lstUsers.ItemsSource = moderator.ListUser(typeUser, usernameRechercher);
+                lstUsers.ItemsSource = moderator.ListUser(moderator, usernameRechercher);
             }
 
         }
@@ -103,6 +124,10 @@ namespace AppRobot.Views
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
+            if (ConnectionRobot.Connected)
+            {
+                ConnectionRobot.Close();
+            }
             Application.Current.Shutdown();
         }
         private bool ValiderFormulaire()
@@ -367,7 +392,7 @@ namespace AppRobot.Views
         }
         private bool AttributionDeRole(User user)
         {
-            if(user is Moderator)
+            if (user is Moderator)
             {
                 return false;
             }
@@ -469,14 +494,186 @@ namespace AppRobot.Views
             }
         }
 
+        private bool bloquerUserSelected(User user)
+        {
+            if ((UserConnecter is Moderator && user is Moderator) || user.Acces is false)
+            {
+                return false;
+            }
+            else if ((user is Utilisateur || user is Moderator) && UserConnecter is Admin admin)
+            {
+                return admin.BloquerUser(user);
+            }
+            else if (user is Utilisateur && UserConnecter is Moderator moderator)
+            {
+                return moderator.BloquerUser(user);
+            }
+
+            return false;
+        }
         private void btnBloquerUserSelected_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (lstUsers.SelectedItem != null)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"Êtes-vous sûre de vouloir bloquer l'utilisateur sélectionné?", "Bloquer un utilisateur", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+
+
+                        if (bloquerUserSelected(lstUsers.SelectedItem as User))
+                        {
+                            MessageBox.Show("L'utilisateur a bien été bloquer!", "Bloquer un utilisateur");
+
+                            afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
+                        }
+                        else
+                        {
+                            MessageBox.Show("L'utilisateur n'a pas été bloquer, une erreur c'est produite.", "Bloquer un utilisateur");
+
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Bloquer un utilisateur", MessageBoxButton.OK);
+            }
 
         }
+        private bool debloquerUserSelected(User user)
+        {
+            if ((UserConnecter is Moderator && user is Moderator) || user.Acces is true)
+            {
+                return false;
+            }
+            else if ((user is Utilisateur || user is Moderator) && UserConnecter is Admin admin)
+            {
+                return admin.DebloquerUser(user);
+            }
+            else if (user is Utilisateur && UserConnecter is Moderator moderator)
+            {
+                return moderator.DebloquerUser(user);
+            }
 
+            return false;
+        }
         private void btnDeloquerUserSelected_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (lstUsers.SelectedItem != null)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"Êtes-vous sûre de vouloir débloquer l'utilisateur sélectionné?", "Débloquer un utilisateur", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        if (debloquerUserSelected(lstUsers.SelectedItem as User))
+                        {
+                            MessageBox.Show("L'utilisateur a bien été débloquer!", "Bloquer un utilisateur");
+
+                            afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
+                        }
+                        else
+                        {
+                            MessageBox.Show("L'utilisateur n'a pas été débloquer, une erreur c'est produite.", "Débloquer un utilisateur");
+
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Débloquer un utilisateur", MessageBoxButton.OK);
+            }
+        }
+        private void ConnectionAvecRobot()
+        {
+            ConnectionRobot = new TcpClient("10.0.0.171", 5050);
+            ReseauEchange = ConnectionRobot.GetStream();
+        }
+        private void EnvoyerEtRecevoirDonnees()
+        {
+            byte[] data = Encoding.ASCII.GetBytes("Hello from C#");
+            ReseauEchange.Write(data, 0, data.Length);
+
+            byte[] response = new byte[1024];
+
+            int bytesRead = ReseauEchange.Read(response, 0, response.Length);
+
+            string message = Encoding.ASCII.GetString(response, 0, bytesRead);
+
+            if (message is not null)
+            {
+                MessageBox.Show($"Voici le message du robot : {message}");
+            }
+            else
+            {
+                MessageBox.Show($"Problème d'envoie de données vers le robot.");
+            }
+        }
+        private void btnConnecterAvecLeRobot_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ConnectionAvecRobot();
+                btnFermerConnectionAvecLeRobot.IsEnabled = true;
+                btnVerifierConnectionRobot.IsEnabled = true;
+                MessageBox.Show("la connection avec le robot à été établi!", "Connection avec robot", MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Connection avec le robot", MessageBoxButton.OK);
+            }
+        }
+        private void btnVerifierConnectionRobot_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                EnvoyerEtRecevoirDonnees();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Test la connection avec le robot", MessageBoxButton.OK);
+            }
+        }
+        private void btnFermerConnectionAvecLeRobot_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (ConnectionRobot.Connected is true)
+                {
+                    ConnectionRobot.Close();
+                    btnFermerConnectionAvecLeRobot.IsEnabled = false;
+                    btnVerifierConnectionRobot.IsEnabled = false;
+                    MessageBox.Show("Connection à bien été fermée!","Fermeture de la connection avec le robot",MessageBoxButton.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Aucun connection détecté pour être fermée!", "Fermeture de la connection avec le robot", MessageBoxButton.OK);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Fermeture de la connection avec le robot", MessageBoxButton.OK);
+            }
 
         }
+
+
     }
 }

@@ -13,10 +13,17 @@ namespace AppRobot.Models
 
         bool DeleteSelectedUser(User userSelected);
 
-
-        List<User> ListUser(User.TypeUser type, string rechercheUsername)
+        bool BloquerUser(User user)
         {
-            return DAL.ObtainListUsers(type, rechercheUsername);
+            return DAL.BloquerUser(user);
+        }
+        bool DebloquerUser(User user)
+        {
+            return DAL.DebloquerUser(user);
+        }
+        List<User> ListUser(User user, string rechercheUsername)
+        {
+            return DAL.ObtainListUsers(user, rechercheUsername);
         }
 
     }
