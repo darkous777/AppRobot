@@ -248,7 +248,6 @@ namespace AppRobot.Classes
 
             return estSupprimee;
         }
-
         public static List<User> ObtainListUsers(User.TypeUser typeUser, string username = null)
         {
             MySqlConnection cn = Connection();
@@ -321,5 +320,75 @@ namespace AppRobot.Classes
 
             return users;
         }
+        public static bool AttribueRoleDeModerator(User user)
+        {
+
+            MySqlConnection cn = Connection();
+            bool estUpdate = false;
+            try
+            {
+                cn.Open();
+
+
+                string requete = "UPDATE User SET TypeUser = @typeuser WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@typeuser", User.TypeUser.Moderator.ToString());
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+
+                int excuter = cmd.ExecuteNonQuery();
+
+                estUpdate = excuter > 0;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+            return estUpdate;
+        }
+        public static bool DéattribueRoleDeModerator(User user)
+        {
+
+
+            MySqlConnection cn = Connection();
+            bool estUpdate = false;
+            try
+            {
+                cn.Open();
+
+
+                string requete = "UPDATE User SET TypeUser = @typeuser WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@typeuser", User.TypeUser.User.ToString());
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+
+                int excuter = cmd.ExecuteNonQuery();
+
+                estUpdate = excuter > 0;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+            return estUpdate;
+        }
+
     }
 }

@@ -64,7 +64,8 @@ namespace AppRobot.Views
 
                     break;
                 case User.TypeUser.Moderator:
-
+                    btnAttribuerModeratorSelected.IsEnabled = false;
+                    btnEnleverModeratorSelected.IsEnabled = false;
                     btnDelete.IsEnabled = true;
 
                     break;
@@ -85,7 +86,7 @@ namespace AppRobot.Views
             }
             else if (user is Moderator moderator)
             {
-                lstUsers.ItemsSource = moderator.ListUser(typeUser,usernameRechercher);
+                lstUsers.ItemsSource = moderator.ListUser(typeUser, usernameRechercher);
             }
 
         }
@@ -227,7 +228,7 @@ namespace AppRobot.Views
                     {
                         UserConnecter.Password = txtConfirmNewPassword.Password;
 
-                        
+
 
                         if (User.ModifyPassword(UserConnecter))
                         {
@@ -251,11 +252,11 @@ namespace AppRobot.Views
         }
         private bool ActionSupprimerSonCompte(User user)
         {
-            if(user is Admin admin)
+            if (user is Admin admin)
             {
                 return false;
             }
-            else if(user is Moderator modo)
+            else if (user is Moderator modo)
             {
                 return modo.DeleteOwnUser(modo);
             }
@@ -272,7 +273,7 @@ namespace AppRobot.Views
 
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-          
+
 
 
                     if (ActionSupprimerSonCompte(UserConnecter))
@@ -363,6 +364,119 @@ namespace AppRobot.Views
             {
                 MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Suppression d'un utilisateur", MessageBoxButton.OK);
             }
+        }
+        private bool AttributionDeRole(User user)
+        {
+            if(user is Moderator)
+            {
+                return false;
+            }
+            else if (user is Utilisateur && UserConnecter is Admin admin)
+            {
+                return admin.AttributionDeRole(user);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private void btnAttribuerModeratorSelected_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (lstUsers.SelectedItem != null)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"Êtes-vous sûre de vouloir attribuer le role de modérateur à l'utilisateur sélectionné?", "Attribution de role", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+
+
+                        if (AttributionDeRole(lstUsers.SelectedItem as User))
+                        {
+                            MessageBox.Show("L'utilisateur a bien été promu au rôle de modérateur!", "Attribution de role");
+
+                            afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
+                        }
+                        else
+                        {
+                            MessageBox.Show("L'utilisateur n'a pas été promu au rôle de modérateur, une erreur c'est produite.", "Attribution de role");
+
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Attribution de role", MessageBoxButton.OK);
+            }
+        }
+
+        private bool DeattribuerUser(User user)
+        {
+            if (user is Moderator)
+            {
+                return false;
+            }
+            else if (user is Utilisateur && UserConnecter is Admin admin)
+            {
+                return admin.DeattributionDeRole(user);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private void btnEnleverModeratorSelected_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (lstUsers.SelectedItem != null)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"Êtes-vous sûre de vouloir attribuer le role de modérateur à l'utilisateur sélectionné?", "Attribution de role", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+
+
+                        if (DeattribuerUser(lstUsers.SelectedItem as User))
+                        {
+                            MessageBox.Show("L'utilisateur a bien été promu au rôle d'utilisateur!", "Attribution de role");
+
+                            afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
+                        }
+                        else
+                        {
+                            MessageBox.Show("L'utilisateur n'a pas été promu au rôle d'utilisateur, une erreur c'est produite.", "Attribution de role");
+
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Attribution de role", MessageBoxButton.OK);
+            }
+        }
+
+        private void btnBloquerUserSelected_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeloquerUserSelected_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

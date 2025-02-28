@@ -36,5 +36,15 @@ namespace AppRobot.Models
         {
             return DAL.ObtainListUsers(type, rechercheUsername).Where(u => u.TypeUtilisateurs != TypeUser.Admin).ToList(); ;
         }
+
+        public bool AttributionDeRole(User user)
+        {
+            return DAL.AttribueRoleDeModerator(user);
+        }
+
+        public bool DeattributionDeRole(User user)
+        {
+            return DAL.DéattribueRoleDeModerator(user);
+        }
     }
 }
