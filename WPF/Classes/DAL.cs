@@ -211,9 +211,15 @@ namespace AppRobot.Classes
         }
         public static bool DeleteUser(User user)
         {
+
+            if(user.TypeUtilisateurs is User.TypeUser.Admin)
+                throw new UserException();
+
             MySqlConnection cn = Connection();
 
             bool estSupprimee = false;
+
+
 
             try
             {
@@ -242,7 +248,6 @@ namespace AppRobot.Classes
 
             return estSupprimee;
         }
-
         public static List<User> ObtainListUsers(User.TypeUser typeUser, string username = null)
         {
             MySqlConnection cn = Connection();
@@ -259,11 +264,11 @@ namespace AppRobot.Classes
                 {
                     if (username is not null)
                     {
-                        requete += "WHERE Username LIKE @username;";
+                        requete += "WHERE Username LIKE @username AND TypeUser != 'Admin';";
                     }
                     else
                     {
-                        requete += "WHERE Id > 0;";
+                        requete += "WHERE Id > 0 AND TypeUser != 'Admin';";
                     }
                 }
                 else if (typeUser == User.TypeUser.Moderator)
@@ -315,6 +320,75 @@ namespace AppRobot.Classes
 
             return users;
         }
+        public static bool AttribueRoleDeModerator(User user)
+        {
+
+            MySqlConnection cn = Connection();
+            bool estUpdate = false;
+            try
+            {
+                cn.Open();
+
+
+                string requete = "UPDATE User SET TypeUser = @typeuser WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@typeuser", User.TypeUser.Moderator.ToString());
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+
+                int excuter = cmd.ExecuteNonQuery();
+
+                estUpdate = excuter > 0;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+            return estUpdate;
+        }
+        public static bool DéattribueRoleDeModerator(User user)
+        {
+
+
+            MySqlConnection cn = Connection();
+            bool estUpdate = false;
+            try
+            {
+                cn.Open();
+
+
+                string requete = "UPDATE User SET TypeUser = @typeuser WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@typeuser", User.TypeUser.User.ToString());
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+
+                int excuter = cmd.ExecuteNonQuery();
+
+                estUpdate = excuter > 0;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+            return estUpdate;
+        }
 
         public static void CreateUser(User user)
         {
@@ -365,6 +439,5 @@ namespace AppRobot.Classes
                     cn.Close();
             }
         }
-
     }
 }

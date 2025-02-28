@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppRobot.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -87,6 +88,23 @@ namespace AppRobot.Models
                 default:
                     return null;
             }
+        }
+
+        public static bool ModifierUser(User user)
+        {
+            return DAL.ModifyInfoUser(user);
+        }
+        public static bool ModifyPassword(User user)
+        {
+            return DAL.ModifyPasswordUser(user);
+        }
+
+
+    }
+    public class UserException : Exception
+    {
+        public UserException() : base("L'utilisateur n'a pas les droits à effectuer une telle action.")
+        {
         }
     }
 }

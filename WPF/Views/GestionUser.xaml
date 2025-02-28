@@ -565,10 +565,9 @@ Grid.Row="2"
                                     Foreground="White"
                                     FontSize="12"
                                     FontFamily="Montserrat"
-                                    Grid.Column="1"
                                     Grid.Row="2"
-                                    Margin="0,90,0,0"
-                                    Click="btnDeleteSelectedUser_Click">
+                                    Margin="-224,90,321,0"
+                                    Click="btnDeleteSelectedUser_Click" Grid.ColumnSpan="2">
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Background" Value="#462AD8"/>
@@ -586,6 +585,138 @@ Grid.Row="2"
                                                 Background="{TemplateBinding Background}">
                                             <ContentPresenter VerticalAlignment="Center"
                                                               HorizontalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button x:Name="btnAttribuerModeratorSelected"
+         BorderThickness="0"
+         Content="ASSIGN MODERATOR ROLE"
+         Foreground="White"
+         FontSize="12"
+         FontFamily="Montserrat"
+         Grid.Row="2"
+         Margin="-224,0,321,40"
+         Click="btnAttribuerModeratorSelected_Click" Grid.ColumnSpan="2">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="170" Height="40"
+                     CornerRadius="20"
+                     Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button x:Name="btnEnleverModeratorSelected"
+BorderThickness="0"
+Content="REVOKE MODERATOR ROLE"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+Grid.Row="1"
+Margin="49,324,49,40"
+Click="btnEnleverModeratorSelected_Click" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="170" Height="40"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button x:Name="btnBloquerUserSelected"
+BorderThickness="0"
+Content="BLOCK USER"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+Grid.Row="2"
+Margin="232,90,-231,0"
+Click="btnBloquerUserSelected_Click" Grid.ColumnSpan="2" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+                                <Button.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform AngleX="1.33"/>
+                                        <RotateTransform/>
+                                        <TranslateTransform X="1.477"/>
+                                    </TransformGroup>
+                                </Button.RenderTransform>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="170" Height="40"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button x:Name="btnDeloquerUserSelected"
+BorderThickness="0"
+Content="UNBLOCK USER"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+Grid.Row="2"
+Margin="49,90,50,0"
+Click="btnDeloquerUserSelected_Click" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="170" Height="40"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
 
                                         </Border>
                                     </ControlTemplate>
