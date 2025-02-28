@@ -52,9 +52,6 @@ namespace AppRobot.Views
             set { _reseauEchange = value; }
         }
 
-
-
-
         public const string PRODUIT_IMAGES = "Images:Path";
 
         IConfiguration _configuration;
@@ -435,11 +432,11 @@ namespace AppRobot.Views
         }
         private bool DeattribuerUser(User user)
         {
-            if (user is Moderator)
+            if (user is Utilisateur)
             {
                 return false;
             }
-            else if (user is Utilisateur && UserConnecter is Admin admin)
+            else if (user is Moderator && UserConnecter is Admin admin)
             {
                 return admin.DeattributionDeRole(user);
             }
@@ -663,7 +660,5 @@ namespace AppRobot.Views
             }
 
         }
-
-
     }
 }
