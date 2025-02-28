@@ -461,5 +461,55 @@ namespace AppRobot.Classes
             }
             return estUpdate;
         }
+   
+        public static void CreateUser(User user)
+        {
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user), "L'utilisateur ne peut pas être nul.");
+            }
+
+            MySqlConnection cn = Connection();
+
+            try
+            {
+                string imagePath = _configuration[PRODUIT_IMAGES];
+                string extension = Path.GetExtension(user.Image);
+                string nomImage = Guid.NewGuid().ToString() + extension;
+                string cheminImage = imagePath + nomImage;
+
+                if (!string.IsNullOrEmpty(user.Image))
+                {
+                    File.Copy(user.Image, cheminImage);
+                    user.Image = nomImage;
+                }
+
+                cn.Open();
+
+                string requete = @"INSERT INTO User (Username, Password, Age_date, TypeUser, Image) 
+                           VALUES (@Username, @Password, @DateOfBirth, @TypeUtilisateurs, @Image)";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@Username", user.Username);
+                cmd.Parameters.AddWithValue("@Password", PasswordHelper.HashPassword(user.Password));
+                cmd.Parameters.AddWithValue("@DateOfBirth", user.DateOfBirth.ToDateTime(TimeOnly.MinValue));
+                cmd.Parameters.AddWithValue("@TypeUtilisateurs", user.TypeUtilisateurs.ToString());
+                cmd.Parameters.AddWithValue("@Image", user.Image);
+
+                cmd.ExecuteNonQuery();
+
+                cn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Une erreur est survenue lors de la création de l'utilisateur", ex);
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+        }
     }
 }

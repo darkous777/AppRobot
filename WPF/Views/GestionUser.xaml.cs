@@ -157,7 +157,7 @@ namespace AppRobot.Views
                 {
                     UserConnecter.Username = txtUser.Text;
 
-                    BitmapImage bi = imgProduit.Source as BitmapImage;
+                    BitmapImage bi = imgAvatar.Source as BitmapImage;
                     string source = bi.UriSource.LocalPath;
 
                     UserConnecter.Image = source;
@@ -224,7 +224,7 @@ namespace AppRobot.Views
             bi.EndInit();
 
 
-            imgProduit.Source = bi;
+            imgAvatar.Source = bi;
         }
         public bool ValiderPassword()
         {
