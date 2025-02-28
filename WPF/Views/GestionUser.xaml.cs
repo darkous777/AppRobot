@@ -124,10 +124,11 @@ namespace AppRobot.Views
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            if (ConnectionRobot.Connected)
-            {
-                ConnectionRobot.Close();
-            }
+            if (btnVerifierConnectionRobot.IsEnabled = true)
+                if (ConnectionRobot is not null)
+                {
+                    ConnectionRobot.Close();
+                }
             Application.Current.Shutdown();
         }
         private bool ValiderFormulaire()
@@ -654,12 +655,12 @@ namespace AppRobot.Views
         {
             try
             {
-                if (ConnectionRobot.Connected is true)
+                if (ConnectionRobot is not null)
                 {
                     ConnectionRobot.Close();
                     btnFermerConnectionAvecLeRobot.IsEnabled = false;
                     btnVerifierConnectionRobot.IsEnabled = false;
-                    MessageBox.Show("Connection à bien été fermée!","Fermeture de la connection avec le robot",MessageBoxButton.OK);
+                    MessageBox.Show("Connection à bien été fermée!", "Fermeture de la connection avec le robot", MessageBoxButton.OK);
                 }
                 else
                 {
