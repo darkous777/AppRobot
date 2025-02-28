@@ -73,10 +73,6 @@ namespace AppRobot.Views
 
             afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
 
-
-
-
-
             switch (UserConnecter.TypeUtilisateurs)
             {
                 case User.TypeUser.User:
@@ -95,12 +91,9 @@ namespace AppRobot.Views
                     break;
             }
         }
-
         private void afficherListUser(User.TypeUser typeUser, string usernameRechercher, User user)
         {
             lstUsers.ItemsSource = null;
-
-
             if (user is Admin admin)
             {
                 lstUsers.ItemsSource = admin.ListUser(admin, usernameRechercher);
@@ -109,7 +102,6 @@ namespace AppRobot.Views
             {
                 lstUsers.ItemsSource = moderator.ListUser(moderator, usernameRechercher);
             }
-
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -149,7 +141,6 @@ namespace AppRobot.Views
             }
             return true;
         }
-
         private void btnModify_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -442,7 +433,6 @@ namespace AppRobot.Views
                 MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Attribution de role", MessageBoxButton.OK);
             }
         }
-
         private bool DeattribuerUser(User user)
         {
             if (user is Moderator)
@@ -494,7 +484,6 @@ namespace AppRobot.Views
                 MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Attribution de role", MessageBoxButton.OK);
             }
         }
-
         private bool bloquerUserSelected(User user)
         {
             if ((UserConnecter is Moderator && user is Moderator) || user.Acces is false)
