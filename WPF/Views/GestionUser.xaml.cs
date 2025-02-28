@@ -42,8 +42,7 @@ namespace AppRobot.Views
         {
             InitializeComponent();
 
-            UserConnecter = user;
-            string pass =
+            UserConnecter = User.ObtenirTypeUser(user);
             txtUser.Text = UserConnecter.Username;
             datePicker.SelectedDate = user.DateOfBirth.ToDateTime(TimeOnly.MinValue);
             datePicker.IsEnabled = false;
@@ -51,9 +50,13 @@ namespace AppRobot.Views
 
             _configuration = new ConfigurationBuilder().AddJsonFile(DAL.APPSETTING_FILE, false, true).Build();
 
-            afficherListUser(UserConnecter.TypeUtilisateurs, "");
+            afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
 
-            switch (user.TypeUtilisateurs)
+
+
+
+
+            switch (UserConnecter.TypeUtilisateurs)
             {
                 case User.TypeUser.User:
                     tbLstUser.Visibility = Visibility.Collapsed;
@@ -61,7 +64,6 @@ namespace AppRobot.Views
 
                     break;
                 case User.TypeUser.Moderator:
-                    tbLstUser.Visibility = Visibility.Collapsed;
 
                     btnDelete.IsEnabled = true;
 
@@ -72,11 +74,19 @@ namespace AppRobot.Views
             }
         }
 
-        private void afficherListUser(User.TypeUser typeUser, string usernameRechercher)
+        private void afficherListUser(User.TypeUser typeUser, string usernameRechercher, User user)
         {
             lstUsers.ItemsSource = null;
 
-            lstUsers.ItemsSource = DAL.ObtainListUsers(typeUser, usernameRechercher);
+
+            if (user is Admin admin)
+            {
+                lstUsers.ItemsSource = admin.ListUser(typeUser, usernameRechercher);
+            }
+            else if (user is Moderator moderator)
+            {
+                lstUsers.ItemsSource = moderator.ListUser(typeUser,usernameRechercher);
+            }
 
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -112,6 +122,7 @@ namespace AppRobot.Views
             }
             return true;
         }
+
         private void btnModify_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -125,7 +136,7 @@ namespace AppRobot.Views
 
                     UserConnecter.Image = source;
 
-                    bool isUpdated = DAL.ModifyInfoUser(UserConnecter);
+                    bool isUpdated = User.ModifierUser(UserConnecter);
 
                     AfficherImage(UserConnecter.Image);
 
@@ -133,7 +144,7 @@ namespace AppRobot.Views
                     txtNewPassword.Password = null;
                     txtConfirmNewPassword.Password = null;
 
-                    afficherListUser(UserConnecter.TypeUtilisateurs, "");
+                    afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
 
                     if (isUpdated)
                     {
@@ -216,15 +227,16 @@ namespace AppRobot.Views
                     {
                         UserConnecter.Password = txtConfirmNewPassword.Password;
 
-                        bool isUpdated = DAL.ModifyPasswordUser(UserConnecter);
+                        
 
-                        if (isUpdated)
+                        if (User.ModifyPassword(UserConnecter))
                         {
                             MessageBox.Show("Le mot de passe a bien été changé!", "Modification du mot de passe", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         else
                         {
                             MessageBox.Show("La mise à jour du mot de passe a échoué.", "Modification du mot de passe", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            UserConnecter.Password = txtOldPassword.Password;
                         }
                     }
                     else
@@ -237,6 +249,21 @@ namespace AppRobot.Views
                 MessageBox.Show("Le mot de passe entrée n'est pas le même que l'existant!", "Modification du mot de passe", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+        private bool ActionSupprimerSonCompte(User user)
+        {
+            if(user is Admin admin)
+            {
+                return false;
+            }
+            else if(user is Moderator modo)
+            {
+                return modo.DeleteOwnUser(modo);
+            }
+            else
+            {
+                return DAL.DeleteUser(user);
+            }
+        }
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -245,11 +272,10 @@ namespace AppRobot.Views
 
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    bool aEteSupprimer = DAL.DeleteUser(UserConnecter);
+          
 
-                    afficherListUser(UserConnecter.TypeUtilisateurs, "");
 
-                    if (aEteSupprimer)
+                    if (ActionSupprimerSonCompte(UserConnecter))
                     {
                         MessageBox.Show("Le compte a bien été supprimé", "Suppression d'un compte");
 
@@ -263,6 +289,8 @@ namespace AppRobot.Views
                         MessageBox.Show("Le compte n'a pas été suprimé, une erreur c'est produite.", "Suppression d'un compte");
 
                     }
+
+
                 }
             }
             catch (Exception ex)
@@ -276,13 +304,28 @@ namespace AppRobot.Views
         {
             try
             {
-                afficherListUser(UserConnecter.TypeUtilisateurs, txtRechercher.Text);
+                afficherListUser(UserConnecter.TypeUtilisateurs, txtRechercher.Text, UserConnecter);
 
                 txtRechercher.Text = string.Empty;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Recherche d'un produit");
+            }
+        }
+        private bool ActionDeSuppressionSelectionnee(User user, User userSelected)
+        {
+            if (user is Admin admin)
+            {
+                return admin.DeleteSelectedUser(userSelected);
+            }
+            else if (user is Moderator moderator)
+            {
+                return moderator.DeleteSelectedUser(userSelected);
+            }
+            else
+            {
+                return false;
             }
         }
         private void btnDeleteSelectedUser_Click(object sender, RoutedEventArgs e)
@@ -295,7 +338,8 @@ namespace AppRobot.Views
 
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
-                        bool aEteSupprimer = DAL.DeleteUser(lstUsers.SelectedItem as User);
+                        bool aEteSupprimer = ActionDeSuppressionSelectionnee(UserConnecter, lstUsers.SelectedItem as User);
+
 
                         if (aEteSupprimer)
                         {

@@ -211,9 +211,15 @@ namespace AppRobot.Classes
         }
         public static bool DeleteUser(User user)
         {
+
+            if(user.TypeUtilisateurs is User.TypeUser.Admin)
+                throw new UserException();
+
             MySqlConnection cn = Connection();
 
             bool estSupprimee = false;
+
+
 
             try
             {
@@ -259,11 +265,11 @@ namespace AppRobot.Classes
                 {
                     if (username is not null)
                     {
-                        requete += "WHERE Username LIKE @username;";
+                        requete += "WHERE Username LIKE @username AND TypeUser != 'Admin';";
                     }
                     else
                     {
-                        requete += "WHERE Id > 0;";
+                        requete += "WHERE Id > 0 AND TypeUser != 'Admin';";
                     }
                 }
                 else if (typeUser == User.TypeUser.Moderator)
