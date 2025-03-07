@@ -57,7 +57,7 @@
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="USER MANAGER"
+                    <TextBlock Text="GESTION D'UTILISATEUR"
                                Foreground="DarkGray"
                                FontFamily="Montserrat"
                                Grid.Column="0"
@@ -143,12 +143,10 @@
                         </TabItem.Style>
                         <TabItem.Template>
                             <ControlTemplate TargetType="TabItem">
-                                <Border Width="55" Height="30"
-                        
-                        Background="{TemplateBinding Background}">
+                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
+                                        Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                                      HorizontalAlignment="Center" Content="HOME"/>
-
+                                      HorizontalAlignment="Center" Content="Centre de Controle"/>
                                 </Border>
                             </ControlTemplate>
                         </TabItem.Template>
@@ -168,11 +166,10 @@
                         </TabItem.Style>
                         <TabItem.Template>
                             <ControlTemplate TargetType="TabItem">
-                                <Border Width="70" Height="30"
-                      
-                      Background="{TemplateBinding Background}">
+                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
+                                        Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                                    HorizontalAlignment="Center" Content="ACCOUNT"/>
+                                    HorizontalAlignment="Center" Content="Compte"/>
 
                                 </Border>
                             </ControlTemplate>
@@ -469,11 +466,11 @@ Grid.Row="2"
                         </TabItem.Style>
                         <TabItem.Template>
                             <ControlTemplate TargetType="TabItem">
-                                <Border Width="70" Height="30"
+                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
                                         Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center" 
-                                                      Content="USER LIST"/>
+                                                      Content="Liste d'utilisateur"/>
 
                                 </Border>
                             </ControlTemplate>
@@ -741,11 +738,10 @@ Click="btnDeloquerUserSelected_Click" Grid.ColumnSpan="3" Grid.RowSpan="2">
                         </TabItem.Style>
                         <TabItem.Template>
                             <ControlTemplate TargetType="TabItem">
-                                <Border Width="130" Height="30"
-   
-   Background="{TemplateBinding Background}">
+                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
+                                        Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                 HorizontalAlignment="Center" Content="ROBOT CONNECTION"/>
+                                                      HorizontalAlignment="Center" Content="Connection Robot"/>
 
                                 </Border>
                             </ControlTemplate>
@@ -765,7 +761,7 @@ Click="btnDeloquerUserSelected_Click" Grid.ColumnSpan="3" Grid.RowSpan="2">
                                             Grid.Column="0"
                                             Grid.Row="0"
                                             >
-                                    <TextBlock Text="PRESS ON THIS BUTTON FIRST!"
+                                    <TextBlock Text="APPUYER SUR CE BOUTON EN PREMIER!"
 Foreground="DarkGray"
 FontSize="12"
 FontWeight="Medium"
@@ -775,7 +771,7 @@ Margin="0,200,0,50"
                                                HorizontalAlignment="Center"/>
                                     <Button x:Name="btnConnecterAvecLeRobot"
 BorderThickness="0"
-Content="CONNECTION WITH ROBOT"
+Content="Connection au robot"
 Foreground="White"
 FontSize="12"
 FontFamily="Montserrat"
@@ -806,7 +802,7 @@ Click="btnConnecterAvecLeRobot_Click">
                                     </Button>
                                     <Button x:Name="btnFermerConnectionAvecLeRobot"
 BorderThickness="0"
-Content="CLOSE CONNECTION"
+Content="Fermer la connection"
 Foreground="White"
 FontSize="12"
 FontFamily="Montserrat"
@@ -841,7 +837,7 @@ Click="btnFermerConnectionAvecLeRobot_Click">
                                             Grid.Column="1">
                                     <Button x:Name="btnVerifierConnectionRobot"
 BorderThickness="0"
-Content="TALK WITH THE ROBOT"
+Content="Vérifier le statut de la connection"
 Foreground="White"
 FontSize="12"
 FontFamily="Montserrat"
