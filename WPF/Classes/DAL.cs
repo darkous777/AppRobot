@@ -474,6 +474,21 @@ namespace AppRobot.Classes
 
             try
             {
+                cn.Open();
+
+                string checkUserQuery = "SELECT 1 FROM User WHERE Username = @Username LIMIT 1";
+                MySqlCommand checkUserCmd = new MySqlCommand(checkUserQuery, cn);
+                checkUserCmd.Parameters.AddWithValue("@Username", user.Username);
+
+                MySqlDataReader reader = checkUserCmd.ExecuteReader();
+                bool userExists = reader.HasRows;
+                reader.Close();
+
+                if (userExists)
+                {
+                    throw new Exception("Un utilisateur existe déjà avec le même nom.");
+                }
+
                 string imagePath = _configuration[PRODUIT_IMAGES];
                 string extension = Path.GetExtension(user.Image);
                 string nomImage = Guid.NewGuid().ToString() + extension;
