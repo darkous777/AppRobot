@@ -473,6 +473,21 @@ namespace AppRobot.Classes
 
             try
             {
+                cn.Open();
+
+                string checkUserQuery = "SELECT 1 FROM User WHERE Username = @Username LIMIT 1";
+                MySqlCommand checkUserCmd = new MySqlCommand(checkUserQuery, cn);
+                checkUserCmd.Parameters.AddWithValue("@Username", user.Username);
+
+                MySqlDataReader reader = checkUserCmd.ExecuteReader();
+                bool userExists = reader.HasRows;
+                reader.Close();
+
+                if (userExists)
+                {
+                    throw new Exception("Un utilisateur existe déjà avec le même nom.");
+                }
+
                 string imagePath = _configuration[PRODUIT_IMAGES];
                 string extension = Path.GetExtension(user.Image);
                 string nomImage = Guid.NewGuid().ToString() + extension;
@@ -483,8 +498,6 @@ namespace AppRobot.Classes
                     File.Copy(user.Image, cheminImage);
                     user.Image = nomImage;
                 }
-
-                cn.Open();
 
                 string requete = @"INSERT INTO User (Username, Password, Age_date, TypeUser, Image) 
                            VALUES (@Username, @Password, @DateOfBirth, @TypeUtilisateurs, @Image)";
@@ -510,6 +523,15 @@ namespace AppRobot.Classes
                 if (cn is not null && cn.State == System.Data.ConnectionState.Open)
                     cn.Close();
             }
+        }
+
+
+        private static bool UserExists(string username, MySqlConnection cn)
+        {
+            string requete = "SELECT COUNT(*) FROM User WHERE Username = @Username";
+            MySqlCommand cmd = new MySqlCommand(requete, cn);
+            cmd.Parameters.AddWithValue("@Username", username);
+            return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
         }
     }
 }
