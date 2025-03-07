@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
@@ -144,30 +145,36 @@ namespace AppRobot.Views
             {
                 if (ValiderFormulaire())
                 {
-                    UserConnecter.Username = txtUser.Text;
-
                     BitmapImage bi = imgAvatar.Source as BitmapImage;
                     string source = bi.UriSource.LocalPath;
 
                     UserConnecter.Image = source;
 
-                    bool isUpdated = User.ModifierUser(UserConnecter);
-
-                    AfficherImage(UserConnecter.Image);
-
-                    txtOldPassword.Password = null;
-                    txtNewPassword.Password = null;
-                    txtConfirmNewPassword.Password = null;
-
-                    afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
-
-                    if (isUpdated)
+                    if (DAL.FindUserById(UserConnecter.Id).Username != UserConnecter.Username)
                     {
-                        MessageBox.Show("Les informations de l'utilisateur ont été mises à jour avec succès.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        bool isUpdated = User.ModifierUser(UserConnecter);
+
+                        AfficherImage(UserConnecter.Image);
+
+                        txtOldPassword.Password = null;
+                        txtNewPassword.Password = null;
+                        txtConfirmNewPassword.Password = null;
+
+                        afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
+
+                        if (isUpdated)
+                        {
+                            MessageBox.Show("Les informations de l'utilisateur ont été mises à jour avec succès.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("La mise à jour des informations de l'utilisateur a échoué.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("La mise à jour des informations de l'utilisateur a échoué.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Le nom d'utilisateur est déjà utilisé par un autre utilisateur.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
             }
@@ -588,7 +595,27 @@ namespace AppRobot.Views
         }
         private void ConnectionAvecRobot()
         {
-            ConnectionRobot = new TcpClient("172.20.10.2", 5050);
+
+            //foreach (NetworkInterface netif in NetworkInterface.GetAllNetworkInterfaces())
+            //{
+            //    if (netif.OperationalStatus == OperationalStatus.Up)
+            //    {
+            //        foreach (UnicastIPAddressInformation ip in netif.GetIPProperties().UnicastAddresses)
+            //        {
+            //            if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+            //            {
+            //                MessageBox.Show($"Network Name: {netif.Name.ToString()}");
+
+            //                MessageBox.Show($"Adresse IP: {ip.Address.ToString()}");
+            //            }
+            //        }
+            //    }
+            //}
+
+            string serverAdress = "robot-desktop.local";
+            int port = 5050;
+
+            ConnectionRobot = new TcpClient(serverAdress, port);
             ReseauEchange = ConnectionRobot.GetStream();
         }
         private void EnvoyerEtRecevoirDonnees()

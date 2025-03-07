@@ -160,6 +160,7 @@ namespace AppRobot.Classes
         }
         public static bool ModifyInfoUser(User utilisateur)
         {
+
             MySqlConnection cn = Connection();
             bool estUpdate = false;
             try
@@ -214,7 +215,7 @@ namespace AppRobot.Classes
         public static bool DeleteUser(User user)
         {
 
-            if(user.TypeUtilisateurs is User.TypeUser.Admin)
+            if (user.TypeUtilisateurs is User.TypeUser.Admin)
                 throw new UserException();
 
             MySqlConnection cn = Connection();
@@ -250,7 +251,7 @@ namespace AppRobot.Classes
 
             return estSupprimee;
         }
-        public static List<User> ObtainListUsers(User userDemandant, string username = null )
+        public static List<User> ObtainListUsers(User userDemandant, string username = null)
         {
             MySqlConnection cn = Connection();
 
@@ -284,8 +285,8 @@ namespace AppRobot.Classes
                         requete += "WHERE TypeUser != 'Admin' AND Id != @id;";
                     }
                 }
-                
-                
+
+
                 MySqlCommand cmd = new MySqlCommand(requete, cn);
 
                 cmd.Parameters.AddWithValue("@username", $"%{username}%");
@@ -461,7 +462,7 @@ namespace AppRobot.Classes
             }
             return estUpdate;
         }
-   
+
         public static void CreateUser(User user)
         {
             if (user is null)
@@ -486,8 +487,8 @@ namespace AppRobot.Classes
 
                 cn.Open();
 
-                string requete = @"INSERT INTO User (Username, Password, Age_date, TypeUser, Image) 
-                           VALUES (@Username, @Password, @DateOfBirth, @TypeUtilisateurs, @Image)";
+                string requete = @"INSERT INTO User (Username, Password, Age_date, TypeUser, Image, Acces) 
+                           VALUES (@Username, @Password, @DateOfBirth, @TypeUtilisateurs, @Image, @Acces)";
 
                 MySqlCommand cmd = new MySqlCommand(requete, cn);
 
@@ -496,6 +497,7 @@ namespace AppRobot.Classes
                 cmd.Parameters.AddWithValue("@DateOfBirth", user.DateOfBirth.ToDateTime(TimeOnly.MinValue));
                 cmd.Parameters.AddWithValue("@TypeUtilisateurs", user.TypeUtilisateurs.ToString());
                 cmd.Parameters.AddWithValue("@Image", user.Image);
+                cmd.Parameters.AddWithValue("@Acces", user.Acces);
 
                 cmd.ExecuteNonQuery();
 
@@ -510,6 +512,52 @@ namespace AppRobot.Classes
                 if (cn is not null && cn.State == System.Data.ConnectionState.Open)
                     cn.Close();
             }
+        }
+        public static User FindUserById(int id)
+        {
+            MySqlConnection cn = Connection();
+            User user = null;
+            Utilisateur u = null;
+            try
+            {
+                cn.Open();
+
+                string requete = "SELECT * FROM User WHERE Id = @id";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@id", id);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.HasRows)
+                {
+                    dr.Read();
+                    u = new Utilisateur(
+                                           dr.GetInt32(0),
+                                           dr.GetString(1),
+                                           dr.GetString(2),
+                                           dr.GetDateOnly(3),
+                                           Enum.Parse<User.TypeUser>(dr.GetString(4)),
+                                           _configuration[PRODUIT_IMAGES] + dr.GetString(5),
+                                           dr.GetBoolean(6));
+                }
+
+                user = User.ObtenirTypeUser(u);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+
+            return user;
         }
     }
 }
