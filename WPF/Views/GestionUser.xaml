@@ -842,8 +842,40 @@ Foreground="White"
 FontSize="12"
 FontFamily="Montserrat"
                     IsEnabled = "False"                       
-                                            Margin="0,260"
+                                            Margin="0,260,0,160"
 Click="btnVerifierConnectionRobot_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#462AD8"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#28AEED"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Width="190" Height="60"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <Button x:Name="btnUtiliserLeRobot"
+BorderThickness="0"
+Content="Utiliser Robot"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+                                            
+                                           IsEnabled="False"
+                                            
+Click="btnUtiliserLeRobot_Click">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
                                                 <Setter Property="Background" Value="#462AD8"/>
