@@ -73,7 +73,7 @@ namespace AppRobot.Views
                 commandToSend = "forward";
             else if (_pressedKeys.Contains(Key.S))
                 commandToSend = "backward";
-            else if (_pressedKeys.Contains(Key.P))
+            else if (_pressedKeys.Contains(Key.Space))
                 commandToSend = "music";
             else
                 commandToSend = "stop";
@@ -110,11 +110,11 @@ namespace AppRobot.Views
             byte[] data = Encoding.ASCII.GetBytes(commande);
             ReseauEchange.Write(data, 0, data.Length);
 
-            byte[] response = new byte[1024];
+            //byte[] response = new byte[1024];
 
-            int bytesRead = ReseauEchange.Read(response, 0, response.Length);
+            //int bytesRead = ReseauEchange.Read(response, 0, response.Length);
 
-            string message = Encoding.ASCII.GetString(response, 0, bytesRead);
+            //string message = Encoding.ASCII.GetString(response, 0, bytesRead);
 
             //if (message is not null)
             //{
@@ -127,7 +127,7 @@ namespace AppRobot.Views
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D)
+            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D || e.Key == Key.Space)
             {
                 _pressedKeys.Add(e.Key);
             }
@@ -135,7 +135,7 @@ namespace AppRobot.Views
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D)
+            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D || e.Key == Key.Space)
             {
                 _pressedKeys.Remove(e.Key);
             }
