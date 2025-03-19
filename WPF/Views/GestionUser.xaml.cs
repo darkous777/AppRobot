@@ -615,7 +615,7 @@ namespace AppRobot.Views
         }
         private void EnvoyerEtRecevoirDonnees()
         {
-            byte[] data = Encoding.ASCII.GetBytes("Hello from C#");
+            byte[] data = Encoding.ASCII.GetBytes("salut");
             ReseauEchange.Write(data, 0, data.Length);
 
             byte[] response = new byte[1024];
@@ -640,7 +640,8 @@ namespace AppRobot.Views
                 ConnectionAvecRobot();
                 btnFermerConnectionAvecLeRobot.IsEnabled = true;
                 btnVerifierConnectionRobot.IsEnabled = true;
-                MessageBox.Show("la connection avec le robot à été établi!", "Connection avec robot", MessageBoxButton.OK, MessageBoxImage.Information);
+                btnUtiliserLeRobot.IsEnabled = true;
+                MessageBox.Show("la connection avec le robot à été établi!", "Connection avec robot", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -668,6 +669,7 @@ namespace AppRobot.Views
                     ConnectionRobot.Close();
                     btnFermerConnectionAvecLeRobot.IsEnabled = false;
                     btnVerifierConnectionRobot.IsEnabled = false;
+                    btnUtiliserLeRobot.IsEnabled = false;
                     MessageBox.Show("Connection à bien été fermée!", "Fermeture de la connection avec le robot", MessageBoxButton.OK);
                 }
                 else
@@ -681,6 +683,30 @@ namespace AppRobot.Views
                 MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Fermeture de la connection avec le robot", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+        }
+
+        private void btnUtiliserLeRobot_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if(ConnectionRobot is not null)
+                {
+                    Robot robot = new Robot(UserConnecter, ConnectionRobot, ReseauEchange);
+
+                    robot.Show();
+
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Aucun connection détecté pour utiliser le robot!", "Utilisation du robot", MessageBoxButton.OK);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
