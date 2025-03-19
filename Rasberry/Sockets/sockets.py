@@ -153,6 +153,7 @@ def handle_client(conn, addr):
     print(f"[New Connection] {addr} connected.")
     connected = True
     while connected:
+<<<<<<< HEAD
         msg = conn.recv(HEADER).decode(FORMAT)
         if msg:
 
@@ -168,6 +169,15 @@ def handle_client(conn, addr):
 
                     
             print(f"[{addr}] {msg}")
+=======
+        msg_length = conn.recv(HEADER).decode(FORMAT)
+        if msg_length:
+
+            send(conn,f"[{addr}] Connection réussite!")
+            if msg_length == DISCONNECT_MESSAGE:
+                connected = False
+            print(f"[{addr}] {msg_length}")
+>>>>>>> af8f59e8340648d7acdb2abe55b0a0ea063d9e32
 
     conn.close()
 
@@ -181,6 +191,7 @@ def start():
         print(f"[Active Connections] {threading.activeCount() - 1}")
 
 
+<<<<<<< HEAD
 def send(conn, msg):
 
     message = msg.encode(FORMAT)
@@ -188,6 +199,13 @@ def send(conn, msg):
     conn.send(message)
 
 
+=======
+
+def send(conn,msg):
+    message = msg.encode(FORMAT)
+
+    conn.send(message)
+>>>>>>> af8f59e8340648d7acdb2abe55b0a0ea063d9e32
 print("[Strating] server is strating")
 
 start()

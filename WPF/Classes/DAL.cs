@@ -66,9 +66,11 @@ namespace AppRobot.Classes
                     utilisateur.DateOfBirth = dr.GetDateOnly(3);
                     utilisateur.TypeUtilisateurs = Enum.Parse<User.TypeUser>(dr.GetString(4));
                     utilisateur.Image = _configuration[PRODUIT_IMAGES] + dr.GetString(5);
+                    utilisateur.Acces = dr.GetBoolean(6);
                 }
 
                 user = User.ObtenirTypeUser(utilisateur);
+
             }
             catch (Exception)
             {
@@ -158,6 +160,7 @@ namespace AppRobot.Classes
         }
         public static bool ModifyInfoUser(User utilisateur)
         {
+
             MySqlConnection cn = Connection();
             bool estUpdate = false;
             try
@@ -212,7 +215,7 @@ namespace AppRobot.Classes
         public static bool DeleteUser(User user)
         {
 
-            if(user.TypeUtilisateurs is User.TypeUser.Admin)
+            if (user.TypeUtilisateurs is User.TypeUser.Admin)
                 throw new UserException();
 
             MySqlConnection cn = Connection();
@@ -248,8 +251,7 @@ namespace AppRobot.Classes
 
             return estSupprimee;
         }
-
-        public static List<User> ObtainListUsers(User.TypeUser typeUser, string username = null)
+        public static List<User> ObtainListUsers(User userDemandant, string username = null)
         {
             MySqlConnection cn = Connection();
 
@@ -261,33 +263,35 @@ namespace AppRobot.Classes
 
                 string requete = "SELECT * FROM User ";
 
-                if (typeUser == User.TypeUser.Admin)
+                if (userDemandant.TypeUtilisateurs == User.TypeUser.Admin)
                 {
                     if (username is not null)
                     {
-                        requete += "WHERE Username LIKE @username AND TypeUser != 'Admin';";
+                        requete += "WHERE Username LIKE @username AND TypeUser != 'Admin' AND Id != @id;";
                     }
                     else
                     {
-                        requete += "WHERE Id > 0 AND TypeUser != 'Admin';";
+                        requete += "WHERE Id > 0 AND TypeUser != 'Admin' AND Id != @id;";
                     }
                 }
-                else if (typeUser == User.TypeUser.Moderator)
+                else if (userDemandant.TypeUtilisateurs == User.TypeUser.Moderator)
                 {
                     if (username is not null)
                     {
-                        requete += "WHERE Username LIKE @username AND TypeUser != 'Admin';";
+                        requete += "WHERE Username LIKE @username AND TypeUser != 'Admin' AND Id != @id;";
                     }
                     else
                     {
-                        requete += "WHERE TypeUser != 'Admin';";
+                        requete += "WHERE TypeUser != 'Admin' AND Id != @id;";
                     }
                 }
-                
-                
+
+
                 MySqlCommand cmd = new MySqlCommand(requete, cn);
 
                 cmd.Parameters.AddWithValue("@username", $"%{username}%");
+                cmd.Parameters.AddWithValue("@id", userDemandant.Id);
+
 
                 MySqlDataReader dr = cmd.ExecuteReader();
 
@@ -299,7 +303,8 @@ namespace AppRobot.Classes
                     dr.GetString(2),
                     dr.GetDateOnly(3),
                     Enum.Parse<User.TypeUser>(dr.GetString(4)),
-                    _configuration[PRODUIT_IMAGES] + dr.GetString(5));
+                    _configuration[PRODUIT_IMAGES] + dr.GetString(5),
+                    dr.GetBoolean(6));
 
                     user = User.ObtenirTypeUser(u);
 
@@ -320,6 +325,254 @@ namespace AppRobot.Classes
             }
 
             return users;
+        }
+        public static bool AttribueRoleDeModerator(User user)
+        {
+
+            MySqlConnection cn = Connection();
+            bool estUpdate = false;
+            try
+            {
+                cn.Open();
+
+
+                string requete = "UPDATE User SET TypeUser = @typeuser WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@typeuser", User.TypeUser.Moderator.ToString());
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+
+                int excuter = cmd.ExecuteNonQuery();
+
+                estUpdate = excuter > 0;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+            return estUpdate;
+        }
+        public static bool DeattribueRoleDeModerator(User user)
+        {
+
+
+            MySqlConnection cn = Connection();
+            bool estUpdate = false;
+            try
+            {
+                cn.Open();
+
+
+                string requete = "UPDATE User SET TypeUser = @typeuser WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@typeuser", User.TypeUser.User.ToString());
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+
+                int excuter = cmd.ExecuteNonQuery();
+
+                estUpdate = excuter > 0;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+            return estUpdate;
+        }
+
+        public static bool BloquerUser(User user)
+        {
+            MySqlConnection cn = Connection();
+            bool estUpdate = false;
+            try
+            {
+                cn.Open();
+
+
+                string requete = "UPDATE User SET Acces = @acces WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@acces", false);
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+
+                int excuter = cmd.ExecuteNonQuery();
+
+                estUpdate = excuter > 0;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+            return estUpdate;
+        }
+        public static bool DebloquerUser(User user)
+        {
+            MySqlConnection cn = Connection();
+            bool estUpdate = false;
+            try
+            {
+                cn.Open();
+
+
+                string requete = "UPDATE User SET Acces = @acces WHERE Id = @id;";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@acces", true);
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+
+                int excuter = cmd.ExecuteNonQuery();
+
+                estUpdate = excuter > 0;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+            return estUpdate;
+        }
+
+        public static void CreateUser(User user)
+        {
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user), "L'utilisateur ne peut pas être nul.");
+            }
+
+            MySqlConnection cn = Connection();
+
+            try
+            {
+                cn.Open();
+
+                string checkUserQuery = "SELECT 1 FROM User WHERE Username = @Username LIMIT 1";
+                MySqlCommand checkUserCmd = new MySqlCommand(checkUserQuery, cn);
+                checkUserCmd.Parameters.AddWithValue("@Username", user.Username);
+
+                MySqlDataReader reader = checkUserCmd.ExecuteReader();
+                bool userExists = reader.HasRows;
+                reader.Close();
+
+                if (userExists)
+                {
+                    throw new Exception("Un utilisateur existe déjà avec le même nom.");
+                }
+
+                string imagePath = _configuration[PRODUIT_IMAGES];
+                string extension = Path.GetExtension(user.Image);
+                string nomImage = Guid.NewGuid().ToString() + extension;
+                string cheminImage = imagePath + nomImage;
+
+                if (!string.IsNullOrEmpty(user.Image))
+                {
+                    File.Copy(user.Image, cheminImage);
+                    user.Image = nomImage;
+                }
+
+                cn.Open();
+
+                string requete = @"INSERT INTO User (Username, Password, Age_date, TypeUser, Image, Acces) 
+                           VALUES (@Username, @Password, @DateOfBirth, @TypeUtilisateurs, @Image, @Acces)";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@Username", user.Username);
+                cmd.Parameters.AddWithValue("@Password", PasswordHelper.HashPassword(user.Password));
+                cmd.Parameters.AddWithValue("@DateOfBirth", user.DateOfBirth.ToDateTime(TimeOnly.MinValue));
+                cmd.Parameters.AddWithValue("@TypeUtilisateurs", user.TypeUtilisateurs.ToString());
+                cmd.Parameters.AddWithValue("@Image", user.Image);
+                cmd.Parameters.AddWithValue("@Acces", user.Acces);
+
+                cmd.ExecuteNonQuery();
+
+                cn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Une erreur est survenue lors de la création de l'utilisateur", ex);
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+        }
+        public static User FindUserById(int id)
+        {
+            MySqlConnection cn = Connection();
+            User user = null;
+            Utilisateur u = null;
+            try
+            {
+                cn.Open();
+
+                string requete = "SELECT * FROM User WHERE Id = @id";
+
+                MySqlCommand cmd = new MySqlCommand(requete, cn);
+
+                cmd.Parameters.AddWithValue("@id", id);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.HasRows)
+                {
+                    dr.Read();
+                    u = new Utilisateur(
+                                           dr.GetInt32(0),
+                                           dr.GetString(1),
+                                           dr.GetString(2),
+                                           dr.GetDateOnly(3),
+                                           Enum.Parse<User.TypeUser>(dr.GetString(4)),
+                                           _configuration[PRODUIT_IMAGES] + dr.GetString(5),
+                                           dr.GetBoolean(6));
+                }
+
+                user = User.ObtenirTypeUser(u);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+
+            return user;
         }
     }
 }

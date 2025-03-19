@@ -57,7 +57,7 @@
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="USER MANAGER"
+                    <TextBlock Text="GESTION D'UTILISATEUR"
                                Foreground="DarkGray"
                                FontFamily="Montserrat"
                                Grid.Column="0"
@@ -143,12 +143,10 @@
                         </TabItem.Style>
                         <TabItem.Template>
                             <ControlTemplate TargetType="TabItem">
-                                <Border Width="55" Height="30"
-                        
-                        Background="{TemplateBinding Background}">
+                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
+                                        Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                                      HorizontalAlignment="Center" Content="HOME"/>
-
+                                      HorizontalAlignment="Center" Content="Centre de Controle"/>
                                 </Border>
                             </ControlTemplate>
                         </TabItem.Template>
@@ -168,11 +166,10 @@
                         </TabItem.Style>
                         <TabItem.Template>
                             <ControlTemplate TargetType="TabItem">
-                                <Border Width="70" Height="30"
-                      
-                      Background="{TemplateBinding Background}">
+                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
+                                        Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                                    HorizontalAlignment="Center" Content="ACCOUNT"/>
+                                    HorizontalAlignment="Center" Content="Compte"/>
 
                                 </Border>
                             </ControlTemplate>
@@ -235,11 +232,11 @@
                                     <DatePicker x:Name="datePicker" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1"  Width="250"/>
                                     <StackPanel Margin="0,40,0,0">
                                         <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Image x:Name="imgProduit" Width="50" Height="50"/>
+                                            <Image x:Name="imgAvatar" Width="100" Height="100"/>
                                         </Border>
                                         <Button x:Name="btnModifierImage"
             BorderThickness="0"
-            Content="BROWSER"
+            Content="BROWSE"
             Foreground="White"
             FontSize="12"
             FontFamily="Montserrat"
@@ -469,11 +466,11 @@ Grid.Row="2"
                         </TabItem.Style>
                         <TabItem.Template>
                             <ControlTemplate TargetType="TabItem">
-                                <Border Width="70" Height="30"
+                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
                                         Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center" 
-                                                      Content="USER LIST"/>
+                                                      Content="Liste d'utilisateur"/>
 
                                 </Border>
                             </ControlTemplate>
@@ -545,13 +542,16 @@ Grid.Row="2"
                                                            Margin="0,5,150,5"/>
                                                     <TextBlock Text="{Binding Username}"
                                                            VerticalAlignment="Center" 
-                                                               Margin="0,0,200,0"/>
+                                                               Width="150"/>
                                                     <TextBlock Text="{Binding DateOfBirth}"
-                                                               Margin="0,0,200,0"
+                                                               Width="150"
                                                                VerticalAlignment="Center" />
                                                     <TextBlock Text="{Binding TypeUtilisateurs}"
                                                                VerticalAlignment="Center"
+                                                               Width="150"
                                                                />
+                                                    <TextBlock Text="{Binding }"
+                                                               VerticalAlignment="Center"/>
 
                                                 </StackPanel>
                                             </StackPanel>
@@ -565,10 +565,9 @@ Grid.Row="2"
                                     Foreground="White"
                                     FontSize="12"
                                     FontFamily="Montserrat"
-                                    Grid.Column="1"
                                     Grid.Row="2"
-                                    Margin="0,90,0,0"
-                                    Click="btnDeleteSelectedUser_Click">
+                                    Margin="-224,90,321,0"
+                                    Click="btnDeleteSelectedUser_Click" Grid.ColumnSpan="2">
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Background" Value="#462AD8"/>
@@ -591,7 +590,318 @@ Grid.Row="2"
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
+                            <Button x:Name="btnAttribuerModeratorSelected"
+         BorderThickness="0"
+         Content="ASSIGN MODERATOR ROLE"
+         Foreground="White"
+         FontSize="12"
+         FontFamily="Montserrat"
+         Grid.Row="2"
+         Margin="-224,0,321,40"
+         Click="btnAttribuerModeratorSelected_Click" Grid.ColumnSpan="2">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="170" Height="40"
+                     CornerRadius="20"
+                     Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button x:Name="btnEnleverModeratorSelected"
+BorderThickness="0"
+Content="REVOKE MODERATOR ROLE"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+Grid.Row="1"
+Margin="49,324,49,40"
+Click="btnEnleverModeratorSelected_Click" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="170" Height="40"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button x:Name="btnBloquerUserSelected"
+BorderThickness="0"
+Content="BLOCK USER"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+Grid.Row="2"
+Margin="232,90,-231,0"
+Click="btnBloquerUserSelected_Click" Grid.ColumnSpan="2" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+                                <Button.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform AngleX="1.33"/>
+                                        <RotateTransform/>
+                                        <TranslateTransform X="1.477"/>
+                                    </TransformGroup>
+                                </Button.RenderTransform>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="170" Height="40"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button x:Name="btnDeloquerUserSelected"
+BorderThickness="0"
+Content="UNBLOCK USER"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+Grid.Row="2"
+Margin="49,90,50,0"
+Click="btnDeloquerUserSelected_Click" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="170" Height="40"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
                         </Grid>
+                    </TabItem>
+                    <TabItem Margin="5,0,0,0" 
+                 HorizontalAlignment="Center">
+                        <TabItem.Style>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TabItem.Style>
+                        <TabItem.Template>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center" Content="Connection Robot"/>
+
+                                </Border>
+                            </ControlTemplate>
+                        </TabItem.Template>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel 
+                                            Grid.Column="0"
+                                            Grid.Row="0"
+                                            >
+                                    <TextBlock Text="APPUYER SUR CE BOUTON EN PREMIER!"
+Foreground="DarkGray"
+FontSize="12"
+FontWeight="Medium"
+FontFamily="Montserrat"
+Margin="0,200,0,50"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"/>
+                                    <Button x:Name="btnConnecterAvecLeRobot"
+BorderThickness="0"
+Content="Connection au robot"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+                                           
+                                            
+Click="btnConnecterAvecLeRobot_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#462AD8"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#28AEED"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Width="190" Height="60"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <Button x:Name="btnFermerConnectionAvecLeRobot"
+BorderThickness="0"
+Content="Fermer la connection"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+                                            Margin="0,150"
+                                           IsEnabled="False"
+                                            
+Click="btnFermerConnectionAvecLeRobot_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#462AD8"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#28AEED"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Width="190" Height="60"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="1">
+                                    <Button x:Name="btnVerifierConnectionRobot"
+BorderThickness="0"
+Content="Vérifier le statut de la connection"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+                    IsEnabled = "False"                       
+                                            Margin="0,260,0,160"
+Click="btnVerifierConnectionRobot_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#462AD8"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#28AEED"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Width="190" Height="60"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <Button x:Name="btnUtiliserLeRobot"
+BorderThickness="0"
+Content="Utiliser Robot"
+Foreground="White"
+FontSize="12"
+FontFamily="Montserrat"
+                                            
+                                           IsEnabled="False"
+                                            
+Click="btnUtiliserLeRobot_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#462AD8"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#28AEED"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Width="190" Height="60"
+            CornerRadius="20"
+            Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </StackPanel>
+
+                            </Grid>
+                        </StackPanel>
                     </TabItem>
                 </TabControl>
 

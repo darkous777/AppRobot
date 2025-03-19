@@ -51,7 +51,7 @@
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="LOG IN"
+                    <TextBlock Text="CONNECTION"
                                Foreground="DarkGray"
                                FontFamily="Montserrat"
                                Grid.Column="0"
@@ -119,15 +119,14 @@
                     </Button>
                 </Grid>
 
-                <StackPanel Width="250"
+                <StackPanel Width="300"
                             Grid.Row="2"
                             Orientation="Vertical"
                             Margin="0,35,0,0">
-
                     <Image Source="/Images/Logo-icon.png"
                            Width="100"
                            Height="100"/>
-                    <TextBlock Text="Username"
+                    <TextBlock Text="Nom d'utilisateur"
                                Foreground="DarkGray"
                                FontSize="12"
                                FontWeight="Medium"
@@ -152,7 +151,7 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <TextBlock Text="Password"
+                    <TextBlock Text="Mot de passe"
                                Foreground="DarkGray"
                                FontSize="12"
                                FontWeight="Medium"
@@ -179,7 +178,7 @@
 
                     <Button x:Name="btnLogIn"
                             BorderThickness="0"
-                            Content="LOG IN"
+                            Content="Se Connecter"
                             Foreground="White"
                             FontSize="12"
                             FontFamily="Montserrat"
@@ -210,8 +209,9 @@
                     </Button>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
-                                Margin="0,15,0,0">
-                        <TextBlock Text="You don't have an account?"
+                                Margin="0,15,0,0"
+                                Width="Auto">
+                        <TextBlock Text="Vous n'avez pas déjà un compte?"
                                    Foreground="DarkGray"
                                    FontSize="12"
                                    FontWeight="Medium"
@@ -226,7 +226,7 @@
                                     <Hyperlink Click="Navigate_to_SignUp"
                                                TextDecorations="None"
                                                Foreground="White">
-                                        Sign Up
+                                               Inscrivez-vous
                                     </Hyperlink>
                         </TextBlock>
 

@@ -24,6 +24,15 @@ namespace AppRobot.Models
         private TypeUser _typeUtilisateurs;
         private String _image;
 
+        private bool _acces;
+
+        public bool Acces
+        {
+            get { return _acces; }
+            set { _acces = value; }
+        }
+
+
         public String Image
         {
             get { return _image; }
@@ -65,7 +74,8 @@ namespace AppRobot.Models
                 _id = value;
             }
         }
-        public User(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img)
+
+        public User(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img, bool acces)
         {
             Id = id;
             Username = username;
@@ -73,6 +83,7 @@ namespace AppRobot.Models
             DateOfBirth = dateOfBirth;
             TypeUtilisateurs = user;
             Image = img;
+            Acces = acces;
         }
 
         public static User ObtenirTypeUser(User user)
@@ -80,15 +91,17 @@ namespace AppRobot.Models
             switch (user.TypeUtilisateurs)
             {
                 case TypeUser.User:
-                    return new Utilisateur(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image);
+                    return new Utilisateur(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image, user.Acces);
                 case TypeUser.Moderator:
-                    return new Moderator(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image);
+                    return new Moderator(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image, user.Acces);
                 case TypeUser.Admin:
-                    return new Admin(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image);
+                    return new Admin(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image, user.Acces);
                 default:
                     return null;
             }
         }
+
+        
 
         public static bool ModifierUser(User user)
         {
@@ -99,6 +112,13 @@ namespace AppRobot.Models
             return DAL.ModifyPasswordUser(user);
         }
 
+        public override string ToString()
+        {
+            string accesStatus = "";
+
+            return  accesStatus = Acces ? "Non bloqué" : "Bloqué";
+            
+        }
 
     }
     public class UserException : Exception
