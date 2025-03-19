@@ -68,7 +68,7 @@ namespace AppRobot.Views
 
                     if (password != confirmPassword)
                     {
-                        MessageBox.Show("Les mots de passe ne correspondent pas.");
+                        MessageBox.Show("Le mot de passe de confirmation doit être le même que le mot de passe.", "Confirmation de mot de passe", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
 
@@ -85,13 +85,13 @@ namespace AppRobot.Views
                     }
                     else
                     {
-                        MessageBox.Show("Veuillez sélectionner une date de naissance.");
+                        MessageBox.Show("Veuillez sélectionner une date de naissance.", "Date de naissance manquante", MessageBoxButton.OK);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Création d'un compte");
+                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Création d'un compte", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -115,7 +115,7 @@ namespace AppRobot.Views
 
             if (message.Length > 0)
             {
-                MessageBox.Show(message, "Validation du formulaire");
+                MessageBox.Show(message, "Validation du formulaire", MessageBoxButton.OK);
                 return false;
             }
             return true;
@@ -151,7 +151,7 @@ namespace AppRobot.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Ajout d'une image");
+                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Ajout d'une image", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

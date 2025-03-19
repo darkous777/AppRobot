@@ -134,7 +134,7 @@ namespace AppRobot.Views
 
             if (message.Length > 0)
             {
-                MessageBox.Show(message, "Validation du mot de passe");
+                MessageBox.Show(message, "Validation du mot de passe", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
             return true;
@@ -169,7 +169,7 @@ namespace AppRobot.Views
                         }
                         else
                         {
-                            MessageBox.Show("La mise à jour des informations de l'utilisateur a échoué.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show("La mise à jour des informations de l'utilisateur a échoué.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                     else
@@ -180,7 +180,7 @@ namespace AppRobot.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Modification d'un compte");
+                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Modification d'un compte", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -201,7 +201,7 @@ namespace AppRobot.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Ajout d'une image");
+                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Ajout d'une image", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         /// <summary>
@@ -233,7 +233,7 @@ namespace AppRobot.Views
 
             if (message.Length > 0)
             {
-                MessageBox.Show(message, "Validation du mot de passe");
+                MessageBox.Show(message, "Validation du mot de passe", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
             return true;
@@ -257,7 +257,7 @@ namespace AppRobot.Views
                         }
                         else
                         {
-                            MessageBox.Show("La mise à jour du mot de passe a échoué.", "Modification du mot de passe", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show("La mise à jour du mot de passe a échoué.", "Modification du mot de passe", MessageBoxButton.OK, MessageBoxImage.Error);
                             UserConnecter.Password = txtOldPassword.Password;
                         }
                     }
@@ -294,12 +294,9 @@ namespace AppRobot.Views
 
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-
-
-
                     if (ActionSupprimerSonCompte(UserConnecter))
                     {
-                        MessageBox.Show("Le compte a bien été supprimé", "Suppression d'un compte");
+                        MessageBox.Show("Le compte a bien été supprimé", "Suppression d'un compte", MessageBoxButton.OK);
 
                         this.Close();
 
@@ -308,16 +305,15 @@ namespace AppRobot.Views
                     }
                     else
                     {
-                        MessageBox.Show("Le compte n'a pas été suprimé, une erreur c'est produite.", "Suppression d'un compte");
+                        MessageBox.Show("Le compte n'a pas été suprimé, une erreur c'est produite.", "Suppression d'un compte", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     }
-
 
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Suppression d'un produit");
+                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Suppression d'un compte utilisateur", MessageBoxButton.OK, MessageBoxImage.Error );
             }
 
 
@@ -332,7 +328,7 @@ namespace AppRobot.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Recherche d'un produit");
+                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Recherche d'un compte", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private bool ActionDeSuppressionSelectionnee(User user, User userSelected)
@@ -356,7 +352,7 @@ namespace AppRobot.Views
             {
                 if (lstUsers.SelectedItem != null)
                 {
-                    MessageBoxResult messageBoxResult = MessageBox.Show($"Êtes-vous sûre de vouloir supprimer le compte selectionne?", "Suppression d'un compte", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"Êtes-vous sûre de vouloir supprimer le compte selectionne?", "Suppression d'un compte d'utilisateur", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
@@ -365,25 +361,24 @@ namespace AppRobot.Views
 
                         if (aEteSupprimer)
                         {
-                            MessageBox.Show("Le compte a bien été supprimé", "Suppression d'un compte");
-
+                            MessageBox.Show("Le compte sélectionné a bien été supprimé", "Suppression d'un compte", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         }
                         else
                         {
-                            MessageBox.Show("Le compte n'a pas été suprimé, une erreur c'est produite.", "Suppression d'un compte");
+                            MessageBox.Show("Le compte sélectionné n'a pas été suprimé, une erreur c'est produite.", "Suppression d'un compte", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!");
+                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!", "Suppression d'un compte", MessageBoxButton.OK);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Suppression d'un utilisateur", MessageBoxButton.OK);
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Suppression d'un utilisateur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private bool AttributionDeRole(User user)
@@ -415,26 +410,26 @@ namespace AppRobot.Views
 
                         if (AttributionDeRole(lstUsers.SelectedItem as User))
                         {
-                            MessageBox.Show("L'utilisateur a bien été promu au rôle de modérateur!", "Attribution de role");
+                            MessageBox.Show("L'utilisateur a bien été promu au rôle de modérateur!", "Attribution de role", MessageBoxButton.OK, MessageBoxImage.Information);
 
                             afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
                         }
                         else
                         {
-                            MessageBox.Show("L'utilisateur n'a pas été promu au rôle de modérateur, une erreur c'est produite.", "Attribution de role");
+                            MessageBox.Show("L'utilisateur n'a pas été promu au rôle de modérateur, une erreur c'est produite.", "Attribution de role", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!");
+                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!", "Attribution de role", MessageBoxButton.OK);
                 }
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Attribution de role", MessageBoxButton.OK);
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Attribution de role", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private bool DeattribuerUser(User user)
@@ -466,26 +461,26 @@ namespace AppRobot.Views
 
                         if (DeattribuerUser(lstUsers.SelectedItem as User))
                         {
-                            MessageBox.Show("L'utilisateur a bien été promu au rôle d'utilisateur!", "Attribution de role");
+                            MessageBox.Show("L'utilisateur a bien été promu au rôle d'utilisateur!", "Attribution de role", MessageBoxButton.OK, MessageBoxImage.Information);
 
                             afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
                         }
                         else
                         {
-                            MessageBox.Show("L'utilisateur n'a pas été promu au rôle d'utilisateur, une erreur c'est produite.", "Attribution de role");
+                            MessageBox.Show("L'utilisateur n'a pas été promu au rôle d'utilisateur, une erreur c'est produite.", "Attribution de role", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!");
+                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!", "Attribution de role", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Attribution de role", MessageBoxButton.OK);
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Attribution de role", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private bool bloquerUserSelected(User user)
@@ -519,26 +514,26 @@ namespace AppRobot.Views
 
                         if (bloquerUserSelected(lstUsers.SelectedItem as User))
                         {
-                            MessageBox.Show("L'utilisateur a bien été bloquer!", "Bloquer un utilisateur");
+                            MessageBox.Show("L'utilisateur a bien été bloquer!", "Bloquer un utilisateur", MessageBoxButton.OK, MessageBoxImage.Information);
 
                             afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
                         }
                         else
                         {
-                            MessageBox.Show("L'utilisateur n'a pas été bloquer, une erreur c'est produite.", "Bloquer un utilisateur");
+                            MessageBox.Show("L'utilisateur n'a pas été bloquer, une erreur c'est produite.", "Bloquer un utilisateur", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!");
+                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!", "Bloquer un utilisateur", MessageBoxButton.OK);
                 }
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Bloquer un utilisateur", MessageBoxButton.OK);
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Bloquer un utilisateur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -571,26 +566,26 @@ namespace AppRobot.Views
                     {
                         if (debloquerUserSelected(lstUsers.SelectedItem as User))
                         {
-                            MessageBox.Show("L'utilisateur a bien été débloquer!", "Bloquer un utilisateur");
+                            MessageBox.Show("L'utilisateur a bien été débloquer!", "Débloquer un utilisateur", MessageBoxButton.OK, MessageBoxImage.Information);
 
                             afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
                         }
                         else
                         {
-                            MessageBox.Show("L'utilisateur n'a pas été débloquer, une erreur c'est produite.", "Débloquer un utilisateur");
+                            MessageBox.Show("L'utilisateur n'a pas été débloquer, une erreur c'est produite.", "Débloquer un utilisateur", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!");
+                    MessageBox.Show("Vous devez sélectionner un utilisateur dans la liste!", "Débloquer un utilisateur", MessageBoxButton.OK);
                 }
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Débloquer un utilisateur", MessageBoxButton.OK);
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Débloquer un utilisateur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void ConnectionAvecRobot()
@@ -631,11 +626,11 @@ namespace AppRobot.Views
 
             if (message is not null)
             {
-                MessageBox.Show($"Voici le message du robot : {message}");
+                MessageBox.Show($"Voici le message du robot : {message}", "Connection au robot", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show($"Problème d'envoie de données vers le robot.");
+                MessageBox.Show($"Problème d'envoie de données vers le robot.", "Connection au robot", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void btnConnecterAvecLeRobot_Click(object sender, RoutedEventArgs e)
@@ -645,12 +640,12 @@ namespace AppRobot.Views
                 ConnectionAvecRobot();
                 btnFermerConnectionAvecLeRobot.IsEnabled = true;
                 btnVerifierConnectionRobot.IsEnabled = true;
-                MessageBox.Show("la connection avec le robot à été établi!", "Connection avec robot", MessageBoxButton.OK);
+                MessageBox.Show("la connection avec le robot à été établi!", "Connection avec robot", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Connection avec le robot", MessageBoxButton.OK);
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Connection avec le robot", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void btnVerifierConnectionRobot_Click(object sender, RoutedEventArgs e)
@@ -661,7 +656,7 @@ namespace AppRobot.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Test la connection avec le robot", MessageBoxButton.OK);
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Test la connection avec le robot", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void btnFermerConnectionAvecLeRobot_Click(object sender, RoutedEventArgs e)
@@ -677,13 +672,13 @@ namespace AppRobot.Views
                 }
                 else
                 {
-                    MessageBox.Show("Aucun connection détecté pour être fermée!", "Fermeture de la connection avec le robot", MessageBoxButton.OK);
+                    MessageBox.Show("Aucun connection détecté pour être fermée!", "Fermeture de la connection avec le robot", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Fermeture de la connection avec le robot", MessageBoxButton.OK);
+                MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Fermeture de la connection avec le robot", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
