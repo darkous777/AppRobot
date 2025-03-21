@@ -135,7 +135,7 @@ namespace AppRobot.Views
 
             string message = Encoding.ASCII.GetString(response, 0, bytesRead);
 
-            if (message != "ok")
+            if (message != "-_-")
             {
                 statusLabel.Text = $"Voici le message du robot : {message}";
             }
