@@ -211,7 +211,7 @@
                                 HorizontalAlignment="Center"
                                 Margin="0,15,0,0"
                                 Width="Auto">
-                        <TextBlock Text="Vous n'avez pas déjà un compte?"
+                        <TextBlock Text="Vous n'avez pas déjà de compte?"
                                    Foreground="DarkGray"
                                    FontSize="12"
                                    FontWeight="Medium"
@@ -219,12 +219,12 @@
 
                         <TextBlock Foreground="White"
                                    FontSize="12"
-                                   FontWeight="Medium"
+                                   FontWeight="Bold"
                                    FontFamily="Montserrat"
                                    Cursor="Hand"
                                    Margin="8,0,0,0">
                                     <Hyperlink Click="Navigate_to_SignUp"
-                                               TextDecorations="None"
+                                               TextDecorations="Underline"
                                                Foreground="White">
                                                Inscrivez-vous
                                     </Hyperlink>

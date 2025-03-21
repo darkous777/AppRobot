@@ -120,26 +120,27 @@
                     </Button>
                 </Grid>
 
-                
+
                 <!--Boutons de déplacement-->
                 <Canvas Width="300" Height="300" Margin="249,44,249,74" Grid.Row="1">
 
-                    <Button x:Name="btnForward" Canvas.Left="110" Canvas.Top="10" Click="btnForward_Click">
+                    <Button x:Name="btnForward" Foreground="White" Content="W" Canvas.Left="110" Canvas.Top="10" Click="btnForward_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
-                                    <Path Fill="LightBlue" Stroke="DarkBlue" StrokeThickness="1"
+                                    <Path Fill="#462AD8" Stroke="#28AEED" StrokeThickness="2"
                                           Data="M 0 80 L 80 80 L 40 0 Z"/>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="btnRotationRight" Canvas.Left="210" Canvas.Top="110" Click="btnRotationRight_Click" >
+                    <Button x:Name="btnRotationRight" Content="D" Foreground="White" Canvas.Left="210" Canvas.Top="110" Click="btnRotationRight_Click" >
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
-                                    <Path Fill="LightBlue" Stroke="DarkBlue" StrokeThickness="1"
+                                    <Path Fill="#462AD8" Stroke="#28AEED" StrokeThickness="2"
                                           Data="M 0 80 L 80 80 L 40 0 Z" RenderTransformOrigin="0.5,0.5">
                                         <Path.RenderTransform>
                                             <TransformGroup>
@@ -150,16 +151,17 @@
                                             </TransformGroup>
                                         </Path.RenderTransform>
                                     </Path>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="btnBackward" Canvas.Left="110" Canvas.Top="210" Click="btnBackward_Click">
+                    <Button x:Name="btnBackward" Content="S" Foreground="White" Canvas.Left="110" Canvas.Top="210" Click="btnBackward_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
-                                    <Path Fill="LightBlue" Stroke="DarkBlue" StrokeThickness="1"
+                                    <Path Fill="#462AD8" Stroke="#28AEED" StrokeThickness="2"
                                           Data="M 0 80 L 80 80 L 40 0 Z" RenderTransformOrigin="0.5,0.5">
                                         <Path.RenderTransform>
                                             <TransformGroup>
@@ -170,16 +172,17 @@
                                             </TransformGroup>
                                         </Path.RenderTransform>
                                     </Path>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="btnRotationLeft" Canvas.Left="10" Canvas.Top="110" Click="btnRotationLeft_Click" >
+                    <Button x:Name="btnRotationLeft" Content="A" Foreground="White" Canvas.Left="10" Canvas.Top="110" Click="btnRotationLeft_Click" >
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
-                                    <Path Fill="LightBlue" Stroke="DarkBlue" StrokeThickness="1"
+                                    <Path Fill="#462AD8" Stroke="#28AEED" StrokeThickness="2"
                                           Data="M 0 80 L 80 80 L 40 0 Z" RenderTransformOrigin="0.5,0.5">
                                         <Path.RenderTransform>
                                             <TransformGroup>
@@ -190,56 +193,113 @@
                                             </TransformGroup>
                                         </Path.RenderTransform>
                                     </Path>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
 
-                    
 
-                    <Button x:Name="btnForwardRight" Canvas.Left="210" Canvas.Top="10">
+                    <Button x:Name="btnForwardRight" Content="W + D" Foreground="White" Canvas.Left="210" Canvas.Top="10">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
-                                    <Path Fill="LightGreen" Stroke="DarkGreen" StrokeThickness="1"
-                          Data="M 0 80 L 80 80 L 40 0 Z"/>
+                                    <Path Fill="#DA34AE" Stroke="#F08AD4" StrokeThickness="2"
+                                          Data="M 0 80 L 80 80 L 40 0 Z" RenderTransformOrigin="0.5,0.5">
+                                        <Path.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform Angle="45"/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
 
-                    <!-- Avant + Gauche -->
-                    <Button x:Name="btnForwardLeft" Canvas.Left="10" Canvas.Top="10">
+                    <Button x:Name="btnForwardLeft" Content="W + A" Foreground="White" Canvas.Left="10" Canvas.Top="10">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
-                                    <Path Fill="LightGreen" Stroke="DarkGreen" StrokeThickness="1"
-                          Data="M 0 80 L 80 80 L 40 0 Z"/>
+                                    <Path Fill="#DA34AE" Stroke="#F08AD4" StrokeThickness="2"
+                                          Data="M 0 80 L 80 80 L 40 0 Z" RenderTransformOrigin="0.5,0.5">
+                                        <Path.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform Angle="315"/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
 
-                    <!-- Arrière + Droite -->
-                    <Button x:Name="btnBackwardRight" Canvas.Left="210" Canvas.Top="210">
+                    <Button x:Name="btnBackwardRight" Content="S + D" Foreground="White" Canvas.Left="210" Canvas.Top="210">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
-                                    <Path Fill="LightGreen" Stroke="DarkGreen" StrokeThickness="1"
-                          Data="M 0 80 L 80 80 L 40 0 Z"/>
+                                    <Path Fill="#DA34AE" Stroke="#F08AD4" StrokeThickness="2"
+                                          Data="M 0 80 L 80 80 L 40 0 Z" RenderTransformOrigin="0.5,0.5">
+                                        <Path.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform Angle="135"/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
 
-                    <!-- Arrière + Gauche -->
-                    <Button x:Name="btnBackwardLeft" Canvas.Left="10" Canvas.Top="210">
+                    <Button x:Name="btnBackwardLeft" Content="S + A" Foreground="White" Canvas.Left="10" Canvas.Top="210">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
-                                    <Path Fill="LightGreen" Stroke="DarkGreen" StrokeThickness="1"
-                          Data="M 0 80 L 80 80 L 40 0 Z"/>
+                                    <Path Fill="#DA34AE" Stroke="#F08AD4" StrokeThickness="2"
+                                          Data="M 0 80 L 80 80 L 40 0 Z" RenderTransformOrigin="0.5,0.5">
+                                        <Path.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform Angle="225"/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="btnMusic" 
+                            Content="Musique !"
+                            Foreground="White"
+                            Background="#DA34AE"
+                            BorderBrush="#F08AD4"
+                            BorderThickness="2"
+                            Canvas.Left="110" 
+                            Canvas.Top="135" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Top" 
+                            Width="80" Height="30">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="20" Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>

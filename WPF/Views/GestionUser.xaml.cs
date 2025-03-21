@@ -313,7 +313,7 @@ namespace AppRobot.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Suppression d'un compte utilisateur", MessageBoxButton.OK, MessageBoxImage.Error );
+                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Suppression d'un compte utilisateur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
 
@@ -702,7 +702,7 @@ namespace AppRobot.Views
                             btnVerifierConnectionRobot.IsEnabled = false;
                             btnUtiliserLeRobot.IsEnabled = false;
                         }
-                        }
+                    }
                 }
                 else
                 {
