@@ -362,7 +362,38 @@
                     </Button>
 
                 </Canvas>
-                
+
+                <Button x:Name="btnRetourMenuConnection"
+                        Content="Retour au menu de connection"
+                        Foreground="White"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        HorizontalAlignment="Left"
+                        BorderThickness="0"
+                        Margin="35,350,0,0" 
+                        Grid.Row="1" 
+                        VerticalAlignment="Top" Click="btnRetourMenuConnection_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#462AD8"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#28AEED"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Width="190" Height="50"
+                                    CornerRadius="20"
+                                    Background="{TemplateBinding Background}">  
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
             </Grid>
         </Border>
     </Border>

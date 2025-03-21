@@ -867,15 +867,13 @@ Click="btnVerifierConnectionRobot_Click">
                                         </Button.Template>
                                     </Button>
                                     <Button x:Name="btnUtiliserLeRobot"
-BorderThickness="0"
-Content="Utiliser Robot"
-Foreground="White"
-FontSize="12"
-FontFamily="Montserrat"
-                                            
-                                           IsEnabled="False"
-                                            
-Click="btnUtiliserLeRobot_Click">
+                                            BorderThickness="0"
+                                            Content="Utiliser Robot"
+                                            Foreground="White"
+                                            FontSize="12"
+                                            FontFamily="Montserrat"
+                                            IsEnabled="False"
+                                            Click="btnUtiliserLeRobot_Click">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
                                                 <Setter Property="Background" Value="#462AD8"/>
@@ -889,11 +887,9 @@ Click="btnUtiliserLeRobot_Click">
                                         <Button.Template>
                                             <ControlTemplate TargetType="{x:Type Button}">
                                                 <Border Width="190" Height="60"
-            CornerRadius="20"
-            Background="{TemplateBinding Background}">
-                                                    <ContentPresenter VerticalAlignment="Center"
-                          HorizontalAlignment="Center"/>
-
+                                                        CornerRadius="20"
+                                                        Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                                 </Border>
                                             </ControlTemplate>
                                         </Button.Template>

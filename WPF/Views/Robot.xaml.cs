@@ -147,8 +147,6 @@ namespace AppRobot.Views
 
         }
 
-        
-
         private void btnBackward_Click(object sender, RoutedEventArgs e)
         {
 
@@ -160,6 +158,11 @@ namespace AppRobot.Views
         }
 
         private void btnRotationLeft_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnRetourMenuConnection_Click(object sender, RoutedEventArgs e)
         {
 
         }
