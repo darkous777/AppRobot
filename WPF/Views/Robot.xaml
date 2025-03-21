@@ -394,6 +394,16 @@
                     </Button.Template>
                 </Button>
 
+                <TextBlock x:Name="statusLabel" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Bottom" 
+                           Height="40" 
+                           Margin="0,0,0,50" 
+                           FontSize="14" 
+                           Foreground="Red" 
+                           FontFamily="Montserrat"
+                           />
+
             </Grid>
         </Border>
     </Border>
