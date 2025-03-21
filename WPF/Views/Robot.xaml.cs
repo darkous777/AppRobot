@@ -184,7 +184,7 @@ namespace AppRobot.Views
 
         private void btnRetourMenuConnection_Click(object sender, RoutedEventArgs e)
         {
-
+            DialogResult = true;
         }
     }
 }
