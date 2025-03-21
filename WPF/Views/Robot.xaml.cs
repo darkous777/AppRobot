@@ -153,37 +153,37 @@ namespace AppRobot.Views
                 _pressedKeys.Add(e.Key);
             }
 
-            if (e.Key == Key.W && e.Key == Key.D)
+            if (_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.D))
             {
                 var triangleForwardRight = (Path)btnForwardRight.Template.FindName("triangleForwardRight", btnForwardRight);
                 triangleForwardRight.Fill = new SolidColorBrush(Color.FromRgb(240, 138, 212));
                 triangleForwardRight.Stroke = new SolidColorBrush(Color.FromRgb(218, 52, 174));
             }
-            else if (e.Key == Key.W && e.Key == Key.A)
+            else if (_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.A))
             {
                 var triangleForwardLeft = (Path)btnForwardLeft.Template.FindName("triangleForwardLeft", btnForwardLeft);
                 triangleForwardLeft.Fill = new SolidColorBrush(Color.FromRgb(240, 138, 212));
                 triangleForwardLeft.Stroke = new SolidColorBrush(Color.FromRgb(218, 52, 174));
             }
-            else if (e.Key == Key.S && e.Key == Key.D)
+            else if (_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.D))
             {
                 var triangleBackwardRight = (Path)btnBackwardRight.Template.FindName("triangleBackwardRight", btnBackwardRight);
                 triangleBackwardRight.Fill = new SolidColorBrush(Color.FromRgb(240, 138, 212));
                 triangleBackwardRight.Stroke = new SolidColorBrush(Color.FromRgb(218, 52, 174));
             }
-            else if (e.Key == Key.S && e.Key == Key.A)
+            else if (_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.A))
             {
                 var triangleBackwardLeft = (Path)btnBackwardLeft.Template.FindName("triangleBackwardLeft", btnBackwardLeft);
                 triangleBackwardLeft.Fill = new SolidColorBrush(Color.FromRgb(240, 138, 212));
                 triangleBackwardLeft.Stroke = new SolidColorBrush(Color.FromRgb(218, 52, 174));
             }
-            else if (e.Key == Key.W)
+            else if (_pressedKeys.Contains(Key.W))
             {
                 var triangleForward = (Path)btnForward.Template.FindName("triangleForward", btnForward);
                 triangleForward.Fill = new SolidColorBrush(Color.FromRgb(40, 174, 237));
                 triangleForward.Stroke = new SolidColorBrush(Color.FromRgb(70, 42, 216));
             }
-            else if (e.Key == Key.S)
+            else if (_pressedKeys.Contains(Key.S))
             {
                 var triangleBackward = (Path)btnBackward.Template.FindName("triangleBackward", btnBackward);
                 triangleBackward.Fill = new SolidColorBrush(Color.FromRgb(40, 174, 237));
@@ -241,8 +241,8 @@ namespace AppRobot.Views
             }
             else if (e.Key == Key.Space)
             {
-                btnMusic.Background = new SolidColorBrush(Color.FromRgb(240, 138, 212));
-                btnMusic.BorderBrush = new SolidColorBrush(Color.FromRgb(218, 52, 174));
+                btnMusic.Background = new SolidColorBrush(Color.FromRgb(218, 52, 174));
+                btnMusic.BorderBrush = new SolidColorBrush(Color.FromRgb(240, 138, 212));
                 spacePressed = false;
             }
         }
