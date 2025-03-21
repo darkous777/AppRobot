@@ -130,14 +130,20 @@ namespace AppRobot.Views
 
             byte[] response = new byte[1024];
 
+            ReseauEchange.ReadTimeout = 1500;
             int bytesRead = ReseauEchange.Read(response, 0, response.Length);
 
             string message = Encoding.ASCII.GetString(response, 0, bytesRead);
 
-            if (message != "Executer")
+            if (message != "ok")
             {
-                MessageBox.Show($"Voici le message du robot : {message}");
+                statusLabel.Text = $"Voici le message du robot : {message}";
             }
+            else
+            {
+                statusLabel.Text = "";
+            }
+
 
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
