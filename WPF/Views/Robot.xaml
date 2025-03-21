@@ -185,7 +185,7 @@
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
-                                    <Path Fill="#462AD8" Stroke="#28AEED" StrokeThickness="2"
+                                    <Path x:Name="triangleForward" Fill="#462AD8" Stroke="#28AEED" StrokeThickness="2"
                                           Data="M 0 80 L 80 80 L 40 0 Z"/>
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>

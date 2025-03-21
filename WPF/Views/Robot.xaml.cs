@@ -74,7 +74,7 @@ namespace AppRobot.Views
                 commandToSend = "forward";
             else if (_pressedKeys.Contains(Key.S))
                 commandToSend = "backward";
-              else if (_pressedKeys.Contains(Key.Space) && !spacePressed)
+            else if (_pressedKeys.Contains(Key.Space) && !spacePressed)
             {
                 spacePressed = true;
 
@@ -146,6 +146,13 @@ namespace AppRobot.Views
             {
                 _pressedKeys.Add(e.Key);
             }
+
+            if (e.Key == Key.W)
+            {
+                var triangleForward = (Path)btnForward.Template.FindName("triangleForward", btnForward);
+                triangleForward.Fill = new SolidColorBrush(Color.FromRgb(40, 174, 237));
+                triangleForward.Stroke = new SolidColorBrush(Color.FromRgb(70, 42, 216));
+            }
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -154,33 +161,20 @@ namespace AppRobot.Views
             {
                 _pressedKeys.Remove(e.Key);
             }
+
+            if (e.Key == Key.W)
+            {
+                var triangleForward = (Path)btnForward.Template.FindName("triangleForward", btnForward);
+                triangleForward.Fill = new SolidColorBrush(Color.FromRgb(70, 42, 216));
+                triangleForward.Stroke = new SolidColorBrush(Color.FromRgb(40, 174, 237));
+            }
+
             if (e.Key == Key.Space)
             {
                 spacePressed = false;
             }
         }
 
-        private void btnForward_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-
-        private void btnBackward_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnRotationRight_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnRotationLeft_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void btnRetourMenuConnection_Click(object sender, RoutedEventArgs e)
         {
