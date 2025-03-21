@@ -2,6 +2,7 @@ from robot_hat import Pin, ADC, PWM, Servo, fileDB, Grayscale_Module, Ultrasonic
 import time
 import socket
 import threading
+import pygame
 
 HEADER = 64
 PORT = 5050
@@ -10,6 +11,11 @@ ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
 
+active_conn = None
+
+pygame.mixer.init()
+pygame.mixer.music.load("/home/robot/AppRobot/Rasberry/musics/music.mp3")
+
 dir_left = Pin('D4')
 pwm_left = PWM('P13')
 
@@ -17,6 +23,19 @@ dir_right = Pin('D5')
 pwm_right = PWM('P12')
 
 steering_servo = Servo('P2')
+
+
+
+trig = 'D2'
+echo = 'D3'
+
+ultrasonic = Ultrasonic(Pin(trig), Pin(echo, mode=Pin.IN, pull=Pin.PULL_DOWN))
+
+SafeDistance = 40
+DangerDistance = 20
+
+is_moving = False
+last_state = None
 
 picarx_dir_servo = -7.2
 
@@ -30,12 +49,10 @@ line_reference = [1055, 1088, 768]
 
 cliff_reference = [464, 441, 329]
 
-music = Music()
-tts = TTS()
+# music = Music()
 
-music.music_set_volume(90)
+# music.music_set_volume(90)
 
-jouer = False
 # config_file = '/opt/picar-x/picar-x.conf'
 # config = fileDB(config_file, 777, 'root')
 
@@ -52,17 +69,65 @@ pwm_right.period(4095)
 pwm_left.prescaler(10)
 pwm_right.prescaler(10)
 
+def go_straight():
+    steering_servo.angle(picarx_dir_servo)
+
+
+def getDistance():
+    global last_state, active_conn
+    while True:
+        if is_moving:
+            
+            distance = round(ultrasonic.read(), 2)
+            print("distance: ",distance)
+
+            if distance < DangerDistance and last_state != "danger":
+                backward()
+                time.sleep(1)
+                stop()
+
+                last_state = "danger"
+
+            elif distance <= SafeDistance and last_state != "warning":
+                if active_conn:
+                    send(active_conn, "Attention, zone de danger!")
+                last_state = "warning"
+
+            elif distance >= SafeDistance and last_state != "safe":
+                last_state = "safe"
+
+        time.sleep(0.1)
+
+
+distance_thread = threading.Thread(target=getDistance, daemon=True)
+distance_thread.start()
+
+def start_moving():
+    global is_moving
+    is_moving = True
+
+def stop_moving():
+    global is_moving
+    is_moving = False
+
 def jouerHorn():
-    music.sound_play('/home/robot/AppRobot/Rasberry/sounds/car-horn.wav')
+    # music.sound_play('/home/robot/AppRobot/Rasberry/sounds/car-horn.wav')
     time.sleep(0.05)
 
 def jouerMusic():
-    music.music_play('/home/robot/AppRobot/Rasberry/musics/music.mp3')
-    time.sleep(5)
-    music.music_stop()
+
+    pygame.mixer.music.play()
+
+def arreterMusic():
+
+    pygame.mixer.music.stop()
+    # music.music_play('/home/robot/AppRobot/Rasberry/musics/music.mp3')
+    # time.sleep(5)
+    # music.music_stop()
 
 
 def move_forward(speed):
+    start_moving()
 
     dir_left.low()
     dir_right.high()
@@ -77,6 +142,7 @@ def move_forward(speed):
     pwm_right.pulse_width_percent(right_speed)
 
 def move_backward(speed):
+    start_moving()
 
     dir_left.high()
     dir_right.low()
@@ -92,10 +158,10 @@ def turn_right(angle):
 def turn_left(angle):
     steering_servo.angle(-angle)
 
-def go_straight():
-    steering_servo.angle(picarx_dir_servo)
 
 def stop():
+    stop_moving()
+    go_straight()
     for _ in range(2):
         pwm_left.pulse_width_percent(0)
         pwm_right.pulse_width_percent(0)
@@ -103,36 +169,36 @@ def stop():
 
 def forward():
     go_straight()
-    move_forward(90)
+    move_forward(100)
 
 
 def backward():
     go_straight()
-    move_backward(90)
+    move_backward(100)
 
 
 def forward_right():
     go_straight()
-    turn_right(35)
-    move_forward(90)
+    turn_right(20)
+    move_forward(100)
 
 
 def forward_left():
     go_straight()
-    turn_left(35)
-    move_forward(90)
+    turn_left(28)
+    move_forward(100)
 
 
 def backward_right():
     go_straight()
-    turn_right(35)
-    move_backward(90)
+    turn_right(20)
+    move_backward(100)
 
 
 def backward_left():
     go_straight()
-    turn_left(35)
-    move_backward(90)
+    turn_left(28)
+    move_backward(100)
 
 
 function_mapping = {
@@ -143,7 +209,8 @@ function_mapping = {
     'backward_left' : backward_left,
     'backward_right' : backward_right,
     'stop' : stop,
-    'music' : jouerMusic
+    'music_on' : jouerMusic,
+    'music_off' : arreterMusic
 }
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -151,6 +218,9 @@ server.bind(ADDR)
 
 def handle_client(conn, addr):
     print(f"[New Connection] {addr} connected.")
+    global active_conn
+    active_conn = conn
+
     connected = True
     while connected:
         msg = conn.recv(HEADER).decode(FORMAT)
@@ -159,11 +229,14 @@ def handle_client(conn, addr):
             if msg == DISCONNECT_MESSAGE:
                 connected = False
             else:
+                send(conn,"-_-")
                 if msg in function_mapping:
                     function_mapping[msg]()
-                    send(conn,f"[{addr}] Commande reussite!")
                 else:
-                    send(conn,f"[{addr}] Connection reussite!")
+                    send(conn,"Salut c'est moi ton robot prefere!")
+
+
+                    
             print(f"[{addr}] {msg}")
 
     conn.close()
@@ -181,8 +254,8 @@ def start():
 def send(conn, msg):
 
     message = msg.encode(FORMAT)
-
     conn.send(message)
+    time.sleep(0.1)
 
 
 print("[Strating] server is strating")
