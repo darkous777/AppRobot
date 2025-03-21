@@ -28,7 +28,8 @@ namespace AppRobot.Views
         private HashSet<Key> _pressedKeys = new HashSet<Key>();
         private DispatcherTimer _keyCheckTimer;
         private string _lastCommandSent = "";
-
+        private bool music = false;
+        private bool spacePressed = false;
         public User UserConnecter
         {
             get { return _user; }
@@ -48,7 +49,7 @@ namespace AppRobot.Views
         {
             UserConnecter = user;
             ConnectionRobot = tcp;
-            ReseauEchange= stream;
+            ReseauEchange = stream;
 
             InitializeComponent();
 
@@ -73,10 +74,26 @@ namespace AppRobot.Views
                 commandToSend = "forward";
             else if (_pressedKeys.Contains(Key.S))
                 commandToSend = "backward";
-            else if (_pressedKeys.Contains(Key.Space))
-                commandToSend = "music_on";
-            else
+              else if (_pressedKeys.Contains(Key.Space) && !spacePressed)
+            {
+                spacePressed = true;
+
+                if (!music)
+                {
+                    commandToSend = "music_on";
+                    music = true;
+                }
+                else
+                {
+                    commandToSend = "music_off";
+                    music = false;
+                }
+
+            }
+            else if (_pressedKeys.Count == 0)
+            {
                 commandToSend = "stop";
+            }
 
             if (commandToSend != _lastCommandSent)
             {
@@ -102,7 +119,7 @@ namespace AppRobot.Views
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            DialogResult = true;
 
         }
 
@@ -111,20 +128,17 @@ namespace AppRobot.Views
             byte[] data = Encoding.ASCII.GetBytes(commande);
             ReseauEchange.Write(data, 0, data.Length);
 
-            //byte[] response = new byte[1024];
+            byte[] response = new byte[1024];
 
-            //int bytesRead = ReseauEchange.Read(response, 0, response.Length);
+            int bytesRead = ReseauEchange.Read(response, 0, response.Length);
 
-            //string message = Encoding.ASCII.GetString(response, 0, bytesRead);
+            string message = Encoding.ASCII.GetString(response, 0, bytesRead);
 
-            //if (message is not null)
-            //{
-            //    MessageBox.Show($"Voici le message du robot : {message}");
-            //}
-            //else
-            //{
-            //    MessageBox.Show($"Problème d'envoie de données vers le robot.");
-            //}
+            if (message != "Executer")
+            {
+                MessageBox.Show($"Voici le message du robot : {message}");
+            }
+
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -140,6 +154,10 @@ namespace AppRobot.Views
             {
                 _pressedKeys.Remove(e.Key);
             }
+            if (e.Key == Key.Space)
+            {
+                spacePressed = false;
+            }
         }
 
         private void btnForward_Click(object sender, RoutedEventArgs e)
@@ -147,7 +165,7 @@ namespace AppRobot.Views
 
         }
 
-        
+
 
         private void btnBackward_Click(object sender, RoutedEventArgs e)
         {

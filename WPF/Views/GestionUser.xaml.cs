@@ -313,7 +313,7 @@ namespace AppRobot.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Suppression d'un compte utilisateur", MessageBoxButton.OK, MessageBoxImage.Error );
+                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Suppression d'un compte utilisateur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
 
@@ -613,9 +613,9 @@ namespace AppRobot.Views
             ConnectionRobot = new TcpClient(serverAdress, port);
             ReseauEchange = ConnectionRobot.GetStream();
         }
-        private void EnvoyerEtRecevoirDonnees()
+        private void EnvoyerEtRecevoirDonnees(string msg)
         {
-            byte[] data = Encoding.ASCII.GetBytes("salut");
+            byte[] data = Encoding.ASCII.GetBytes(msg);
             ReseauEchange.Write(data, 0, data.Length);
 
             byte[] response = new byte[1024];
@@ -624,14 +624,11 @@ namespace AppRobot.Views
 
             string message = Encoding.ASCII.GetString(response, 0, bytesRead);
 
-            if (message is not null)
+            if (message is not "")
             {
                 MessageBox.Show($"Voici le message du robot : {message}", "Connection au robot", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else
-            {
-                MessageBox.Show($"Problème d'envoie de données vers le robot.", "Connection au robot", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+
         }
         private void btnConnecterAvecLeRobot_Click(object sender, RoutedEventArgs e)
         {
@@ -653,7 +650,7 @@ namespace AppRobot.Views
         {
             try
             {
-                EnvoyerEtRecevoirDonnees();
+                EnvoyerEtRecevoirDonnees("salut");
             }
             catch (Exception ex)
             {
@@ -666,6 +663,7 @@ namespace AppRobot.Views
             {
                 if (ConnectionRobot is not null)
                 {
+                    EnvoyerEtRecevoirDonnees("!DISCONNECT");
                     ConnectionRobot.Close();
                     btnFermerConnectionAvecLeRobot.IsEnabled = false;
                     btnVerifierConnectionRobot.IsEnabled = false;
@@ -697,12 +695,13 @@ namespace AppRobot.Views
                     {
                         if (ConnectionRobot is not null)
                         {
+                            EnvoyerEtRecevoirDonnees("!DISCONNECT");
                             ConnectionRobot.Close();
                             btnFermerConnectionAvecLeRobot.IsEnabled = false;
                             btnVerifierConnectionRobot.IsEnabled = false;
                             btnUtiliserLeRobot.IsEnabled = false;
                         }
-                        }
+                    }
                 }
                 else
                 {
