@@ -47,7 +47,7 @@ namespace AppRobot.Views
             {
                 txtUser.Text = null;
                 txtPassword.Password = null;
-                MessageBox.Show("Ce compte est présentement bloqué", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ce compte est présentement bloqué", "Erreur compte bloqué", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else if (user.Id > 0)
             {
@@ -61,7 +61,7 @@ namespace AppRobot.Views
             {
                 txtUser.Text = null;
                 txtPassword.Password = null;
-                MessageBox.Show("Invalid username or password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Nom d'utilisateur et/ou mot de passe invalide", "Erreur de connection", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
