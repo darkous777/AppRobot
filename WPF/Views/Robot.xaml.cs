@@ -74,7 +74,7 @@ namespace AppRobot.Views
             else if (_pressedKeys.Contains(Key.S))
                 commandToSend = "backward";
             else if (_pressedKeys.Contains(Key.Space))
-                commandToSend = "music";
+                commandToSend = "music_on";
             else
                 commandToSend = "stop";
 
