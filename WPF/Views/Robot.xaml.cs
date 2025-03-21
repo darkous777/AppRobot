@@ -90,7 +90,7 @@ namespace AppRobot.Views
                 }
 
             }
-            else if (_pressedKeys.Count == 0)
+            else
             {
                 commandToSend = "stop";
             }
@@ -130,7 +130,7 @@ namespace AppRobot.Views
 
             byte[] response = new byte[1024];
 
-            ReseauEchange.ReadTimeout = 1500;
+            ReseauEchange.ReadTimeout = 5000;
             int bytesRead = ReseauEchange.Read(response, 0, response.Length);
 
             string message = Encoding.ASCII.GetString(response, 0, bytesRead);
