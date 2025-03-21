@@ -694,13 +694,20 @@ namespace AppRobot.Views
         {
             try
             {
-                if(ConnectionRobot is not null)
+                if (ConnectionRobot is not null)
                 {
                     Robot robot = new Robot(UserConnecter, ConnectionRobot, ReseauEchange);
 
-                    robot.Show();
-
-                    this.Close();
+                    if (robot.ShowDialog() is true)
+                    {
+                        if (ConnectionRobot is not null)
+                        {
+                            ConnectionRobot.Close();
+                            btnFermerConnectionAvecLeRobot.IsEnabled = false;
+                            btnVerifierConnectionRobot.IsEnabled = false;
+                            btnUtiliserLeRobot.IsEnabled = false;
+                        }
+                        }
                 }
                 else
                 {

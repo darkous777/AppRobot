@@ -91,6 +91,7 @@ namespace AppRobot.Views
             {
                 DragMove();
             }
+
         }
 
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
