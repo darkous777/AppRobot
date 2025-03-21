@@ -141,5 +141,27 @@ namespace AppRobot.Views
                 _pressedKeys.Remove(e.Key);
             }
         }
+
+        private void btnForward_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        
+
+        private void btnBackward_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnRotationRight_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnRotationLeft_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
