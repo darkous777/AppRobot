@@ -155,6 +155,14 @@ def move_backward(speed):
     pwm_left.pulse_width_percent(speed)
     pwm_right.pulse_width_percent(speed)
 
+def move_rotation_left(speed):
+    start_moving()
+
+    dir_left.high()
+    dir_right.high()
+
+    pwm_left.pulse_width_percent(speed)
+    pwm_right.pulse_width_percent(speed)
 
 def turn_right(angle):
     steering_servo.angle(angle)
@@ -205,6 +213,11 @@ def backward_left():
     move_backward(90)
 
 
+def rotation_left():
+    go_straight()
+    turn_left(40)
+    move_rotation_left(100)
+
 function_mapping = {
     'forward' : forward,
     'backward' : backward,
@@ -214,7 +227,8 @@ function_mapping = {
     'backward_right' : backward_right,
     'stop' : stop,
     'music_on' : jouerMusic,
-    'music_off' : arreterMusic
+    'music_off' : arreterMusic,
+    'rotation_left' : rotation_left
 }
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
