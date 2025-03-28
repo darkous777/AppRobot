@@ -73,6 +73,10 @@ namespace AppRobot.Views
                 commandToSend = "backward_left";
             else if (_pressedKeys.Contains(Key.W))
                 commandToSend = "forward";
+            else if (_pressedKeys.Contains(Key.A))
+                commandToSend = "rotationz_left";
+            else if (_pressedKeys.Contains(Key.D))
+                commandToSend = "rotation_right";
             else if (_pressedKeys.Contains(Key.S))
                 commandToSend = "backward";
             else if (_pressedKeys.Contains(Key.Space) && !spacePressed)
@@ -149,7 +153,7 @@ namespace AppRobot.Views
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D || e.Key == Key.Space)
+            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D || e.Key == Key.Space || e.Key == Key.D || e.Key == Key.A)
             {
                 _pressedKeys.Add(e.Key);
             }
@@ -183,6 +187,18 @@ namespace AppRobot.Views
                 var triangleForward = (Path)btnForward.Template.FindName("triangleForward", btnForward);
                 triangleForward.Fill = new SolidColorBrush(Color.FromRgb(40, 174, 237));
                 triangleForward.Stroke = new SolidColorBrush(Color.FromRgb(70, 42, 216));
+            }
+            if (_pressedKeys.Contains(Key.D) && _pressedKeys.Count == 1)
+            {
+                var triangleRotationRight = (Path)btnRotationRight.Template.FindName("triangleRotationRight", btnRotationRight);
+                triangleRotationRight.Fill = new SolidColorBrush(Color.FromRgb(40, 174, 237));
+                triangleRotationRight.Stroke = new SolidColorBrush(Color.FromRgb(70, 42, 216));
+            }
+            else if (_pressedKeys.Contains(Key.A) && _pressedKeys.Count == 1)
+            {
+                var triangleRotationLeft = (Path)btnRotationLeft.Template.FindName("triangleRotationLeft", btnRotationLeft);
+                triangleRotationLeft.Fill = new SolidColorBrush(Color.FromRgb(40, 174, 237));
+                triangleRotationLeft.Stroke = new SolidColorBrush(Color.FromRgb(70, 42, 216));
             }
             else if (_pressedKeys.Contains(Key.S) && _pressedKeys.Count == 1)
             {
@@ -230,6 +246,18 @@ namespace AppRobot.Views
                 triangleForward.Fill = new SolidColorBrush(Color.FromRgb(70, 42, 216));
                 triangleForward.Stroke = new SolidColorBrush(Color.FromRgb(40, 174, 237));
             }
+            if(_pressedKeys.Contains(Key.A) && _pressedKeys.Count == 1)
+            {
+                var triangleRotationLeft = (Path)btnRotationLeft.Template.FindName("triangleRotationLeft", btnRotationLeft);
+                triangleRotationLeft.Fill = new SolidColorBrush(Color.FromRgb(70, 42, 216));
+                triangleRotationLeft.Stroke = new SolidColorBrush(Color.FromRgb(40, 174, 237));
+            }
+            if (_pressedKeys.Contains(Key.D) && _pressedKeys.Count == 1)
+            {
+                var triangleRotationRight = (Path)btnRotationRight.Template.FindName("triangleRotationRight", btnRotationRight);
+                triangleRotationRight.Fill = new SolidColorBrush(Color.FromRgb(70, 42, 216));
+                triangleRotationRight.Stroke = new SolidColorBrush(Color.FromRgb(40, 174, 237));
+            }
             if (_pressedKeys.Contains(Key.S) && _pressedKeys.Count == 1)
             {
                 var triangleBackward = (Path)btnBackward.Template.FindName("triangleBackward", btnBackward);
@@ -243,7 +271,7 @@ namespace AppRobot.Views
                 spacePressed = false;
             }
 
-            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D || e.Key == Key.Space)
+            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D || e.Key == Key.Space || e.Key == Key.A || e.Key == Key.D)
             {
                 _pressedKeys.Remove(e.Key);
             }
