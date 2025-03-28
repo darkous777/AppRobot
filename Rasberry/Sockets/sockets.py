@@ -230,7 +230,7 @@ def rotation_left():
 
 def rotation_right():
     go_straight()
-    turn_right(60)
+    turn_right(40)
     move_rotation_right(100)
 
 
