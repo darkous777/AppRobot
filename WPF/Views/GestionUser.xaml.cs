@@ -689,7 +689,7 @@ namespace AppRobot.Views
             {
                 if (ConnectionRobot is not null)
                 {
-                    Robot robot = new Robot();
+                    Robot robot = new Robot(UserConnecter,ConnectionRobot,ReseauEchange);
 
                     if (robot.ShowDialog() is true)
                     {

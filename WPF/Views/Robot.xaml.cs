@@ -236,7 +236,7 @@ namespace AppRobot.Views
                 triangleBackward.Fill = new SolidColorBrush(Color.FromRgb(70, 42, 216));
                 triangleBackward.Stroke = new SolidColorBrush(Color.FromRgb(40, 174, 237));
             }
-            if (_pressedKeys.Contains(Key.Space) && !spacePressed)
+            if (_pressedKeys.Contains(Key.Space))
             {
                 btnMusic.Background = new SolidColorBrush(Color.FromRgb(218, 52, 174));
                 btnMusic.BorderBrush = new SolidColorBrush(Color.FromRgb(240, 138, 212));
