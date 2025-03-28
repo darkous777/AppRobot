@@ -14,7 +14,7 @@ DISCONNECT_MESSAGE = "!DISCONNECT"
 active_conn = None
 
 pygame.mixer.init()
-pygame.mixer.music.load("/home/robot/AppRobot/Rasberry/musics/music.mp3")
+pygame.mixer.music.load("/home/robot/AppRobot/Rasberry/musics/rollin.mp3")
 
 dir_left = Pin('D4')
 pwm_left = PWM('P13')
@@ -78,7 +78,11 @@ def getDistance():
     while True:
         if is_moving:
             
-            distance = round(ultrasonic.read(), 2)
+            distance = round(ultrasonic.read())
+            while distance == -2:
+                time.sleep(0.05)
+                distance = round(ultrasonic.read())
+
             print("distance: ",distance)
 
             if distance < DangerDistance and last_state != "danger":
@@ -179,26 +183,26 @@ def backward():
 
 def forward_right():
     go_straight()
-    turn_right(20)
-    move_forward(100)
+    turn_right(28)
+    move_forward(90)
 
 
 def forward_left():
     go_straight()
     turn_left(28)
-    move_forward(100)
+    move_forward(90)
 
 
 def backward_right():
     go_straight()
-    turn_right(20)
-    move_backward(100)
+    turn_right(28)
+    move_backward(90)
 
 
 def backward_left():
     go_straight()
     turn_left(28)
-    move_backward(100)
+    move_backward(90)
 
 
 function_mapping = {
