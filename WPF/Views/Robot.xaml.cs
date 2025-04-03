@@ -74,7 +74,7 @@ namespace AppRobot.Views
             else if (_pressedKeys.Contains(Key.W))
                 commandToSend = "forward";
             else if (_pressedKeys.Contains(Key.A))
-                commandToSend = "rotationz_left";
+                commandToSend = "rotation_left";
             else if (_pressedKeys.Contains(Key.D))
                 commandToSend = "rotation_right";
             else if (_pressedKeys.Contains(Key.S))
