@@ -331,7 +331,7 @@ namespace AppRobot.Views
                     _cancellationTokenSource = null;
                 }
 
-                EnvoyerEtRecevoirDonnees("start_cam");
+                EnvoyerEtRecevoirDonnees("camera_on");
 
                 string url = _configuration[CONNECTION_CAM_ROBOT];
 
@@ -588,7 +588,7 @@ namespace AppRobot.Views
 
             if (_cancellationTokenSource != null)
             {
-                EnvoyerEtRecevoirDonnees("stop_cam");
+                EnvoyerEtRecevoirDonnees("camera_off");
                 _cancellationTokenSource.Cancel();
                 _cancellationTokenSource = null;
 

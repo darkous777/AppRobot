@@ -3,6 +3,8 @@ import time
 import socket
 import threading
 import pygame
+import subprocess
+import requests
 
 HEADER = 64
 PORT = 5050
@@ -69,6 +71,35 @@ pwm_right.period(4095)
 pwm_left.prescaler(10)
 pwm_right.prescaler(10)
 
+flask_process = None
+
+def start_flask_cam():
+    """Start the Flask camera server in a subprocess."""
+    global flask_process
+    if flask_process is None:
+        flask_process = subprocess.Popen(
+            ["python3", "/home/robot/AppRobot/Rasberry/Sockets/cam/flask_cam.py"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+        print("[INFO] Flask camera server started.")
+        time.sleep(2)  # Wait for server to initialize
+
+def stop_flask_cam():
+    """Gracefully stop the Flask camera server."""
+    global flask_process
+    if flask_process is not None:
+        try:
+            # Send a shutdown request to the Flask server
+            requests.get("http://localhost:8080/shutdown", auth=('pi', 'pi'))
+            flask_process.terminate()
+            flask_process.wait()
+        except Exception as e:
+            print(f"[ERROR] Failed to stop Flask server: {e}")
+        finally:
+            flask_process = None
+            print("[INFO] Flask camera server stopped.")
+
 def go_straight():
     steering_servo.angle(picarx_dir_servo)
 
@@ -77,7 +108,7 @@ def getDistance():
     global last_state, active_conn
     while True:
         if is_moving:
-            
+
             distance = round(ultrasonic.read())
             while distance == -2:
                 time.sleep(0.05)
@@ -246,7 +277,9 @@ function_mapping = {
     'music_on' : jouerMusic,
     'music_off' : arreterMusic,
     'rotation_left' : rotation_left,
-    'rotation_right' : rotation_right
+    'rotation_right' : rotation_right,
+    'camera_on': start_flask_cam,
+    'camera_off': stop_flask_cam
 }
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -272,7 +305,7 @@ def handle_client(conn, addr):
                     send(conn,"Salut c'est moi ton robot prefere!")
 
 
-                    
+
             print(f"[{addr}] {msg}")
 
     conn.close()
