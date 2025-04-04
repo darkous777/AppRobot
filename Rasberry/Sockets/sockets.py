@@ -83,14 +83,13 @@ def start_flask_cam():
             stderr=subprocess.PIPE
         )
         print("[INFO] Flask camera server started.")
-        time.sleep(2)  # Wait for server to initialize
+        time.sleep(2)
 
 def stop_flask_cam():
     """Gracefully stop the Flask camera server."""
     global flask_process
     if flask_process is not None:
         try:
-            # Send a shutdown request to the Flask server
             requests.get("http://localhost:8080/shutdown", auth=('pi', 'pi'))
             flask_process.terminate()
             flask_process.wait()
