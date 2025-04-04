@@ -1,7 +1,6 @@
 import cv2
 from threading import Thread
 import time
-import numpy as np
 
 class WebcamVideoStream:
     def __init__(self, src = 0):
