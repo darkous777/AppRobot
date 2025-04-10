@@ -67,6 +67,10 @@ namespace AppRobot.Views
 
         public const string CONNECTION_ROBOT_PORT = "ConnectionRobot:Port";
 
+        public const string CONNECTION_ROBOT_VIDEO_USER = "ConnectionRobot:User";
+
+        public const string CONNECTION_ROBOT_VIDEO_PASSWORD = "ConnectionRobot:Password";
+
         private static IConfiguration _configuration;
 
         /// <summary>
@@ -90,6 +94,11 @@ namespace AppRobot.Views
             _keyCheckTimer.Tick += KeyCheckTimer_Tick;
             _keyCheckTimer.Start();
         }
+        /// <summary>
+        /// Gestionnaire d'événements pour le minuteur de vérification des touches.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KeyCheckTimer_Tick(object sender, EventArgs e)
         {
             string commandToSend = "";
@@ -137,7 +146,11 @@ namespace AppRobot.Views
                 EnvoyerEtRecevoirDonnees(commandToSend);
             }
         }
-
+        /// <summary>
+        /// Gestionnaire d'événements pour le clic de la souris sur la fenêtre.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -146,19 +159,30 @@ namespace AppRobot.Views
             }
 
         }
-
+        /// <summary>
+        /// Gestionnaire d'événements pour le clic sur le bouton de réduction de la fenêtre.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
 
         }
-
+        /// <summary>
+        /// Gestionnaire d'événements pour le clic sur le bouton de fermeture de la fenêtre.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
 
         }
-
+        /// <summary>
+        /// Envoie une commande au robot et reçoit la réponse.
+        /// </summary>
+        /// <param name="commande">Commande envoyer au robot</param>
         private void EnvoyerEtRecevoirDonnees(string commande)
         {
             byte[] data = Encoding.ASCII.GetBytes(commande);
@@ -182,6 +206,11 @@ namespace AppRobot.Views
 
 
         }
+        /// <summary>
+        /// Gestionnaire d'événements pour la pression d'une touche sur la fenêtre.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D || e.Key == Key.Space || e.Key == Key.D || e.Key == Key.A)
@@ -244,6 +273,11 @@ namespace AppRobot.Views
             }
         }
 
+        /// <summary>
+        /// Gestionnaire d'événements pour la relâchement d'une touche sur la fenêtre.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
 
@@ -277,7 +311,7 @@ namespace AppRobot.Views
                 triangleForward.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(70, 42, 216));
                 triangleForward.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(40, 174, 237));
             }
-            if(_pressedKeys.Contains(Key.A) && _pressedKeys.Count == 1)
+            if (_pressedKeys.Contains(Key.A) && _pressedKeys.Count == 1)
             {
                 var triangleRotationLeft = (System.Windows.Shapes.Path)btnRotationLeft.Template.FindName("triangleRotationLeft", btnRotationLeft);
                 triangleRotationLeft.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(70, 42, 216));
@@ -308,7 +342,11 @@ namespace AppRobot.Views
             }
         }
 
-
+        /// <summary>
+        /// Gestionnaire d'événements pour le clic sur le bouton de retour au menu de connexion.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRetourMenuConnection_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
@@ -323,7 +361,7 @@ namespace AppRobot.Views
         {
             try
             {
-                
+
 
                 if (_cancellationTokenSource != null)
                 {
@@ -332,6 +370,8 @@ namespace AppRobot.Views
                 }
 
                 EnvoyerEtRecevoirDonnees("camera_on");
+
+                Thread.Sleep(3000);
 
                 string url = _configuration[CONNECTION_CAM_ROBOT];
 
@@ -357,7 +397,7 @@ namespace AppRobot.Views
             {
                 using (var handler = new HttpClientHandler())
                 {
-                    handler.Credentials = new NetworkCredential("pi", "pi");
+                    handler.Credentials = new NetworkCredential(_configuration[CONNECTION_ROBOT_VIDEO_USER], _configuration[CONNECTION_ROBOT_VIDEO_PASSWORD]);
 
                     using (var client = new HttpClient(handler))
                     {
@@ -427,7 +467,7 @@ namespace AppRobot.Views
                             {
                                 bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
                                 if (bytesRead == 0)
-                                    break; 
+                                    break;
 
                                 int boundaryPos = IndexOfBytes(buffer, boundaryBytes, Math.Min(bytesRead, buffer.Length));
                                 if (boundaryPos >= 0)
@@ -582,9 +622,9 @@ namespace AppRobot.Views
         {
 
 
-            for (int i = 0; i < 2; i++)
-                if (imgVideo.Source is not null)
-                    imgVideo.Source = null;
+
+            if (imgVideo.Source is not null)
+                imgVideo.Source = null;
 
             if (_cancellationTokenSource != null)
             {

@@ -55,6 +55,10 @@ namespace AppRobot.Views
 
         public const string PRODUIT_IMAGES = "Images:Path";
 
+        public const string CONNECTION_ROBOT_IP = "ConnectionRobot:IP";
+
+        public const string CONNECTION_ROBOT_PORT = "ConnectionRobot:Port";
+
         IConfiguration _configuration;
 
         public GestionUser(User user)
@@ -607,10 +611,7 @@ namespace AppRobot.Views
             //    }
             //}
 
-            string serverAdress = "robot-desktop.local";
-            int port = 5050;
-
-            ConnectionRobot = new TcpClient(serverAdress, port);
+            ConnectionRobot = new TcpClient(_configuration[CONNECTION_ROBOT_IP], int.Parse(_configuration[CONNECTION_ROBOT_PORT]));
             ReseauEchange = ConnectionRobot.GetStream();
         }
         private void EnvoyerEtRecevoirDonnees(string msg)
