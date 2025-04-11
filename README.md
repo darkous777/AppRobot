@@ -7,7 +7,7 @@
 ## <code>git clone https://github.com/darkous777/AppRobot.git</code>
 
 
-# 2 - Créer les fichiers suivant pour le fonctionnement du programme de l'application
+# 2 - Créer les dossiers nécessaires au fonctionnement de l'application
 
 ## Créez le dossier suivant dans votre disque local <code>C:</code> :
 
@@ -15,22 +15,41 @@
 
 ## (Veillez à bien créer le dossier AppRobot, puis le dossier images à l'intérieur.)
 
-# 3 - Pour accéder au code source du project, vous aurez besoind'un IDE
 
-## Télécharger Visual Studio Community 2022 sur ce lien : https://visualstudio.microsoft.com/fr/downloads/
+# 3 - Ouvrir le projet dans un IDE
 
-## Choisisser les paramètres par default et il important de cocher sur la case : Développement .NET Desktop, lors de l'installation. Cela vous permettera d'ouvrir le project qui est fait majoritairement en C#/WPF
+## Téléchargez Visual Studio Community 2022 ici :
 
-# 4 - Télécharger MYSQL :: WorkBench sur le lien suivant : https://dev.mysql.com/downloads/workbench/
+## https://visualstudio.microsoft.com/fr/downloads/
 
-## Dans votre WorkBench Créer d'abord un Schéma nommer : app-robot-data, par la suite:
+## Choisissez les paramètres par défaut, et cochez l’option "Développement .NET Desktop" lors de l'installation.
 
-## Choisisser les parametres par défault et importer le script(dans WorkBench) situer dans le fichier nommer BD dans votre projet cloner : script_creation_user.sql . Changer le script au endroit de new_user(votre nom d'utilisateur) et strong_password(votre mot de passe) FAITES CECI AVANT DE PROCÉDER AVEC L'IMPORT DU FICHIER.
+## Cela vous permettra d’ouvrir ce projet développé principalement en C# / WPF.
 
-## Changer aussi le fichier appsettings.json dans le dictionnaire : ConnectionStrings:DefaultConnection. Pour que Uid= votre nouveau nom d'utilisateur et que Pwd= votre nouveau mot de passe.
+
+# 4 - Installer et configurer MySQL Workbench
+
+## Téléchargez MySQL Workbench ici :
+
+## https://dev.mysql.com/downloads/workbench/
+
+## Ouvrez le fichier script_creation_user.sql (dans le dossier BD du projet).
+
+## Modifiez ce fichier avant de l’exécuter :
+
+### - Remplacez new_user par le nom d’utilisateur MySQL de votre choix
+
+### - Remplacez strong_password par un mot de passe sécurisé
+
+## Exécutez le script dans MySQL Workbench
+
+## Ouvrer et changer aussi le fichier appsettings.json dans le dictionnaire : ConnectionStrings:DefaultConnection. Pour que Uid= votre nouveau nom d'utilisateur et que Pwd= votre nouveau mot de passe.
 
 # 5 - Mettre la base de donnée à jour avec le projet
 
-## Dans votre fichier cloner, dirigez-vous dans le fichier nommez : BD. Par la suite importer le fichier nommer : app-robot-data.sql, et mettez le dans le schéma app-robot-data précédament créer.
+## Dans le dossier BD du projet, importez le fichier app-robot-data.sql dans le schéma app-robot-data que vous avez créé précédemment via MySQL Workbench.
 
-# 6 - Maintenant il ne vous reste plus qu'à vous connecter au même réseaux WIFI que le robot et voila vous pouvez maintenant tester le robot à 100%.
+# 6 - Connexion au robot
+
+## Assurez-vous d’être connecté au même réseau Wi-Fi que le robot.
+
