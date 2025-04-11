@@ -917,34 +917,5 @@ namespace AppRobot.Classes
             return fonctionnalite;
 
         }
-        /// <summary>
-        /// Vérifie si un utilisateur a accès à une fonctionnalité spécifique dans la base de données.
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="fonctionnalite"></param>
-        /// <returns></returns>
-        public static bool UserPermission(User user, Fonctionnalite fonctionnalite)
-        {
-            MySqlConnection cn = Connection();
-
-            bool permission = false;
-            try
-            {
-                cn.Open();
-
-                string requete = "SELECT Acces";
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
-                    cn.Close();
-            }
-            return permission;
-        }
     }
 }
