@@ -33,6 +33,8 @@
 
 ## https://dev.mysql.com/downloads/workbench/
 
+## Créez un schéma nommé : app-robot-data
+
 ## Ouvrez le fichier script_creation_user.sql (dans le dossier BD du projet).
 
 ## Modifiez ce fichier avant de l’exécuter :
