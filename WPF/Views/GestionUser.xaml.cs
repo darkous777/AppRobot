@@ -105,7 +105,14 @@ namespace AppRobot.Views
                 MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Chargement de fenêtre");
             }
 
+
         }
+        /// <summary>
+        /// Méthode pour afficher la liste des utilisateurs
+        /// </summary>
+        /// <param name="typeUser"></param>
+        /// <param name="usernameRechercher"></param>
+        /// <param name="user"></param>
         private void afficherListUser(User.TypeUser typeUser, string usernameRechercher, User user)
         {
             lstUsers.ItemsSource = null;
@@ -138,6 +145,10 @@ namespace AppRobot.Views
                 }
             Application.Current.Shutdown();
         }
+        /// <summary>
+        /// Méthode pour valider le formulaire de modification d'utilisateur
+        /// </summary>
+        /// <returns></returns>
         private bool ValiderFormulaire()
         {
 
@@ -239,6 +250,10 @@ namespace AppRobot.Views
 
             imgAvatar.Source = bi;
         }
+        /// <summary>
+        /// Méthode pour valider le mot de passe
+        /// </summary>
+        /// <returns></returns>
         public bool ValiderPassword()
         {
             string pattern = @"^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,20}$";
@@ -288,6 +303,11 @@ namespace AppRobot.Views
                 MessageBox.Show("Le mot de passe entrée n'est pas le même que l'existant!", "Modification du mot de passe", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+        /// <summary>
+        /// Méthode pour supprimer le compte de l'utilisateur connecté
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private bool ActionSupprimerSonCompte(User user)
         {
             if (user is Admin admin)
@@ -348,6 +368,12 @@ namespace AppRobot.Views
                 MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Recherche d'un compte", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        /// <summary>
+        /// Méthode pour supprimer un utilisateur sélectionné
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="userSelected"></param>
+        /// <returns></returns>
         private bool ActionDeSuppressionSelectionnee(User user, User userSelected)
         {
             if (user is Admin admin)
@@ -398,6 +424,11 @@ namespace AppRobot.Views
                 MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Suppression d'un utilisateur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        /// <summary>
+        /// Méthode pour attribuer le rôle de modérateur à un utilisateur sélectionné
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private bool AttributionDeRole(User user)
         {
             if (user is Moderator)
@@ -449,6 +480,11 @@ namespace AppRobot.Views
                 MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Attribution de role", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        /// <summary>
+        ///     Méthode pour déattribuer le rôle de modérateur à un utilisateur sélectionné
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private bool DeattribuerUser(User user)
         {
             if (user is Utilisateur)
@@ -500,6 +536,11 @@ namespace AppRobot.Views
                 MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Attribution de role", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        /// <summary>
+        /// Méthode pour bloquer un utilisateur sélectionné
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private bool bloquerUserSelected(User user)
         {
             if ((UserConnecter is Moderator && user is Moderator) || user.Acces is false)
@@ -554,6 +595,11 @@ namespace AppRobot.Views
             }
 
         }
+        /// <summary>
+        /// Méthode pour débloquer un utilisateur sélectionné
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private bool debloquerUserSelected(User user)
         {
             if ((UserConnecter is Moderator && user is Moderator) || user.Acces is true)
@@ -605,6 +651,9 @@ namespace AppRobot.Views
                 MessageBox.Show("Une erreur s'est produit : " + ex.Message, "Débloquer un utilisateur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        /// <summary>
+        /// Méthode pour établir la connection avec le robot
+        /// </summary>
         private void ConnectionAvecRobot()
         {
 
@@ -627,6 +676,10 @@ namespace AppRobot.Views
             ConnectionRobot = new TcpClient(_configuration[CONNECTION_ROBOT_IP], int.Parse(_configuration[CONNECTION_ROBOT_PORT]));
             ReseauEchange = ConnectionRobot.GetStream();
         }
+        /// <summary>
+        /// Méthode pour envoyer et recevoir les données du robot
+        /// </summary>
+        /// <param name="msg"></param>
         private void EnvoyerEtRecevoirDonnees(string msg)
         {
             byte[] data = Encoding.ASCII.GetBytes(msg);

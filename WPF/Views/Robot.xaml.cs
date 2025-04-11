@@ -341,7 +341,7 @@ namespace AppRobot.Views
         /// <param name="e"></param>
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D || e.Key == Key.Space || e.Key == Key.D || e.Key == Key.A || e.Key == Key.T)
+            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D || e.Key == Key.Space || e.Key == Key.D || e.Key == Key.A)
             {
                 _pressedKeys.Add(e.Key);
             }
@@ -464,7 +464,7 @@ namespace AppRobot.Views
                 spacePressed = false;
             }
 
-            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D || e.Key == Key.Space || e.Key == Key.A || e.Key == Key.D || e.Key == Key.T)
+            if (e.Key == Key.W || e.Key == Key.A || e.Key == Key.S || e.Key == Key.D || e.Key == Key.Space || e.Key == Key.A || e.Key == Key.D)
             {
                 _pressedKeys.Remove(e.Key);
             }
