@@ -1,10 +1,19 @@
 # 1 - Cloner le projet dans l'endroit de votre choix
 
-## Appuyer sur le button vert nommer "<> Code". Copier le lien HTTPS et ouvrir l'invite de commande votre ordinateur. Trouver l'endroit dont vous voudriez cloner le projet et entrer la commande suivant <code>git clone https://github.com/darkous777/AppRobot.git<code>.
+## Appuyez sur le bouton vert nommé "<> Code" sur GitHub.
+
+## Copiez le lien HTTPS, ouvrez l’invite de commande sur votre ordinateur, placez-vous dans le dossier où vous souhaitez cloner le projet, puis entrez la commande suivante :
+
+## <code>git clone https://github.com/darkous777/AppRobot.git</code>
+
 
 # 2 - Créer les fichiers suivant pour le fonctionnement du programme de l'application
 
-## <code>C:\AppRobot\images</code> , créer le dossier AppRobot dans votre disque dur et à l'intérieur créer le dossier images.
+## Créez le dossier suivant dans votre disque local <code>C:</code> :
+
+## <code>C:\AppRobot\images</code>
+
+## (Veillez à bien créer le dossier AppRobot, puis le dossier images à l'intérieur.)
 
 # 3 - Pour accéder au code source du project, vous aurez besoind'un IDE
 
