@@ -26,10 +26,18 @@ namespace AppRobot.Models
 
         private bool _acces;
 
+        private List<Tuple<Fonctionnalite,bool>> _listeFonctionnalite;
         public bool Acces
         {
             get { return _acces; }
             set { _acces = value; }
+        }
+
+
+        public List<Tuple<Fonctionnalite, bool>> ListeFonctionnalite
+        {
+            get { return _listeFonctionnalite; }
+            set { _listeFonctionnalite = value; }
         }
 
 
@@ -75,7 +83,7 @@ namespace AppRobot.Models
             }
         }
 
-        public User(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img, bool acces)
+        public User(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img, bool acces, List<Tuple<Fonctionnalite, bool>> listeFonctionnalite)
         {
             Id = id;
             Username = username;
@@ -84,6 +92,8 @@ namespace AppRobot.Models
             TypeUtilisateurs = user;
             Image = img;
             Acces = acces;
+
+            ListeFonctionnalite = listeFonctionnalite;
         }
 
         public static User ObtenirTypeUser(User user)
@@ -91,11 +101,11 @@ namespace AppRobot.Models
             switch (user.TypeUtilisateurs)
             {
                 case TypeUser.User:
-                    return new Utilisateur(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image, user.Acces);
+                    return new Utilisateur(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image, user.Acces, user.ListeFonctionnalite);
                 case TypeUser.Moderator:
-                    return new Moderator(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image, user.Acces);
+                    return new Moderator(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image, user.Acces, user.ListeFonctionnalite);
                 case TypeUser.Admin:
-                    return new Admin(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image, user.Acces);
+                    return new Admin(user.Id, user.Username, user.Password, user.DateOfBirth, user.TypeUtilisateurs, user.Image, user.Acces, user.ListeFonctionnalite);
                 default:
                     return null;
             }
