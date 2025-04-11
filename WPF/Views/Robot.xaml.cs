@@ -780,10 +780,24 @@ namespace AppRobot.Views
             if(HasPermissionToControl("follow_line"))
             {
                 EnvoyerEtRecevoirDonnees("follow_line");
+                btnStopFollowLine.IsEnabled = true;
             }
             else
             {
                 MessageBox.Show("Vous ne posséder pas les droits pour activer le suivi de ligne!", "Activation du suivi de ligne", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void btnStopFollowLine_Click(object sender, RoutedEventArgs e)
+        {
+            if (HasPermissionToControl("follow_line"))
+            {
+                EnvoyerEtRecevoirDonnees("stop_follow_line");
+                btnStopFollowLine.IsEnabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Vous ne posséder pas les droits pour désactiver le suivi de ligne!", "Désactivation du suivi de ligne", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }
