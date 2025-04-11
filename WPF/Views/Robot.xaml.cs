@@ -98,6 +98,9 @@ namespace AppRobot.Views
             ControlDeDroitDeFonctionnalite();
         }
 
+        /// <summary>
+        /// Contrôle les droits de fonctionnalité de l'utilisateur connecté.
+        /// </summary>
         private void ControlDeDroitDeFonctionnalite()
         {
             foreach (Tuple<Fonctionnalite, bool> fonctionnalite in UserConnecter.ListeFonctionnalite)
@@ -194,23 +197,23 @@ namespace AppRobot.Views
         {
             string commandToSend = "";
 
-            if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.D)) && HasPermissionToControl("forward_right"))
+            if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.D)) && PermissionUserAController("forward_right"))
                 commandToSend = "forward_right";
-            else if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.A)) && HasPermissionToControl("forward_left"))
+            else if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.A)) && PermissionUserAController("forward_left"))
                 commandToSend = "forward_left";
-            else if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.D)) && HasPermissionToControl("backward_right"))
+            else if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.D)) && PermissionUserAController("backward_right"))
                 commandToSend = "backward_right";
-            else if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.A)) && HasPermissionToControl("backward_left"))
+            else if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.A)) && PermissionUserAController("backward_left"))
                 commandToSend = "backward_left";
-            else if ((_pressedKeys.Contains(Key.W)) && HasPermissionToControl("forward"))
+            else if ((_pressedKeys.Contains(Key.W)) && PermissionUserAController("forward"))
                 commandToSend = "forward";
-            else if ((_pressedKeys.Contains(Key.A)) && HasPermissionToControl("rotation_left"))
+            else if ((_pressedKeys.Contains(Key.A)) && PermissionUserAController("rotation_left"))
                 commandToSend = "rotation_left";
-            else if ((_pressedKeys.Contains(Key.D)) && HasPermissionToControl("rotation_right"))
+            else if ((_pressedKeys.Contains(Key.D)) && PermissionUserAController("rotation_right"))
                 commandToSend = "rotation_right";
-            else if ((_pressedKeys.Contains(Key.S)) && HasPermissionToControl("backward"))
+            else if ((_pressedKeys.Contains(Key.S)) && PermissionUserAController("backward"))
                 commandToSend = "backward";
-            else if ((_pressedKeys.Contains(Key.Space) && !spacePressed) && HasPermissionToControl("music_on"))
+            else if ((_pressedKeys.Contains(Key.Space) && !spacePressed) && PermissionUserAController("music_on"))
             {
                 spacePressed = true;
 
@@ -237,6 +240,11 @@ namespace AppRobot.Views
                 EnvoyerEtRecevoirDonnees(commandToSend);
             }
         }
+        /// <summary>
+        /// Convertit le message de commande en une chaîne de caractères lisible par la base de donnée.
+        /// </summary>
+        /// <param name="commande"></param>
+        /// <returns></returns>
         private string PermissionDeControler(string commande)
         {
             switch (commande)
@@ -267,7 +275,12 @@ namespace AppRobot.Views
                     return "";
             }
         }
-        private bool HasPermissionToControl(string command)
+        /// <summary>
+        /// Vérifie si l'utilisateur a la permission de contrôler une fonctionnalité spécifique.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        private bool PermissionUserAController(string command)
         {
             Fonctionnalite fonctionnalite = DAL.ChercherFonctionnalite(PermissionDeControler(command));
 
@@ -346,55 +359,55 @@ namespace AppRobot.Views
                 _pressedKeys.Add(e.Key);
             }
 
-            if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.D)) && HasPermissionToControl("forward_right"))
+            if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.D)) && PermissionUserAController("forward_right"))
             {
                 var triangleForwardRight = (System.Windows.Shapes.Path)btnForwardRight.Template.FindName("triangleForwardRight", btnForwardRight);
                 triangleForwardRight.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 138, 212));
                 triangleForwardRight.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(218, 52, 174));
             }
-            else if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.A)) && HasPermissionToControl("forward_left"))
+            else if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.A)) && PermissionUserAController("forward_left"))
             {
                 var triangleForwardLeft = (System.Windows.Shapes.Path)btnForwardLeft.Template.FindName("triangleForwardLeft", btnForwardLeft);
                 triangleForwardLeft.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 138, 212));
                 triangleForwardLeft.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(218, 52, 174));
             }
-            else if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.D)) && HasPermissionToControl("backward_right"))
+            else if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.D)) && PermissionUserAController("backward_right"))
             {
                 var triangleBackwardRight = (System.Windows.Shapes.Path)btnBackwardRight.Template.FindName("triangleBackwardRight", btnBackwardRight);
                 triangleBackwardRight.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 138, 212));
                 triangleBackwardRight.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(218, 52, 174));
             }
-            else if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.A)) && HasPermissionToControl("backward_left"))
+            else if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.A)) && PermissionUserAController("backward_left"))
             {
                 var triangleBackwardLeft = (System.Windows.Shapes.Path)btnBackwardLeft.Template.FindName("triangleBackwardLeft", btnBackwardLeft);
                 triangleBackwardLeft.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 138, 212));
                 triangleBackwardLeft.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(218, 52, 174));
             }
-            else if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Count == 1) && HasPermissionToControl("forward"))
+            else if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Count == 1) && PermissionUserAController("forward"))
             {
                 var triangleForward = (System.Windows.Shapes.Path)btnForward.Template.FindName("triangleForward", btnForward);
                 triangleForward.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(40, 174, 237));
                 triangleForward.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(70, 42, 216));
             }
-            if ((_pressedKeys.Contains(Key.D) && _pressedKeys.Count == 1) && HasPermissionToControl("rotation_right"))
+            if ((_pressedKeys.Contains(Key.D) && _pressedKeys.Count == 1) && PermissionUserAController("rotation_right"))
             {
                 var triangleRotationRight = (System.Windows.Shapes.Path)btnRotationRight.Template.FindName("triangleRotationRight", btnRotationRight);
                 triangleRotationRight.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(40, 174, 237));
                 triangleRotationRight.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(70, 42, 216));
             }
-            else if ((_pressedKeys.Contains(Key.A) && _pressedKeys.Count == 1) && HasPermissionToControl("rotation_left"))
+            else if ((_pressedKeys.Contains(Key.A) && _pressedKeys.Count == 1) && PermissionUserAController("rotation_left"))
             {
                 var triangleRotationLeft = (System.Windows.Shapes.Path)btnRotationLeft.Template.FindName("triangleRotationLeft", btnRotationLeft);
                 triangleRotationLeft.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(40, 174, 237));
                 triangleRotationLeft.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(70, 42, 216));
             }
-            else if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Count == 1) && HasPermissionToControl("backward"))
+            else if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Count == 1) && PermissionUserAController("backward"))
             {
                 var triangleBackward = (System.Windows.Shapes.Path)btnBackward.Template.FindName("triangleBackward", btnBackward);
                 triangleBackward.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(40, 174, 237));
                 triangleBackward.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(70, 42, 216));
             }
-            else if ((_pressedKeys.Contains(Key.Space) && !spacePressed) && HasPermissionToControl("music_on"))
+            else if ((_pressedKeys.Contains(Key.Space) && !spacePressed) && PermissionUserAController("music_on"))
             {
                 btnMusic.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 138, 212));
                 btnMusic.BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(218, 52, 174));
@@ -409,55 +422,55 @@ namespace AppRobot.Views
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
 
-            if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.D)) && HasPermissionToControl("forward_right"))
+            if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.D)) && PermissionUserAController("forward_right"))
             {
                 var triangleForwardRight = (System.Windows.Shapes.Path)btnForwardRight.Template.FindName("triangleForwardRight", btnForwardRight);
                 triangleForwardRight.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(218, 52, 174));
                 triangleForwardRight.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 138, 212));
             }
-            if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.A)) && HasPermissionToControl("forward_left"))
+            if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Contains(Key.A)) && PermissionUserAController("forward_left"))
             {
                 var triangleForwardLeft = (System.Windows.Shapes.Path)btnForwardLeft.Template.FindName("triangleForwardLeft", btnForwardLeft);
                 triangleForwardLeft.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(218, 52, 174));
                 triangleForwardLeft.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 138, 212));
             }
-            if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.D)) && HasPermissionToControl("backward_right"))
+            if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.D)) && PermissionUserAController("backward_right"))
             {
                 var triangleBackwardRight = (System.Windows.Shapes.Path)btnBackwardRight.Template.FindName("triangleBackwardRight", btnBackwardRight);
                 triangleBackwardRight.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(218, 52, 174));
                 triangleBackwardRight.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 138, 212));
             }
-            if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.A)) && HasPermissionToControl("backward_left"))
+            if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Contains(Key.A)) && PermissionUserAController("backward_left"))
             {
                 var triangleBackwardLeft = (System.Windows.Shapes.Path)btnBackwardLeft.Template.FindName("triangleBackwardLeft", btnBackwardLeft);
                 triangleBackwardLeft.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(218, 52, 174));
                 triangleBackwardLeft.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 138, 212));
             }
-            if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Count == 1) && HasPermissionToControl("forward"))
+            if ((_pressedKeys.Contains(Key.W) && _pressedKeys.Count == 1) && PermissionUserAController("forward"))
             {
                 var triangleForward = (System.Windows.Shapes.Path)btnForward.Template.FindName("triangleForward", btnForward);
                 triangleForward.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(70, 42, 216));
                 triangleForward.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(40, 174, 237));
             }
-            if ((_pressedKeys.Contains(Key.A) && _pressedKeys.Count == 1) && HasPermissionToControl("rotation_left"))
+            if ((_pressedKeys.Contains(Key.A) && _pressedKeys.Count == 1) && PermissionUserAController("rotation_left"))
             {
                 var triangleRotationLeft = (System.Windows.Shapes.Path)btnRotationLeft.Template.FindName("triangleRotationLeft", btnRotationLeft);
                 triangleRotationLeft.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(70, 42, 216));
                 triangleRotationLeft.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(40, 174, 237));
             }
-            if ((_pressedKeys.Contains(Key.D) && _pressedKeys.Count == 1) && HasPermissionToControl("rotation_right"))
+            if ((_pressedKeys.Contains(Key.D) && _pressedKeys.Count == 1) && PermissionUserAController("rotation_right"))
             {
                 var triangleRotationRight = (System.Windows.Shapes.Path)btnRotationRight.Template.FindName("triangleRotationRight", btnRotationRight);
                 triangleRotationRight.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(70, 42, 216));
                 triangleRotationRight.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(40, 174, 237));
             }
-            if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Count == 1) && HasPermissionToControl("backward"))
+            if ((_pressedKeys.Contains(Key.S) && _pressedKeys.Count == 1) && PermissionUserAController("backward"))
             {
                 var triangleBackward = (System.Windows.Shapes.Path)btnBackward.Template.FindName("triangleBackward", btnBackward);
                 triangleBackward.Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(70, 42, 216));
                 triangleBackward.Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(40, 174, 237));
             }
-            if (_pressedKeys.Contains(Key.Space) && HasPermissionToControl("music_on"))
+            if (_pressedKeys.Contains(Key.Space) && PermissionUserAController("music_on"))
             {
                 btnMusic.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(218, 52, 174));
                 btnMusic.BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(240, 138, 212));
@@ -489,7 +502,7 @@ namespace AppRobot.Views
         {
             try
             {
-                if (HasPermissionToControl("camera_on"))
+                if (PermissionUserAController("camera_on"))
                 {
                     if (_cancellationTokenSource != null)
                     {
@@ -755,7 +768,7 @@ namespace AppRobot.Views
         {
 
 
-            if (HasPermissionToControl("camera_on"))
+            if (PermissionUserAController("camera_on"))
             {
                 if (imgVideo.Source is not null)
                     imgVideo.Source = null;
@@ -777,7 +790,7 @@ namespace AppRobot.Views
 
         private void btnFollowLine_Click(object sender, RoutedEventArgs e)
         {
-            if(HasPermissionToControl("follow_line"))
+            if(PermissionUserAController("follow_line"))
             {
                 EnvoyerEtRecevoirDonnees("follow_line");
                 btnStopFollowLine.IsEnabled = true;
@@ -790,7 +803,7 @@ namespace AppRobot.Views
 
         private void btnStopFollowLine_Click(object sender, RoutedEventArgs e)
         {
-            if (HasPermissionToControl("follow_line"))
+            if (PermissionUserAController("follow_line"))
             {
                 EnvoyerEtRecevoirDonnees("stop_follow_line");
                 btnStopFollowLine.IsEnabled = false;
