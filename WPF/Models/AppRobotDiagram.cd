@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="AppRobot.Models.Admin">
-    <Position X="6.5" Y="6.5" Width="1.75" />
+    <Position X="6.5" Y="7.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAgAAAAAABAIgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAARAAAAAAAAAgAAAAEABAIgA=</HashCode>
       <FileName>Models\Admin.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AppRobot.Models.Moderator">
-    <Position X="4" Y="6.5" Width="1.75" />
+    <Position X="4" Y="7.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAgAAAAAAAAAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAARAAAAAAAAAgAAAAEAAAAgA=</HashCode>
       <FileName>Models\Moderator.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AppRobot.Models.User">
-    <Position X="6.5" Y="1" Width="1.5" />
+    <Position X="6.25" Y="0.5" Width="1.5" />
     <NestedTypes>
       <Enum Name="AppRobot.Models.User.TypeUser" Collapsed="true">
         <TypeIdentifier>
@@ -26,7 +26,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AIQCAAAAAAAAAAAAAQDAQAAAAAAQQBgCAAIAAAAQAAQ=</HashCode>
+      <HashCode>AIQCAAAAAAAAAEAEAQDEQAAAAAA0QBgCAAIAAAAQAAQ=</HashCode>
       <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -38,16 +38,23 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AppRobot.Models.Utilisateur">
-    <Position X="9" Y="6.5" Width="1.5" />
+    <Position X="10" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Utilisateur.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="AppRobot.Models.Fonctionnalite">
+    <Position X="2.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAABAAAAABCAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Fonctionnalite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="AppRobot.Models.IPowerAdminModerator">
     <Position X="10" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAEAAAAgA=</HashCode>
       <FileName>Models\IPowerAdminModerator.cs</FileName>
     </TypeIdentifier>
   </Interface>
