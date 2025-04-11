@@ -130,28 +130,7 @@
                             Grid.ColumnSpan="2" 
                             Background="Transparent"
                             Margin="10,15,10,10">
-                    <TabItem>
-                        <TabItem.Style>
-                            <Style TargetType="TabItem">
-                                <Setter Property="Background" Value="#462AD8"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#278BEF"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TabItem.Style>
-                        <TabItem.Template>
-                            <ControlTemplate TargetType="TabItem">
-                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
-                                        Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                                      HorizontalAlignment="Center" Content="Centre de Controle"/>
-                                </Border>
-                            </ControlTemplate>
-                        </TabItem.Template>
-
-                    </TabItem>
+                    
                     <TabItem Margin="5,0,0,0" 
                                     HorizontalAlignment="Center">
                         <TabItem.Style>
@@ -898,6 +877,146 @@ Click="btnVerifierConnectionRobot_Click">
 
                             </Grid>
                         </StackPanel>
+                    </TabItem>
+                    <TabItem  x:Name="tbLstFonctionnalite">
+                        <TabItem.Style>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TabItem.Style>
+                        <TabItem.Template>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                      HorizontalAlignment="Center" Content="Centre de Controle"/>
+                                </Border>
+                            </ControlTemplate>
+                        </TabItem.Template>
+
+
+
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,100">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,0,0,200">
+                                <StackPanel Margin="0,0,90,0">
+
+                                    <TextBlock Text="Recherche de fonctionalitée à bloquer/débloquer"
+           Foreground="DarkGray"
+           FontSize="12"
+           FontWeight="Medium"
+           FontFamily="Montserrat"
+           Margin="0,0,0,5"/>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <ComboBox x:Name="cboFonctionnalitee" Width="275" HorizontalAlignment="Left" Margin="5"
+                                                           FontSize="13"
+             FontWeight="Medium"
+             FontFamily="Montserrat"
+             Foreground="Black"
+             BorderBrush="DarkGray"
+             BorderThickness="0,0,0,1"
+             Background="Transparent"
+             Height="28"
+             VerticalAlignment="Center"
+             Padding="40,0,0,0"/>
+
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Recherche d'un utilisateur"
+Foreground="DarkGray"
+FontSize="12"
+FontWeight="Medium"
+FontFamily="Montserrat"
+Margin="0,0,0,5"/>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <ComboBox x:Name="cboUtilisateur" Width="275" HorizontalAlignment="Left" Margin="5"
+                                                FontSize="13"
+  FontWeight="Medium"
+  FontFamily="Montserrat"
+  Foreground="Black"
+  BorderBrush="DarkGray"
+  BorderThickness="0,0,0,1"
+  Background="Transparent"
+  Height="28"
+  VerticalAlignment="Center"
+  Padding="40,0,0,0"/>
+
+                                    </StackPanel>
+                                </StackPanel>
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+
+                                <Button x:Name="btnBloquerFonctionnalitee"
+                        Content="Bloquer fonctionnalitée"
+                        Foreground="White"
+                        FontSize="14"
+                        FontFamily="Montserrat"
+                        HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                        BorderThickness="0"
+                        Margin="0,0,0,0" 
+                         Click="btnBloquerFonctionnalitee_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="#462AD8"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#28AEED"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Width="200" Height="50"
+                                    CornerRadius="20"
+                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <Button x:Name="btnDebloquerFonctionnalitee"
+                        Content="Debloquer fonctionnalitée"
+                        Foreground="White"
+                        FontSize="14"
+                        FontFamily="Montserrat"
+                        HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                        BorderThickness="0"
+                        Margin="200,0,0,0" 
+                         Click="btnDebloquerFonctionnalitee_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="#462AD8"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#28AEED"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Width="200" Height="50"
+                                    CornerRadius="20"
+                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+
+                        </StackPanel>
+
+
                     </TabItem>
                 </TabControl>
 

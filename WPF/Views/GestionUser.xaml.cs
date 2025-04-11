@@ -64,34 +64,47 @@ namespace AppRobot.Views
         public GestionUser(User user)
         {
             InitializeComponent();
-
-            UserConnecter = User.ObtenirTypeUser(user);
-            txtUser.Text = UserConnecter.Username;
-            datePicker.SelectedDate = user.DateOfBirth.ToDateTime(TimeOnly.MinValue);
-            datePicker.IsEnabled = false;
-            AfficherImage(user.Image);
-
-            _configuration = new ConfigurationBuilder().AddJsonFile(DAL.APPSETTING_FILE, false, true).Build();
-
-            afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
-
-            switch (UserConnecter.TypeUtilisateurs)
+            try
             {
-                case User.TypeUser.User:
-                    tbLstUser.Visibility = Visibility.Collapsed;
-                    btnDelete.IsEnabled = true;
+                UserConnecter = User.ObtenirTypeUser(user);
+                txtUser.Text = UserConnecter.Username;
+                datePicker.SelectedDate = user.DateOfBirth.ToDateTime(TimeOnly.MinValue);
+                datePicker.IsEnabled = false;
+                AfficherImage(user.Image);
 
-                    break;
-                case User.TypeUser.Moderator:
-                    btnAttribuerModeratorSelected.IsEnabled = false;
-                    btnEnleverModeratorSelected.IsEnabled = false;
-                    btnDelete.IsEnabled = true;
+                tbLstFonctionnalite.Visibility = Visibility.Collapsed;
 
-                    break;
-                case User.TypeUser.Admin:
-                    btnDelete.IsEnabled = false;
-                    break;
+                _configuration = new ConfigurationBuilder().AddJsonFile(DAL.APPSETTING_FILE, false, true).Build();
+
+                afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
+
+                switch (UserConnecter.TypeUtilisateurs)
+                {
+                    case User.TypeUser.User:
+                        tbLstUser.Visibility = Visibility.Collapsed;
+                        btnDelete.IsEnabled = true;
+
+                        break;
+                    case User.TypeUser.Moderator:
+                        btnAttribuerModeratorSelected.IsEnabled = false;
+                        btnEnleverModeratorSelected.IsEnabled = false;
+                        btnDelete.IsEnabled = true;
+
+                        break;
+                    case User.TypeUser.Admin:
+                        tbLstFonctionnalite.Visibility = Visibility.Visible;
+                        if (UserConnecter is Admin admin)
+                            cboUtilisateur.ItemsSource = admin.ListUsernames(UserConnecter);
+                        cboFonctionnalitee.ItemsSource = DAL.ChercherListeDesFonctionnalites();
+                        btnDelete.IsEnabled = false;
+                        break;
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produite :\n" + ex.Message, "Chargement de fenêtre");
+            }
+
         }
         private void afficherListUser(User.TypeUser typeUser, string usernameRechercher, User user)
         {
@@ -690,7 +703,7 @@ namespace AppRobot.Views
             {
                 if (ConnectionRobot is not null)
                 {
-                    Robot robot = new Robot(UserConnecter,ConnectionRobot,ReseauEchange);
+                    Robot robot = new Robot(UserConnecter, ConnectionRobot, ReseauEchange);
 
                     if (robot.ShowDialog() is true)
                     {
@@ -714,6 +727,75 @@ namespace AppRobot.Views
 
                 throw;
             }
+        }
+
+        private void btnDebloquerFonctionnalitee_Click(object sender, RoutedEventArgs e)
+        {
+            if (cboFonctionnalitee.SelectedItem != null && cboUtilisateur.SelectedItem != null)
+            {
+                string username = cboUtilisateur.SelectedItem.ToString();
+                User user = DAL.FindUserByUsername(username);
+                Fonctionnalite fonctionnalite = (Fonctionnalite)cboFonctionnalitee.SelectedItem;
+
+                if (!DAL.UtilisateurPossedeFonctionnalite(user, fonctionnalite, true))
+                {
+                    if(DAL.ModifierAccesFonctionnalite(user,fonctionnalite,true))
+                    {
+                        cboFonctionnalitee.SelectedItem = null;
+                        cboUtilisateur.SelectedItem = null;
+                        MessageBox.Show("La fonctionnalité a bien été débloquée!", "Débloquer une fonctionnalité", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("La fonctionnalité n'a pas pu être débloquée, une erreur c'est produite.", "Débloquer une fonctionnalité", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Cette fonctionnalité est déjà débloquée pour cet utilisateur!", "Débloquer une fonctionnalité", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+
+            }
+            else
+                MessageBox.Show("Vous devez sélectionner une fonctionnalité et un utilisateur!", "Débloquer une fonctionnalité", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+
+
+
+
+        }
+
+        private void btnBloquerFonctionnalitee_Click(object sender, RoutedEventArgs e)
+        {
+            if (cboFonctionnalitee.SelectedItem != null && cboUtilisateur.SelectedItem != null)
+            {
+                string username = cboUtilisateur.SelectedItem.ToString();
+                User user = DAL.FindUserByUsername(username);
+                Fonctionnalite fonctionnalite = (Fonctionnalite)cboFonctionnalitee.SelectedItem;
+
+                if (!DAL.UtilisateurPossedeFonctionnalite(user, fonctionnalite, false))
+                {
+                    if (DAL.ModifierAccesFonctionnalite(user, fonctionnalite, false))
+                    {
+                        cboFonctionnalitee.SelectedItem = null;
+                        cboUtilisateur.SelectedItem = null;
+                        MessageBox.Show("La fonctionnalité a bien été bloquée!", "Bloquer une fonctionnalité", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("La fonctionnalité n'a pas pu être débloquée, une erreur c'est produite.", "Bloquer une fonctionnalité", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Cette fonctionnalité est déjà bloquée pour cet utilisateur!", "Bloquer une fonctionnalité", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+
+            }
+            else
+                MessageBox.Show("Vous devez sélectionner une fonctionnalité et un utilisateur!", "Bloquer une fonctionnalité", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }

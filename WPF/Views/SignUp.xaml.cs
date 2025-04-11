@@ -77,7 +77,7 @@ namespace AppRobot.Views
                         BitmapImage bi = imgAvatar.Source as BitmapImage;
                         string source = bi?.UriSource?.LocalPath ?? "";
 
-                        User newUser = new Utilisateur(0, username, password, DateOnly.FromDateTime(selectedDate.Value), User.TypeUser.User, source, true);
+                        User newUser = new Utilisateur(0, username, password, DateOnly.FromDateTime(selectedDate.Value), User.TypeUser.User, source, true,null);
 
                         DAL.CreateUser(newUser);
 
