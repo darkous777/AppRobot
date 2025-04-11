@@ -4,7 +4,7 @@
 
 # 2 - Créer les fichiers suivant pour le fonctionnement du programme de l'application
 
-## <code>C:\AppRobot\images<code> , créer le dossier AppRobot dans votre disque dur et à l'intérieur créer le dossier images.
+## <code>C:\AppRobot\images</code> , créer le dossier AppRobot dans votre disque dur et à l'intérieur créer le dossier images.
 
 # 3 - Pour accéder au code source du project, vous aurez besoind'un IDE
 
