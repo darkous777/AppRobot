@@ -1,10 +1,26 @@
 from robot_hat import Pin, ADC, PWM, Servo, fileDB, Grayscale_Module, Ultrasonic, utils, Music, TTS
+from picarx import Picarx
 import time
 import socket
 import threading
 import pygame
 import subprocess
 import requests
+import os
+
+# Initialisation sécurisée de l'audio pygame
+try:
+    os.environ["SDL_AUDIODRIVER"] = "pulseaudio"
+    pygame.mixer.init()
+    pygame.mixer.music.load("/home/robot/AppRobot/Rasberry/musics/rollin.mp3")
+except pygame.error as e:
+    print(f"[AUDIO] Impossible d'initialiser l'audio : {e}")
+    print("[AUDIO] Passage en mode silencieux (dummy audio).")
+    os.environ["SDL_AUDIODRIVER"] = "dummy"
+    try:
+        pygame.mixer.init()
+    except Exception as e2:
+        print(f"[AUDIO] Échec du mode dummy aussi : {e2}")
 
 HEADER = 64
 PORT = 5050
@@ -13,20 +29,8 @@ ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
 
+px = Picarx()
 active_conn = None
-
-pygame.mixer.init()
-pygame.mixer.music.load("/home/robot/AppRobot/Rasberry/musics/rollin.mp3")
-
-dir_left = Pin('D4')
-pwm_left = PWM('P13')
-
-dir_right = Pin('D5')
-pwm_right = PWM('P12')
-
-steering_servo = Servo('P2')
-
-
 
 trig = 'D2'
 echo = 'D3'
@@ -40,16 +44,16 @@ is_moving = False
 last_state = None
 
 picarx_dir_servo = -7.2
-
 picarx_cam_pan_servo = -10.4
-
 picarx_cam_tilt_servo = -14.4
-
 picarx_dir_motor = [1, 1]
 
 line_reference = [1055, 1088, 768]
-
 cliff_reference = [464, 441, 329]
+
+line_following = False
+line_thread = None
+last_state = "stop"
 
 # music = Music()
 
@@ -66,10 +70,6 @@ cliff_reference = [464, 441, 329]
 
 # dir_cali_val = float(config.get('picarx_dir_servo', default_value=0))
 
-pwm_left.period(4095)
-pwm_right.period(4095)
-pwm_left.prescaler(10)
-pwm_right.prescaler(10)
 
 flask_process = None
 
@@ -100,7 +100,7 @@ def stop_flask_cam():
             print("[INFO] Flask camera server stopped.")
 
 def go_straight():
-    steering_servo.angle(picarx_dir_servo)
+    px.set_dir_servo_angle(picarx_dir_servo)
 
 
 def getDistance():
@@ -160,63 +160,87 @@ def arreterMusic():
     # music.music_stop()
 
 
+def follow_line():
+    global line_following, last_state
+    while line_following:
+        gm_val_list = px.get_grayscale_data()
+        gm_state = px.get_line_status(gm_val_list)  # [0,1,0]
+
+        if gm_state == [0, 0, 0]:
+            if last_state == 'left':
+                px.set_dir_servo_angle(20)
+                px.backward(10)
+            elif last_state == 'right':
+                px.set_dir_servo_angle(-20)
+                px.backward(10)
+            continue
+
+        if gm_state[1] == 1:
+            px.set_dir_servo_angle(0)
+            px.forward(10)
+            last_state = 'forward'
+        elif gm_state[0] == 1:
+            px.set_dir_servo_angle(-20)
+            px.forward(10)
+            last_state = 'right'
+        elif gm_state[2] == 1:
+            px.set_dir_servo_angle(20)
+            px.forward(10)
+            last_state = 'left'
+
+        time.sleep(0.05)
+
+def start_line_following():
+    global line_following, line_thread
+    if not line_following:
+        line_following = True
+        line_thread = threading.Thread(target=follow_line)
+        line_thread.daemon = True
+        line_thread.start()
+
+def stop_line_following():
+    global line_following
+    line_following = False
+    stop()
+
 def move_forward(speed):
     start_moving()
 
-    dir_left.low()
-    dir_right.high()
-
-    left_speed = speed
-    right_speed = speed
-
-    left_speed = max(0, min(100, left_speed))
-    right_speed = max(0, min(100, right_speed))
-
-    pwm_left.pulse_width_percent(left_speed)
-    pwm_right.pulse_width_percent(right_speed)
+    px.set_motor_speed(1, speed)  
+    px.set_motor_speed(2, speed)  
 
 def move_backward(speed):
     start_moving()
 
-    dir_left.high()
-    dir_right.low()
-
-
-    pwm_left.pulse_width_percent(speed)
-    pwm_right.pulse_width_percent(speed)
+    px.set_motor_speed(1, -speed)
+    px.set_motor_speed(2, -speed)
 
 def move_rotation_left(speed):
     start_moving()
 
-    dir_left.high()
-    dir_right.high()
+    px.set_motor_speed(1, -speed)
+    px.set_motor_speed(2, speed)
 
-    pwm_left.pulse_width_percent(speed)
-    pwm_right.pulse_width_percent(speed)
 
 def move_rotation_right(speed):
     start_moving()
 
-    dir_left.low()
-    dir_right.low()
-
-    pwm_left.pulse_width_percent(speed)
-    pwm_right.pulse_width_percent(speed)
+    px.set_motor_speed(1, speed)
+    px.set_motor_speed(2, -speed)
 
 def turn_right(angle):
-    steering_servo.angle(angle)
+    px.set_dir_servo_angle(angle)
 
 def turn_left(angle):
-    steering_servo.angle(-angle)
+    px.set_dir_servo_angle(-angle)
 
 
 def stop():
     stop_moving()
-    go_straight()
-    for _ in range(2):
-        pwm_left.pulse_width_percent(0)
-        pwm_right.pulse_width_percent(0)
-        time.sleep(0.002)
+
+    px.set_dir_servo_angle(0)  
+    px.set_motor_speed(1, 0)   
+    px.set_motor_speed(2, 0)   
 
 def forward():
     go_straight()
@@ -278,7 +302,9 @@ function_mapping = {
     'rotation_left' : rotation_left,
     'rotation_right' : rotation_right,
     'camera_on': start_flask_cam,
-    'camera_off': stop_flask_cam
+    'camera_off': stop_flask_cam,
+    'start_follow_line' : start_line_following,
+    'stop_follow_line' : stop_line_following
 }
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -312,6 +338,8 @@ def handle_client(conn, addr):
 def start():
     server.listen()
     print(f"[Listening] server is listening on {SERVER}")
+    print("[READY] Serveur TCP actif, en attente de commandes")
+
     while True:
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
