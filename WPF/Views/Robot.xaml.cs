@@ -103,11 +103,11 @@ namespace AppRobot.Views
         /// </summary>
         private void ControlDeDroitDeFonctionnalite()
         {
-            foreach (Tuple<Fonctionnalite, bool> fonctionnalite in UserConnecter.ListeFonctionnalite)
+            foreach (Fonctionnalite fonctionnalite in UserConnecter.ListeFonctionnalite)
             {
-                if (fonctionnalite.Item2 == true)
+                if (DAL.UtilisateurPossedeFonctionnalite(UserConnecter,fonctionnalite))
                 {
-                    switch (fonctionnalite.Item1.Nom)
+                    switch (fonctionnalite.Nom)
                     {
                         case "Avancer":
                             btnForward.IsEnabled = true;
@@ -147,7 +147,7 @@ namespace AppRobot.Views
                 }
                 else
                 {
-                    switch (fonctionnalite.Item1.Nom)
+                    switch (fonctionnalite.Nom)
                     {
                         case "Avancer":
                             btnForward.IsEnabled = false;
@@ -284,7 +284,7 @@ namespace AppRobot.Views
         {
             Fonctionnalite fonctionnalite = DAL.ChercherFonctionnalite(PermissionDeControler(command));
 
-            return DAL.UtilisateurPossedeFonctionnalite(UserConnecter, fonctionnalite, true);
+            return DAL.UtilisateurPossedeFonctionnalite(UserConnecter, fonctionnalite);
         }
 
         /// <summary>

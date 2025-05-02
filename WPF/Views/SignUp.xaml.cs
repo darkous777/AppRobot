@@ -72,7 +72,9 @@ namespace AppRobot.Views
                         return;
                     }
 
-                    if (selectedDate.HasValue)
+                    int age = (int)(((DateTime.Now - selectedDate.Value).TotalDays) / 365);
+
+                    if (selectedDate.HasValue && age >=18 )
                     {
                         BitmapImage bi = imgAvatar.Source as BitmapImage;
                         string source = bi?.UriSource?.LocalPath ?? "";

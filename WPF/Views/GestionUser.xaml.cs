@@ -790,7 +790,7 @@ namespace AppRobot.Views
                 User user = DAL.FindUserByUsername(username);
                 Fonctionnalite fonctionnalite = (Fonctionnalite)cboFonctionnalitee.SelectedItem;
 
-                if (!DAL.UtilisateurPossedeFonctionnalite(user, fonctionnalite, true))
+                if (!DAL.UtilisateurPossedeFonctionnalite(user, fonctionnalite))
                 {
                     if(DAL.ModifierAccesFonctionnalite(user,fonctionnalite,true))
                     {
@@ -827,7 +827,7 @@ namespace AppRobot.Views
                 User user = DAL.FindUserByUsername(username);
                 Fonctionnalite fonctionnalite = (Fonctionnalite)cboFonctionnalitee.SelectedItem;
 
-                if (!DAL.UtilisateurPossedeFonctionnalite(user, fonctionnalite, false))
+                if (!DAL.UtilisateurPossedeFonctionnalite(user, fonctionnalite))
                 {
                     if (DAL.ModifierAccesFonctionnalite(user, fonctionnalite, false))
                     {

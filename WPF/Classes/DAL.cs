@@ -294,14 +294,14 @@ namespace AppRobot.Classes
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static List<Tuple<Fonctionnalite, bool>> ChercherListeFonctionnaliteDisponibleParUser(int userId)
+        public static List<Fonctionnalite> ChercherListeFonctionnaliteDisponibleParUser(int userId)
         {
             MySqlConnection cn = Connection();
-            List<Tuple<Fonctionnalite, bool>> listeFonctionnalite = new List<Tuple<Fonctionnalite, bool>>();
+            List<Fonctionnalite> listeFonctionnalite = new List<Fonctionnalite>();
             try
             {
                 cn.Open();
-                string requete = "SELECT f.id, f.nom, gfu.acces FROM fonctionnalite f INNER JOIN gestion_fonctionnalite_user gfu ON f.id = gfu.FonctionnaliteId WHERE gfu.UserId = @id;";
+                string requete = "SELECT f.id, f.nom FROM fonctionnalite f INNER JOIN gestion_fonctionnalite_user gfu ON f.id = gfu.FonctionnaliteId WHERE gfu.UserId = @id;";
                 MySqlCommand cmd = new MySqlCommand(requete, cn);
                 cmd.Parameters.AddWithValue("@id", userId);
                 MySqlDataReader dr = cmd.ExecuteReader();
@@ -312,8 +312,7 @@ namespace AppRobot.Classes
                         Id = dr.GetInt32(0),
                         Nom = dr.GetString(1)
                     };
-                    bool acces = dr.GetBoolean(2);
-                    listeFonctionnalite.Add(new Tuple<Fonctionnalite, bool>(fonctionnalite, acces));
+                    listeFonctionnalite.Add(new Fonctionnalite(fonctionnalite.Id, fonctionnalite.Nom));
                 }
                 dr.Close();
             }
@@ -344,7 +343,7 @@ namespace AppRobot.Classes
             {
                 cn.Open();
 
-                
+
 
 
                 string requete = "SELECT * FROM User ";
@@ -390,7 +389,7 @@ namespace AppRobot.Classes
                     dr.GetDateOnly(3),
                     Enum.Parse<User.TypeUser>(dr.GetString(4)),
                     _configuration[PRODUIT_IMAGES] + dr.GetString(5),
-                    dr.GetBoolean(6),null);
+                    dr.GetBoolean(6), null);
 
                     user = User.ObtenirTypeUser(u);
 
@@ -588,7 +587,7 @@ namespace AppRobot.Classes
             {
                 cn.Open();
 
-                string checkUserQuery = "SELECT 1 FROM User WHERE Username = @Username LIMIT 1";
+                string checkUserQuery = "SELECT * FROM User WHERE Username = @Username";
                 MySqlCommand checkUserCmd = new MySqlCommand(checkUserQuery, cn);
                 checkUserCmd.Parameters.AddWithValue("@Username", user.Username);
 
@@ -632,7 +631,7 @@ namespace AppRobot.Classes
 
                 cn.Open();
 
-                string requeteFonctionnalite = "INSERT INTO gestion_fonctionnalite_user (UserId, FonctionnaliteId, Acces) VALUES (@userId, @fonctionnaliteId, @acces)";
+                string requeteFonctionnalite = "INSERT INTO gestion_fonctionnalite_user (UserId, FonctionnaliteId) VALUES (@userId, @fonctionnaliteId)";
                 MySqlCommand cmdFonctionnalite = new MySqlCommand(requeteFonctionnalite, cn);
 
                 List<Fonctionnalite> fonctionnalites = ChercherListeDesFonctionnalites();
@@ -689,7 +688,7 @@ namespace AppRobot.Classes
                                            dr.GetDateOnly(3),
                                            Enum.Parse<User.TypeUser>(dr.GetString(4)),
                                            _configuration[PRODUIT_IMAGES] + dr.GetString(5),
-                                           dr.GetBoolean(6),null);
+                                           dr.GetBoolean(6), null);
                 }
 
                 user = User.ObtenirTypeUser(u);
@@ -756,20 +755,19 @@ namespace AppRobot.Classes
         /// <param name="fonctionnalite"></param>
         /// <param name="acces"></param>
         /// <returns></returns>
-        public static bool UtilisateurPossedeFonctionnalite(User user, Fonctionnalite fonctionnalite, bool acces)
+        public static bool UtilisateurPossedeFonctionnalite(User user, Fonctionnalite fonctionnalite)
         {
             MySqlConnection cn = Connection();
             bool possede = false;
             try
             {
                 cn.Open();
-                string requete = "SELECT COUNT(*) FROM gestion_fonctionnalite_user WHERE UserId = @userId AND FonctionnaliteId = @fonctionnaliteId AND Acces = @acces";
+                string requete = "SELECT COUNT(*) FROM gestion_fonctionnalite_user WHERE UserId = @userId AND FonctionnaliteId = @fonctionnaliteId;";
 
                 MySqlCommand cmd = new MySqlCommand(requete, cn);
 
                 cmd.Parameters.AddWithValue("@userId", user.Id);
                 cmd.Parameters.AddWithValue("@fonctionnaliteId", fonctionnalite.Id);
-                cmd.Parameters.AddWithValue("@acces", acces);
 
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -800,11 +798,16 @@ namespace AppRobot.Classes
             try
             {
                 cn.Open();
-                string requete = "UPDATE gestion_fonctionnalite_user SET Acces = @acces WHERE UserId = @userId AND FonctionnaliteId = @fonctionnaliteId";
+
+                string requete = "";
+
+                if (acces)
+                     requete = "Insert Into (UserId, FonctionnaliteId) gestion_fonctionnalite_user (UserId, FonctionnaliteId) VALUES (@userId, @fonctionnaliteId)";
+                else
+                    requete = "DELETE FROM gestion_fonctionnalite_user WHERE UserId = @userId AND FonctionnaliteId = @fonctionnaliteId;";
 
                 MySqlCommand cmd = new MySqlCommand(requete, cn);
 
-                cmd.Parameters.AddWithValue("@acces", acces);
                 cmd.Parameters.AddWithValue("@userId", user.Id);
                 cmd.Parameters.AddWithValue("@fonctionnaliteId", fonctionnalite.Id);
 
@@ -855,7 +858,7 @@ namespace AppRobot.Classes
                                            dr.GetDateOnly(3),
                                            Enum.Parse<User.TypeUser>(dr.GetString(4)),
                                            _configuration[PRODUIT_IMAGES] + dr.GetString(5),
-                                           dr.GetBoolean(6),null);
+                                           dr.GetBoolean(6), null);
                 }
 
                 user = User.ObtenirTypeUser(u);
