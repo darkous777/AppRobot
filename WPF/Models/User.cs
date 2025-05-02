@@ -26,7 +26,7 @@ namespace AppRobot.Models
 
         private bool _acces;
 
-        private List<Fonctionnalite> _listeFonctionnalite;
+        private Dictionary<string,Fonctionnalite> _listeFonctionnalite;
         public bool Acces
         {
             get { return _acces; }
@@ -34,7 +34,7 @@ namespace AppRobot.Models
         }
 
 
-        public List<Fonctionnalite> ListeFonctionnalite
+        public Dictionary<string, Fonctionnalite> ListeFonctionnalite
         {
             get { return _listeFonctionnalite; }
             set { _listeFonctionnalite = value; }
@@ -83,7 +83,7 @@ namespace AppRobot.Models
             }
         }
 
-        public User(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img, bool acces, List<Fonctionnalite> listeFonctionnalite)
+        public User(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img, bool acces, Dictionary<string, Fonctionnalite> listeFonctionnalite)
         {
             Id = id;
             Username = username;

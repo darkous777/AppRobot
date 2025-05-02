@@ -103,87 +103,85 @@ namespace AppRobot.Views
         /// </summary>
         private void ControlDeDroitDeFonctionnalite()
         {
-            foreach (Fonctionnalite fonctionnalite in UserConnecter.ListeFonctionnalite)
+            foreach (Fonctionnalite fonctionnalite in UserConnecter.ListeFonctionnalite.Values)
             {
-                if (DAL.UtilisateurPossedeFonctionnalite(UserConnecter,fonctionnalite))
+                switch (fonctionnalite.Nom)
                 {
-                    switch (fonctionnalite.Nom)
-                    {
-                        case "Avancer":
-                            btnForward.IsEnabled = true;
-                            break;
-                        case "Avancer/Gauche":
-                            btnForwardLeft.IsEnabled = true;
-                            break;
-                        case "Avancer/Droite":
-                            btnForwardRight.IsEnabled = true;
-                            break;
-                        case "Reculer":
-                            btnBackward.IsEnabled = true;
-                            break;
-                        case "Reculer/Gauche":
-                            btnBackwardLeft.IsEnabled = true;
-                            break;
-                        case "Reculer/Droite":
-                            btnBackwardRight.IsEnabled = true;
-                            break;
-                        case "Rotation/Gauche":
-                            btnRotationLeft.IsEnabled = true;
-                            break;
-                        case "Rotation/Droite":
-                            btnRotationRight.IsEnabled = true;
-                            break;
-                        case "Suivre/Ligne":
-                            btnFollowLine.IsEnabled = true;
-                            break;
-                        case "Camera":
-                            btnStart.IsEnabled = true;
-                            btnStop.IsEnabled = true;
-                            break;
-                        case "Musique":
-                            btnMusic.IsEnabled = true;
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (fonctionnalite.Nom)
-                    {
-                        case "Avancer":
-                            btnForward.IsEnabled = false;
-                            break;
-                        case "Avancer/Gauche":
-                            btnForwardLeft.IsEnabled = false;
-                            break;
-                        case "Avancer/Droite":
-                            btnForwardRight.IsEnabled = false;
-                            break;
-                        case "Reculer":
-                            btnBackward.IsEnabled = false;
-                            break;
-                        case "Reculer/Gauche":
-                            btnBackwardLeft.IsEnabled = false;
-                            break;
-                        case "Reculer/Droite":
-                            btnBackwardRight.IsEnabled = false;
-                            break;
-                        case "Rotation/Gauche":
-                            btnRotationLeft.IsEnabled = false;
-                            break;
-                        case "Rotation/Droite":
-                            btnRotationRight.IsEnabled = false;
-                            break;
-                        case "Suivre/Ligne":
-                            btnFollowLine.IsEnabled = false;
-                            break;
-                        case "Camera":
-                            btnStart.IsEnabled = false;
-                            btnStop.IsEnabled = false;
-                            break;
-                        case "Musique":
-                            btnMusic.IsEnabled = false;
-                            break;
-                    }
+                    case "Avancer":
+                        btnForward.IsEnabled = true;
+                        break;
+                    case "Avancer/Gauche":
+                        btnForwardLeft.IsEnabled = true;
+                        break;
+                    case "Avancer/Droite":
+                        btnForwardRight.IsEnabled = true;
+                        break;
+                    case "Reculer":
+                        btnBackward.IsEnabled = true;
+                        break;
+                    case "Reculer/Gauche":
+                        btnBackwardLeft.IsEnabled = true;
+                        break;
+                    case "Reculer/Droite":
+                        btnBackwardRight.IsEnabled = true;
+                        break;
+                    case "Rotation/Gauche":
+                        btnRotationLeft.IsEnabled = true;
+                        break;
+                    case "Rotation/Droite":
+                        btnRotationRight.IsEnabled = true;
+                        break;
+                    case "Suivre/Ligne":
+                        btnFollowLine.IsEnabled = true;
+                        break;
+                    case "Camera":
+                        btnStart.IsEnabled = true;
+                        btnStop.IsEnabled = true;
+                        break;
+                    case "Musique":
+                        btnMusic.IsEnabled = true;
+                        break;
+
+                        //}
+                        //else
+                        //{
+                        //    switch (fonctionnalite.Nom)
+                        //    {
+                        //        case "Avancer":
+                        //            btnForward.IsEnabled = false;
+                        //            break;
+                        //        case "Avancer/Gauche":
+                        //            btnForwardLeft.IsEnabled = false;
+                        //            break;
+                        //        case "Avancer/Droite":
+                        //            btnForwardRight.IsEnabled = false;
+                        //            break;
+                        //        case "Reculer":
+                        //            btnBackward.IsEnabled = false;
+                        //            break;
+                        //        case "Reculer/Gauche":
+                        //            btnBackwardLeft.IsEnabled = false;
+                        //            break;
+                        //        case "Reculer/Droite":
+                        //            btnBackwardRight.IsEnabled = false;
+                        //            break;
+                        //        case "Rotation/Gauche":
+                        //            btnRotationLeft.IsEnabled = false;
+                        //            break;
+                        //        case "Rotation/Droite":
+                        //            btnRotationRight.IsEnabled = false;
+                        //            break;
+                        //        case "Suivre/Ligne":
+                        //            btnFollowLine.IsEnabled = false;
+                        //            break;
+                        //        case "Camera":
+                        //            btnStart.IsEnabled = false;
+                        //            btnStop.IsEnabled = false;
+                        //            break;
+                        //        case "Musique":
+                        //            btnMusic.IsEnabled = false;
+                        //            break;
+                        //    }
                 }
             }
 
@@ -523,7 +521,7 @@ namespace AppRobot.Views
                 }
                 else
                 {
-                    MessageBox.Show("Vous ne posséder pas les droits pour activer la caméra!","Activation de la caméra",MessageBoxButton.OK,MessageBoxImage.Warning);
+                    MessageBox.Show("Vous ne posséder pas les droits pour activer la caméra!", "Activation de la caméra", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             catch (Exception ex)
@@ -790,7 +788,7 @@ namespace AppRobot.Views
 
         private void btnFollowLine_Click(object sender, RoutedEventArgs e)
         {
-            if(PermissionUserAController("follow_line"))
+            if (PermissionUserAController("follow_line"))
             {
                 EnvoyerEtRecevoirDonnees("follow_line");
                 btnStopFollowLine.IsEnabled = true;

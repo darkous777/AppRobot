@@ -294,10 +294,10 @@ namespace AppRobot.Classes
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static List<Fonctionnalite> ChercherListeFonctionnaliteDisponibleParUser(int userId)
+        public static Dictionary<string, Fonctionnalite> ChercherListeFonctionnaliteDisponibleParUser(int userId)
         {
             MySqlConnection cn = Connection();
-            List<Fonctionnalite> listeFonctionnalite = new List<Fonctionnalite>();
+            Dictionary<string, Fonctionnalite> listeFonctionnalite = new Dictionary<string, Fonctionnalite>();
             try
             {
                 cn.Open();
@@ -312,7 +312,7 @@ namespace AppRobot.Classes
                         Id = dr.GetInt32(0),
                         Nom = dr.GetString(1)
                     };
-                    listeFonctionnalite.Add(new Fonctionnalite(fonctionnalite.Id, fonctionnalite.Nom));
+                    listeFonctionnalite.Add(fonctionnalite.Nom,(new Fonctionnalite(fonctionnalite.Id, fonctionnalite.Nom)));
                 }
                 dr.Close();
             }
@@ -568,6 +568,42 @@ namespace AppRobot.Classes
             }
             return estUpdate;
         }
+
+        public static bool ChercherUserAvecUsername(string username)
+        {
+            if (username is null)
+            {
+                throw new ArgumentNullException(nameof(username), "le nom d'utilisateur ne peut pas être nul.");
+            }
+
+            bool userExists = false;
+
+            MySqlConnection cn = Connection();
+            try
+            {
+                cn.Open();
+
+                string checkUserQuery = "SELECT * FROM User WHERE Username = @Username";
+                MySqlCommand checkUserCmd = new MySqlCommand(checkUserQuery, cn);
+                checkUserCmd.Parameters.AddWithValue("@Username", username.Trim());
+
+                MySqlDataReader reader = checkUserCmd.ExecuteReader();
+                userExists = reader.HasRows;
+                reader.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                if (cn is not null && cn.State == System.Data.ConnectionState.Open)
+                    cn.Close();
+            }
+            return userExists;
+        }
+
         /// <summary>
         /// Crée un nouvel utilisateur dans la base de données.
         /// </summary>
@@ -585,20 +621,6 @@ namespace AppRobot.Classes
 
             try
             {
-                cn.Open();
-
-                string checkUserQuery = "SELECT * FROM User WHERE Username = @Username";
-                MySqlCommand checkUserCmd = new MySqlCommand(checkUserQuery, cn);
-                checkUserCmd.Parameters.AddWithValue("@Username", user.Username);
-
-                MySqlDataReader reader = checkUserCmd.ExecuteReader();
-                bool userExists = reader.HasRows;
-                reader.Close();
-
-                if (userExists)
-                {
-                    throw new Exception("Un utilisateur existe déjà avec le même nom.");
-                }
 
                 string imagePath = _configuration[PRODUIT_IMAGES];
                 string extension = Path.GetExtension(user.Image);
@@ -610,8 +632,6 @@ namespace AppRobot.Classes
                     File.Copy(user.Image, cheminImage);
                     user.Image = nomImage;
                 }
-
-                cn.Open();
 
                 string requete = @"INSERT INTO User (Username, Password, Age_date, TypeUser, Image, Acces) 
                            VALUES (@Username, @Password, @DateOfBirth, @TypeUtilisateurs, @Image, @Acces)";
@@ -627,9 +647,7 @@ namespace AppRobot.Classes
 
                 cmd.ExecuteNonQuery();
 
-                cn.Close();
-
-                cn.Open();
+                user.Id = (int)cmd.LastInsertedId;
 
                 string requeteFonctionnalite = "INSERT INTO gestion_fonctionnalite_user (UserId, FonctionnaliteId) VALUES (@userId, @fonctionnaliteId)";
                 MySqlCommand cmdFonctionnalite = new MySqlCommand(requeteFonctionnalite, cn);
@@ -641,7 +659,6 @@ namespace AppRobot.Classes
                     cmdFonctionnalite.Parameters.Clear();
                     cmdFonctionnalite.Parameters.AddWithValue("@userId", user.Id);
                     cmdFonctionnalite.Parameters.AddWithValue("@fonctionnaliteId", fonctionnalite.Id);
-                    cmdFonctionnalite.Parameters.AddWithValue("@acces", true);
                     cmdFonctionnalite.ExecuteNonQuery();
                 }
 

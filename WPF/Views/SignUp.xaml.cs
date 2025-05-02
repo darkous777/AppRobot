@@ -77,6 +77,11 @@ namespace AppRobot.Views
                     if (selectedDate.HasValue && age >=18 )
                     {
                         BitmapImage bi = imgAvatar.Source as BitmapImage;
+                        if (bi is null)
+                        {
+                            MessageBox.Show("Veuillez sélectionner une image.", "Image manquante", MessageBoxButton.OK);
+                            return;
+                        }
                         string source = bi?.UriSource?.LocalPath ?? "";
 
                         User newUser = new Utilisateur(0, username, password, DateOnly.FromDateTime(selectedDate.Value), User.TypeUser.User, source, true,null);
@@ -84,6 +89,12 @@ namespace AppRobot.Views
                         DAL.CreateUser(newUser);
 
                         MessageBox.Show($"Utilisateur créé avec succès : {newUser.Username}, Date de naissance : {newUser.DateOfBirth.ToShortDateString()}", "Création d'un utilisateur", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        this.Close();
+
+                        SignIn login = new SignIn();
+                        login.Show();
+
                     }
                     else
                     {
@@ -114,6 +125,9 @@ namespace AppRobot.Views
 
             if (!datePicker.SelectedDate.HasValue)
                 message += "Veuillez sélectionner une date de naissance.\n";
+
+            if(DAL.ChercherUserAvecUsername(txtUser.Text))
+                message += "Le nom d'utilisateur existe déjà.\n";
 
             if (message.Length > 0)
             {

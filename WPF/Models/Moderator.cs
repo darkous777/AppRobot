@@ -9,7 +9,7 @@ namespace AppRobot.Models
 {
     public class Moderator : User, IPowerAdminModerator
     {
-        public Moderator(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img, bool acces, List<Fonctionnalite> listeFonctionnalite) : base(id, username, password, dateOfBirth, user, img, acces, listeFonctionnalite)
+        public Moderator(int id, string username, string password, DateOnly dateOfBirth, TypeUser user, String img, bool acces, Dictionary<string, Fonctionnalite> listeFonctionnalite) : base(id, username, password, dateOfBirth, user, img, acces, listeFonctionnalite)
         {
         }
 
