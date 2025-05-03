@@ -790,7 +790,7 @@ namespace AppRobot.Views
         {
             if (PermissionUserAController("follow_line"))
             {
-                EnvoyerEtRecevoirDonnees("follow_line");
+                EnvoyerEtRecevoirDonnees("start_follow_line");
                 btnStopFollowLine.IsEnabled = true;
             }
             else
