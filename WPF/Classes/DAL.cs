@@ -262,10 +262,6 @@ namespace AppRobot.Classes
                 cmd1.Parameters.AddWithValue("@id", user.Id);
                 cmd1.ExecuteNonQuery();
 
-                cn.Close();
-
-                cn.Open();
-
                 string requete = "DELETE FROM User WHERE Id = @id;";
 
                 MySqlCommand cmd = new MySqlCommand(requete, cn);
@@ -275,6 +271,8 @@ namespace AppRobot.Classes
                 int rowsAffected = cmd.ExecuteNonQuery();
 
                 estSupprimee = rowsAffected > 0;
+
+                File.Delete(user.Image);
             }
             catch (Exception)
             {
@@ -621,6 +619,7 @@ namespace AppRobot.Classes
 
             try
             {
+                cn.Open();
 
                 string imagePath = _configuration[PRODUIT_IMAGES];
                 string extension = Path.GetExtension(user.Image);

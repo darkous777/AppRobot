@@ -63,14 +63,7 @@ namespace AppRobot.Views
                 {
                     string username = txtUser.Text;
                     string password = txtPassword.Password;
-                    string confirmPassword = txtConformePassword.Password;
                     DateTime? selectedDate = datePicker.SelectedDate;
-
-                    if (password != confirmPassword)
-                    {
-                        MessageBox.Show("Le mot de passe de confirmation doit être le même que le mot de passe.", "Confirmation de mot de passe", MessageBoxButton.OK, MessageBoxImage.Information);
-                        return;
-                    }
 
                     int age = (int)(((DateTime.Now - selectedDate.Value).TotalDays) / 365);
 
@@ -90,10 +83,10 @@ namespace AppRobot.Views
 
                         MessageBox.Show($"Utilisateur créé avec succès : {newUser.Username}, Date de naissance : {newUser.DateOfBirth.ToShortDateString()}", "Création d'un utilisateur", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        this.Close();
-
                         SignIn login = new SignIn();
                         login.Show();
+
+                        this.Close();
 
                     }
                     else

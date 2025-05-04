@@ -22,6 +22,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace AppRobot.Views
 {
@@ -347,10 +348,10 @@ namespace AppRobot.Views
                     {
                         MessageBox.Show("Le compte a bien été supprimé", "Suppression d'un compte", MessageBoxButton.OK);
 
-                        this.Close();
-
                         SignIn inscription = new SignIn();
                         inscription.Show();
+
+                        this.Close();
                     }
                     else
                     {
@@ -411,11 +412,13 @@ namespace AppRobot.Views
 
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
+
                         bool aEteSupprimer = ActionDeSuppressionSelectionnee(UserConnecter, lstUsers.SelectedItem as User);
 
 
                         if (aEteSupprimer)
                         {
+                            afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
                             MessageBox.Show("Le compte sélectionné a bien été supprimé", "Suppression d'un compte", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         }
@@ -668,22 +671,6 @@ namespace AppRobot.Views
         /// </summary>
         private void ConnectionAvecRobot()
         {
-
-            //foreach (NetworkInterface netif in NetworkInterface.GetAllNetworkInterfaces())
-            //{
-            //    if (netif.OperationalStatus == OperationalStatus.Up)
-            //    {
-            //        foreach (UnicastIPAddressInformation ip in netif.GetIPProperties().UnicastAddresses)
-            //        {
-            //            if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-            //            {
-            //                MessageBox.Show($"Network Name: {netif.Name.ToString()}");
-
-            //                MessageBox.Show($"Adresse IP: {ip.Address.ToString()}");
-            //            }
-            //        }
-            //    }
-            //}
 
             ConnectionRobot = new TcpClient(_configuration[CONNECTION_ROBOT_IP], int.Parse(_configuration[CONNECTION_ROBOT_PORT]));
             ReseauEchange = ConnectionRobot.GetStream();
