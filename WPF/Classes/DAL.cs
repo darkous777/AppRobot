@@ -179,7 +179,7 @@ namespace AppRobot.Classes
         /// </summary>
         /// <param name="utilisateur"></param>
         /// <returns></returns>
-        public static bool ModifyInfoUser(User utilisateur)
+        public static User ModifyInfoUser(User utilisateur)
         {
 
             MySqlConnection cn = Connection();
@@ -188,7 +188,7 @@ namespace AppRobot.Classes
             {
                 cn.Open();
 
-                string source = (DAL.ConnectionUtilisateur(utilisateur)).Image;
+                string source = (FindUserById(utilisateur.Id)).Image;
 
                 string img = "";
 
@@ -217,9 +217,9 @@ namespace AppRobot.Classes
                 cmd.Parameters.AddWithValue("@image", img);
 
 
-                int excuter = cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
 
-                estUpdate = excuter > 0;
+                utilisateur = FindUserById(utilisateur.Id);
 
             }
             catch (Exception)
@@ -231,7 +231,7 @@ namespace AppRobot.Classes
                 if (cn is not null && cn.State == System.Data.ConnectionState.Open)
                     cn.Close();
             }
-            return estUpdate;
+            return utilisateur;
         }
         /// <summary>
         /// Supprime un utilisateur de la base de données.

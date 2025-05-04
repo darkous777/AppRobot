@@ -160,6 +160,14 @@ namespace AppRobot.Views
             if (!Regex.IsMatch(txtUser.Text, pattern))
                 message += "Le nom d'utilisateur ne doit pas contenir de caractères spéciaux et doit être entre 8 et 20 caractères.";
 
+            if (txtUser.Text.ToLower().Trim() != UserConnecter.Username.ToLower().Trim())
+            {
+                if (DAL.FindUserByUsername(txtUser.Text.Trim()) != null)
+                    message += "Le nom d'utilisateur est déjà utilisé par un autre utilisateur.";
+            }
+            if (txtUser.Text.ToLower().Trim() == UserConnecter.Username.ToLower().Trim() && (imgAvatar.Source as BitmapImage).UriSource == new Uri(UserConnecter.Image))
+                message += "Veuillez effectuer un changement!";
+
             if (message.Length > 0)
             {
                 MessageBox.Show(message, "Validation du mot de passe", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -177,33 +185,37 @@ namespace AppRobot.Views
                     string source = bi.UriSource.LocalPath;
 
                     UserConnecter.Image = source;
+                    UserConnecter.Username = txtUser.Text.Trim();
 
-                    if (DAL.FindUserById(UserConnecter.Id).Username != UserConnecter.Username)
+
+
+
+
+                    txtOldPassword.Password = null;
+                    txtNewPassword.Password = null;
+                    txtConfirmNewPassword.Password = null;
+
+
+
+
+                    if (User.ModifierUser(UserConnecter) is not null)
                     {
-
-                        bool isUpdated = User.ModifierUser(UserConnecter);
+                        UserConnecter = DAL.FindUserById(UserConnecter.Id);
 
                         AfficherImage(UserConnecter.Image);
-
-                        txtOldPassword.Password = null;
-                        txtNewPassword.Password = null;
-                        txtConfirmNewPassword.Password = null;
-
                         afficherListUser(UserConnecter.TypeUtilisateurs, "", UserConnecter);
-
-                        if (isUpdated)
-                        {
-                            MessageBox.Show("Les informations de l'utilisateur ont été mises à jour avec succès.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("La mise à jour des informations de l'utilisateur a échoué.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
+                        MessageBox.Show("Les informations de l'utilisateur ont été mises à jour avec succès.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Le nom d'utilisateur est déjà utilisé par un autre utilisateur.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("La mise à jour des informations de l'utilisateur a échoué.", "Modification des informations", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+
+                }
+                else
+                {
+                    txtUser.Text = UserConnecter.Username;
+                    AfficherImage(UserConnecter.Image);
                 }
             }
             catch (Exception ex)
@@ -792,7 +804,7 @@ namespace AppRobot.Views
 
                 if (!DAL.UtilisateurPossedeFonctionnalite(user, fonctionnalite))
                 {
-                    if(DAL.ModifierAccesFonctionnalite(user,fonctionnalite,true))
+                    if (DAL.ModifierAccesFonctionnalite(user, fonctionnalite, true))
                     {
                         cboFonctionnalitee.SelectedItem = null;
                         cboUtilisateur.SelectedItem = null;

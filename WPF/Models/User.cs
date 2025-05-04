@@ -113,7 +113,7 @@ namespace AppRobot.Models
 
         
 
-        public static bool ModifierUser(User user)
+        public static User ModifierUser(User user)
         {
             return DAL.ModifyInfoUser(user);
         }
