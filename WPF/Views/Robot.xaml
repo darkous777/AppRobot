@@ -181,7 +181,7 @@
                 <!--Boutons de déplacement-->
                 <Canvas Width="300" Height="300" Margin="549,483,549,85" Grid.Row="1">
 
-                    <Button x:Name="btnForward" Foreground="White" Content="W" Canvas.Left="110" Canvas.Top="10">
+                    <Button x:Name="btnForward" Foreground="White" Content="W" Canvas.Left="110" Canvas.Top="10" IsEnabled="False">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
@@ -193,7 +193,7 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="btnRotationRight" Content="D" Foreground="White" Canvas.Left="210" Canvas.Top="110">
+                    <Button x:Name="btnRotationRight" Content="D" Foreground="White" Canvas.Left="210" Canvas.Top="110" IsEnabled="False">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
@@ -214,7 +214,7 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="btnBackward" Content="S" Foreground="White" Canvas.Left="110" Canvas.Top="210">
+                    <Button x:Name="btnBackward" Content="S" Foreground="White" Canvas.Left="110" Canvas.Top="210" IsEnabled="False">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
@@ -235,7 +235,7 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="btnRotationLeft" Content="A" Foreground="White" Canvas.Left="10" Canvas.Top="110">
+                    <Button x:Name="btnRotationLeft" Content="A" Foreground="White" Canvas.Left="10" Canvas.Top="110" IsEnabled="False">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
@@ -257,7 +257,7 @@
                     </Button>
 
 
-                    <Button x:Name="btnForwardRight" Content="W + D" Foreground="White" Canvas.Left="210" Canvas.Top="10">
+                    <Button x:Name="btnForwardRight" Content="W + D" Foreground="White" Canvas.Left="210" Canvas.Top="10" IsEnabled="False">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
@@ -278,7 +278,7 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="btnForwardLeft" Content="W + A" Foreground="White" Canvas.Left="10" Canvas.Top="10">
+                    <Button x:Name="btnForwardLeft" Content="W + A" Foreground="White" Canvas.Left="10" Canvas.Top="10" IsEnabled="False">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
@@ -299,7 +299,7 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="btnBackwardRight" Content="S + D" Foreground="White" Canvas.Left="210" Canvas.Top="210">
+                    <Button x:Name="btnBackwardRight" Content="S + D" Foreground="White" Canvas.Left="210" Canvas.Top="210" IsEnabled="False">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
@@ -320,7 +320,7 @@
                         </Button.Template>
                     </Button>
 
-                    <Button x:Name="btnBackwardLeft" Content="S + A" Foreground="White" Canvas.Left="10" Canvas.Top="210">
+                    <Button x:Name="btnBackwardLeft" Content="S + A" Foreground="White" Canvas.Left="10" Canvas.Top="210" IsEnabled="False">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Grid>
@@ -351,7 +351,8 @@
                             Canvas.Top="135" 
                             HorizontalAlignment="Center" 
                             VerticalAlignment="Top" 
-                            Width="80" Height="30">
+                            Width="80" Height="30"
+                            IsEnabled="False">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border CornerRadius="20" Background="{TemplateBinding Background}">
@@ -409,11 +410,11 @@
                     <Image x:Name="imgVideo" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,0,0,10" Panel.ZIndex="1">
-                    <Button x:Name="btnFollowLine" Content="Suivre une ligne" Width="170" Margin="5,0,20,0" Padding="5,3" Click="btnFollowLine_Click"/>
+                    <Button x:Name="btnFollowLine" Content="Suivre une ligne" Width="170" Margin="5,0,20,0" Padding="5,3" Click="btnFollowLine_Click" IsEnabled="False"/>
                     <Button x:Name="btnStopFollowLine" Content="Arrêter suivit de ligne" Width="170" Margin="5,0,20,0" Padding="5,3" Click="btnStopFollowLine_Click" IsEnabled="False"/>
 
-                    <Button x:Name="btnStart" Content="Commencer vidéo en direct" Width="170" Margin="5,0,20,0" Padding="5,3" Click="BtnStart_Click"/>
-                    <Button x:Name="btnStop" Content="Arrêter vidéo en direct" Width="140" Margin="5,0,20,0" Padding="5,3" Click="BtnStop_Click"/>
+                    <Button x:Name="btnStart" Content="Commencer vidéo en direct" Width="170" Margin="5,0,20,0" Padding="5,3" Click="BtnStart_Click" IsEnabled="False"/>
+                    <Button x:Name="btnStop" Content="Arrêter vidéo en direct" Width="140" Margin="5,0,20,0" Padding="5,3" Click="BtnStop_Click" IsEnabled="False"/>
                 </StackPanel>
             </Grid>
         </Border>

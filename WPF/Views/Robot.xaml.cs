@@ -280,9 +280,7 @@ namespace AppRobot.Views
         /// <returns></returns>
         private bool PermissionUserAController(string command)
         {
-            Fonctionnalite fonctionnalite = DAL.ChercherFonctionnalite(PermissionDeControler(command));
-
-            return DAL.UtilisateurPossedeFonctionnalite(UserConnecter, fonctionnalite);
+            return UserConnecter.ListeFonctionnalite[PermissionDeControler(command)] is not null ? true : false;
         }
 
         /// <summary>
