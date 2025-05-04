@@ -206,8 +206,8 @@ def stop_line_following():
 def move_forward(speed):
     start_moving()
 
-    px.set_motor_speed(1, speed)  
-    px.set_motor_speed(2, speed)  
+    px.set_motor_speed(1, speed)
+    px.set_motor_speed(2, speed)
 
 def move_backward(speed):
     start_moving()
@@ -238,9 +238,9 @@ def turn_left(angle):
 def stop():
     stop_moving()
 
-    px.set_dir_servo_angle(0)  
-    px.set_motor_speed(1, 0)   
-    px.set_motor_speed(2, 0)   
+    px.set_dir_servo_angle(0)
+    px.set_motor_speed(1, 0)
+    px.set_motor_speed(2, 0)
 
 def forward():
     go_straight()
