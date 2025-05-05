@@ -32,8 +32,8 @@ DISCONNECT_MESSAGE = "!DISCONNECT"
 px = Picarx()
 active_conn = None
 
-trig = 'D2'
-echo = 'D3'
+trig = 'D6'
+echo = 'D7'
 
 ultrasonic = Ultrasonic(Pin(trig), Pin(echo, mode=Pin.IN, pull=Pin.PULL_DOWN))
 
