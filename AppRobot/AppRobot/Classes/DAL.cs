@@ -13,6 +13,9 @@ namespace AppRobot.Classes
 {
     public static class DAL
     {
+        // Test Git avec prof
+
+
         public const string APPSETTING_FILE = "appsettings.json";
 
         private const string CONNECTION_STRING = "DefaultConnection";
