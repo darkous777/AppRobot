@@ -199,8 +199,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitattributes" />
-    <Content Include=".gitignore" />
     <Resource Include="Images\fond-icon.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
