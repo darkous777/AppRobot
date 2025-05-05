@@ -22,6 +22,9 @@ except pygame.error as e:
     except Exception as e2:
         print(f"[AUDIO] Échec du mode dummy aussi : {e2}")
 
+
+# TEST TEST GIT
+
 HEADER = 64
 PORT = 5050
 SERVER = "0.0.0.0"
