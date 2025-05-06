@@ -5,13 +5,13 @@
 -- Server version	8.0.39
 
 -- 1. Créer un utilisateur (remplacez 'garneau' et 'strong_password')
-CREATE USER 'usertest'@'localhost' IDENTIFIED BY '';
+CREATE USER 'user'@'localhost' IDENTIFIED BY '';
 
-CREATE DATABASE IF NOT EXISTS app-robot-data;
-USE app-robot-data;
+CREATE DATABASE IF NOT EXISTS `app-robot-data`;
+USE `app-robot-data`;
 
 -- 2. Donner les privilèges LIMITÉS à un SEUL schéma (remplacez 'new_user' par votre nouveau nom de user)
-GRANT SELECT, INSERT, UPDATE, DELETE ON `app-robot-data`.* TO 'usertest'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER ON `app-robot-data`.* TO 'user'@'localhost';
 
 -- 3. Appliquer les changements
 FLUSH PRIVILEGES;
