@@ -15,6 +15,18 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_6046C8C4C7FD3B23CC849AF4092CA81D"
+        "OwnerKey" = "8:_F3537500A4CD4705A699E42635A52AA1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6FF72E2289784C0A8DAA11D7DF571A02"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B5940602FBAE4D1280BD31B4680F6BB2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -23,6 +35,30 @@
         {
         "MsmKey" = "8:_B6DEE68C14C74055A1A285027E788173"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F0B50758F4BC4F78B20F3AB02D6627F8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F3537500A4CD4705A699E42635A52AA1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_6046C8C4C7FD3B23CC849AF4092CA81D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F3537500A4CD4705A699E42635A52AA1"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -97,6 +133,34 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_A0F106234B3C44299EFF6023BDD00958"
+            {
+            "Name" = "8:Sortie principale from LibrairieInstallation (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_F3537500A4CD4705A699E42635A52AA1"
+            "FileType" = "3:1"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_E1F8A368_6468_49E3_AB61_1732CFA9DDBF"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:/targetdir=\"[TARGETDIR]\\\""
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_A6CF54FA3FBF49B6AF9FD7BBF379AB5E"
+            {
+            "Name" = "8:Sortie principale from LibrairieInstallation (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_F3537500A4CD4705A699E42635A52AA1"
+            "FileType" = "3:1"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_9D050C44_5BD5_434A_969E_D46C5516E92A"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:/targetdir=\"[TARGETDIR]\\\""
+            }
         }
         "DefaultFeature"
         {
@@ -130,6 +194,57 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6046C8C4C7FD3B23CC849AF4092CA81D"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "ScatterAssemblies"
+                {
+                    "_6046C8C4C7FD3B23CC849AF4092CA81D"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_ADA247D14235454FAF7F3B497BCFF6AF"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6FF72E2289784C0A8DAA11D7DF571A02"
+            {
+            "SourcePath" = "8:..\\InitialisationBD\\bd_robot_app.sql"
+            "TargetName" = "8:bd_robot_app.sql"
+            "Tag" = "8:"
+            "Folder" = "8:_ADA247D14235454FAF7F3B497BCFF6AF"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B6DEE68C14C74055A1A285027E788173"
             {
             "SourcePath" = "8:..\\RobotApp\\Images\\Logo-icon.ico"
@@ -207,7 +322,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RobotApp"
         "ProductCode" = "8:{B5974249-712D-4A5E-BF88-5F19D463C73E}"
-        "PackageCode" = "8:{6F1D5071-7737-4D69-919C-3B09B7876CA7}"
+        "PackageCode" = "8:{479A2989-B8D6-471B-A215-B1A4F08E8F6A}"
         "UpgradeCode" = "8:{2EE01EE9-C174-455B-BA0F-E911F454499F}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -368,7 +483,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_76BBB3CF077D471D8071A319C49137DD"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:Installation Folder"
+                    "DisplayName" = "8:Dossier d'installation"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFolderDlg.wid"
@@ -390,7 +505,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_C1E6BC8496A842638B200C0B5704E425"
                     {
                     "Sequence" = "3:300"
-                    "DisplayName" = "8:Confirm Installation"
+                    "DisplayName" = "8:Confirmer l'installation"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminConfirmDlg.wid"
@@ -412,7 +527,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_F0939792F0474F02A559E7E61E2C041D"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Welcome"
+                    "DisplayName" = "8:Bienvenue"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminWelcomeDlg.wid"
@@ -481,7 +596,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_EC242049D2144A80BDA9F571B762CF2E"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Finished"
+                    "DisplayName" = "8:Terminé"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdFinishedDlg.wid"
@@ -525,7 +640,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_19985CC2ED21454BBCD043C882FCC052"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Progress"
+                    "DisplayName" = "8:Progression"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdProgressDlg.wid"
@@ -569,7 +684,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_0C848067189340978D5B3CBE106C3E93"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Progress"
+                    "DisplayName" = "8:Progression"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminProgressDlg.wid"
@@ -613,7 +728,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_0A0E21B62C56424992F59034EC1C6691"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Welcome"
+                    "DisplayName" = "8:Bienvenue"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdWelcomeDlg.wid"
@@ -661,7 +776,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_1AECAB7BC027441C9BA20C9C26CBED40"
                     {
                     "Sequence" = "3:300"
-                    "DisplayName" = "8:Confirm Installation"
+                    "DisplayName" = "8:Confirmer l'installation"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdConfirmDlg.wid"
@@ -683,7 +798,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_7A688806B2C24B9FB1FA1A5FC4E8D2A2"
                     {
                     "Sequence" = "3:200"
-                    "DisplayName" = "8:Installation Folder"
+                    "DisplayName" = "8:Dossier d'installation"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdFolderDlg.wid"
@@ -727,7 +842,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_4625EC0B9E124ACB83D05733F7E6D66D"
                     {
                     "Sequence" = "3:100"
-                    "DisplayName" = "8:Finished"
+                    "DisplayName" = "8:Terminé"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminFinishedDlg.wid"
@@ -756,7 +871,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B5940602FBAE4D1280BD31B4680F6BB2"
             {
-            "SourcePath" = "8:..\\RobotApp\\obj\\Release\\net8.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\RobotApp\\obj\\Debug\\net8.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_ADA247D14235454FAF7F3B497BCFF6AF"
@@ -777,6 +892,62 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{54FAE2FF-C4AB-4D5F-A36F-108473018C40}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F0B50758F4BC4F78B20F3AB02D6627F8"
+            {
+            "SourcePath" = "8:..\\InitialisationBD\\obj\\Debug\\net8.0\\apphost.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_ADA247D14235454FAF7F3B497BCFF6AF"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:PublishItems"
+            "OutputProjectGuid" = "8:{9879322A-FED3-4E78-93B4-E867F40E85E2}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F3537500A4CD4705A699E42635A52AA1"
+            {
+            "SourcePath" = "8:..\\LibrairieInstallation\\obj\\Debug\\LibrairieInstallation.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_ADA247D14235454FAF7F3B497BCFF6AF"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{1822522E-6381-4D01-86A8-DDE47F3DBBE9}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

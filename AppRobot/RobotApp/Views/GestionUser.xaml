@@ -136,7 +136,7 @@
                             Grid.ColumnSpan="2" 
                             Background="Transparent"
                             Margin="10,15,10,10">
-                    
+
                     <TabItem Margin="5,0,0,0" 
                                     HorizontalAlignment="Center">
                         <TabItem.Style>
@@ -521,10 +521,13 @@ Grid.Row="2"
                                         <DataTemplate>
                                             <StackPanel>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}"
-                                                       HorizontalAlignment="Center"
-                                                           Width="50" Height="50"
-                                                           Margin="0,5,150,5"/>
+                                                    <Image HorizontalAlignment="Center"
+                                                            Width="50" Height="50"
+                                                            Margin="0,5,150,5">
+                                                        <Image.Source>
+                                                            <BitmapImage CacheOption="OnLoad" UriSource="{Binding Image}"/>
+                                                        </Image.Source>
+                                                    </Image>
                                                     <TextBlock Text="{Binding Username}"
                                                            VerticalAlignment="Center" 
                                                                Width="150"/>

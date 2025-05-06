@@ -7,6 +7,10 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AppRobotInstaller", "AppRob
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotApp", "RobotApp\RobotApp.csproj", "{54FAE2FF-C4AB-4D5F-A36F-108473018C40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitialisationBD", "InitialisationBD\InitialisationBD.csproj", "{9879322A-FED3-4E78-93B4-E867F40E85E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrairieInstallation", "LibrairieInstallation\LibrairieInstallation.csproj", "{1822522E-6381-4D01-86A8-DDE47F3DBBE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,8 +23,19 @@ Global
 		{54FAE2FF-C4AB-4D5F-A36F-108473018C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54FAE2FF-C4AB-4D5F-A36F-108473018C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54FAE2FF-C4AB-4D5F-A36F-108473018C40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9879322A-FED3-4E78-93B4-E867F40E85E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9879322A-FED3-4E78-93B4-E867F40E85E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9879322A-FED3-4E78-93B4-E867F40E85E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9879322A-FED3-4E78-93B4-E867F40E85E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1822522E-6381-4D01-86A8-DDE47F3DBBE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1822522E-6381-4D01-86A8-DDE47F3DBBE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1822522E-6381-4D01-86A8-DDE47F3DBBE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1822522E-6381-4D01-86A8-DDE47F3DBBE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {73426A59-6249-4770-96A4-B9CCFF739C91}
 	EndGlobalSection
 EndGlobal
