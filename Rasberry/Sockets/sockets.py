@@ -8,6 +8,10 @@ import subprocess
 import requests
 import os
 
+from gpiozero import Device 
+from gpiozero.pins.pigpio import PiGPIOFactory
+Device.pin_factory = PiGPIOFactory()
+
 # Initialisation sécurisée de l'audio pygame
 try:
     os.environ["SDL_AUDIODRIVER"] = "pulseaudio"
@@ -32,13 +36,15 @@ ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
 
-px = Picarx()
+
 active_conn = None
 
-trig = 'D6'
-echo = 'D7'
+trig = 'D2'
+echo = 'D3'
 
-ultrasonic = Ultrasonic(Pin(trig), Pin(echo, mode=Pin.IN, pull=Pin.PULL_DOWN))
+# ultrasonic = Ultrasonic(Pin(trig), Pin(echo, mode=Pin.IN, pull=Pin.PULL_DOWN))
+
+px = Picarx()
 
 SafeDistance = 40
 DangerDistance = 20
@@ -111,10 +117,10 @@ def getDistance():
     while True:
         if is_moving:
 
-            distance = round(ultrasonic.read())
+            distance = round(px.ultrasonic.read())
             while distance == -2:
                 time.sleep(0.05)
-                distance = round(ultrasonic.read())
+                distance = round(px.ultrasonic.read())
 
             print("distance: ",distance)
 
@@ -311,6 +317,7 @@ function_mapping = {
 }
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server.bind(ADDR)
 
 def handle_client(conn, addr):
