@@ -27,7 +27,7 @@ except pygame.error as e:
         print(f"[AUDIO] Échec du mode dummy aussi : {e2}")
 
 
-# TEST TEST GIT 3
+
 
 HEADER = 64
 PORT = 5050
@@ -52,7 +52,7 @@ DangerDistance = 20
 is_moving = False
 last_state = None
 
-picarx_dir_servo = -7.2
+picarx_dir_servo = -7.6
 picarx_cam_pan_servo = -10.4
 picarx_cam_tilt_servo = -14.4
 picarx_dir_motor = [1, 1]
@@ -63,6 +63,7 @@ cliff_reference = [464, 441, 329]
 line_following = False
 line_thread = None
 last_state = "stop"
+last_seen_direction = None
 
 # music = Music()
 
@@ -171,33 +172,70 @@ def arreterMusic():
 
 def follow_line():
     global line_following, last_state
+
+    print("[SUIVI] Suivi de ligne démarré.")
+    time_lost = 0
+    lost_threshold = 1.5  
+
     while line_following:
         gm_val_list = px.get_grayscale_data()
-        gm_state = px.get_line_status(gm_val_list)  # [0,1,0]
+        gm_state = px.get_line_status(gm_val_list)
+
+        print(f"[SUIVI] gm_val_list = {gm_val_list}, gm_state = {gm_state}")
 
         if gm_state == [0, 0, 0]:
-            if last_state == 'left':
-                px.set_dir_servo_angle(20)
-                px.backward(10)
-            elif last_state == 'right':
-                px.set_dir_servo_angle(-20)
-                px.backward(10)
-            continue
+            time_lost += 0.05
+            print(f"[SUIVI] Ligne perdue depuis {time_lost:.2f}s")
 
-        if gm_state[1] == 1:
+            if time_lost >= lost_threshold:
+                print("[SUIVI] Ligne définitivement perdue. Arrêt.")
+                line_following = False
+                stop()
+                if active_conn:
+                    send(active_conn, "Suivi interrompu : ligne perdue.")
+                break
+
+            # tentative de récupération
+            if last_seen_direction == 'right':
+                px.set_dir_servo_angle(20)
+                move_backward()
+            elif last_seen_direction == 'left':
+                px.set_dir_servo_angle(-20)
+                move_backward()
+            else:
+                px.set_dir_servo_angle(0)
+                move_backward()
+
+            time.sleep(0.05)
+            continue
+        else:
+            time_lost = 0  # ligne retrouvée
+
+        if gm_state[1] == 1 and gm_state[0] == 0 and gm_state[2] == 0:
             px.set_dir_servo_angle(0)
-            px.forward(10)
+            move_forward()
             last_state = 'forward'
-        elif gm_state[0] == 1:
+            last_seen_direction = "center"
+        elif gm_state[0] == 1 and gm_state[1] == 0:
             px.set_dir_servo_angle(-20)
-            px.forward(10)
+            move_forward()
             last_state = 'right'
-        elif gm_state[2] == 1:
+            last_seen_direction = "left"
+        elif gm_state[2] == 1 and gm_state[1] == 0:
             px.set_dir_servo_angle(20)
-            px.forward(10)
+            move_forward()
             last_state = 'left'
+            last_seen_direction = "right"
+        else:
+            # ligne probablement centrée ou en fourche : avancer droit par défaut
+            px.set_dir_servo_angle(0)
+            move_forward()
+            last_state = 'forward'
+            last_seen_direction = "center"
 
         time.sleep(0.05)
+
+    print("[SUIVI] Thread de suivi de ligne terminé.")
 
 def start_line_following():
     global line_following, line_thread
@@ -212,30 +250,30 @@ def stop_line_following():
     line_following = False
     stop()
 
-def move_forward(speed):
+def move_forward():
     start_moving()
 
-    px.set_motor_speed(1, speed)
-    px.set_motor_speed(2, speed)
+    px.set_motor_speed(1, 10) # ici on compense la vitesse du moteur gauche parce que sinon pour une raison X la roue gauche tourne moin vite que la roue droite
+    px.set_motor_speed(2, -9) # on inverse la vitesse pour que le moteur tourne dans l'autre sens parce que les moteurs sont placés en miroir sur le chassis
 
-def move_backward(speed):
+def move_backward():
     start_moving()
 
-    px.set_motor_speed(1, -speed)
-    px.set_motor_speed(2, -speed)
+    px.set_motor_speed(1, -10)
+    px.set_motor_speed(2, 9)
 
-def move_rotation_left(speed):
+def move_rotation_left():
     start_moving()
 
-    px.set_motor_speed(1, -speed)
-    px.set_motor_speed(2, speed)
+    px.set_motor_speed(1, -10)
+    px.set_motor_speed(2, -9)
 
 
-def move_rotation_right(speed):
+def move_rotation_right():
     start_moving()
 
-    px.set_motor_speed(1, speed)
-    px.set_motor_speed(2, -speed)
+    px.set_motor_speed(1, 10)
+    px.set_motor_speed(2, 9)
 
 def turn_right(angle):
     px.set_dir_servo_angle(angle)
@@ -253,48 +291,48 @@ def stop():
 
 def forward():
     go_straight()
-    move_forward(100)
+    move_forward()
 
 
 def backward():
     go_straight()
-    move_backward(100)
+    move_backward()
 
 
 def forward_right():
     go_straight()
     turn_right(28)
-    move_forward(90)
+    move_forward()
 
 
 def forward_left():
     go_straight()
     turn_left(28)
-    move_forward(90)
+    move_forward()
 
 
 def backward_right():
     go_straight()
     turn_right(28)
-    move_backward(90)
+    move_backward()
 
 
 def backward_left():
     go_straight()
     turn_left(28)
-    move_backward(90)
+    move_backward()
 
 
 def rotation_left():
     go_straight()
     turn_left(40)
-    move_rotation_left(100)
+    move_rotation_left()
 
 
 def rotation_right():
     go_straight()
     turn_right(40)
-    move_rotation_right(100)
+    move_rotation_right()
 
 
 
