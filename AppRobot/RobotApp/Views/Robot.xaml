@@ -406,8 +406,8 @@
                            Grid.Row="1"
                            FontFamily="Montserrat"
                            />
-                <Border  BorderThickness="2" Background="Transparent" Grid.Row="1">
-                    <Image x:Name="imgVideo" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border  BorderThickness="2" Background="Transparent" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="700" Height="500">
+                    <Image x:Name="imgVideo" Stretch="Uniform" />
                 </Border>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,0,0,10" Panel.ZIndex="1">
                     <Button x:Name="btnFollowLine" Content="Suivre une ligne" Width="170" Margin="5,0,20,0" Padding="5,3" Click="btnFollowLine_Click" IsEnabled="False"/>

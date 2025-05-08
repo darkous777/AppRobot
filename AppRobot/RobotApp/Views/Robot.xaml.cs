@@ -495,7 +495,7 @@ namespace RobotApp.Views
 
                     EnvoyerEtRecevoirDonnees("camera_on");
 
-                    Thread.Sleep(3000);
+                    Thread.Sleep(2000);
 
                     string url = _configuration[CONNECTION_CAM_ROBOT];
 
@@ -739,7 +739,10 @@ namespace RobotApp.Views
                 bitmapImage.EndInit();
                 bitmapImage.Freeze();
 
-                return bitmapImage;
+                var transform = new TransformedBitmap(bitmapImage, new ScaleTransform(-1, 1, bitmapImage.Width / 2, bitmapImage.Height / 2));
+                transform.Freeze();
+
+                return transform;
             }
         }
         /// <summary>
