@@ -10,6 +10,10 @@ namespace LibrairieInstallation
     [RunInstaller(true)]
     public class PostInstall : Installer
     {
+        /// <summary>
+        /// This method is called after the installation of the component.
+        /// </summary>
+        /// <param name="savedState"></param>
         public override void Commit(IDictionary savedState)
         {
             base.Commit(savedState);

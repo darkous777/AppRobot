@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="AppRobot.Models.Admin">
+  <Class Name="RobotApp.Models.Admin">
     <Position X="5" Y="7" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAEAARAAAAAAAAAgAAAAEABAIgA=</HashCode>
@@ -8,7 +8,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="AppRobot.Models.Moderator">
+  <Class Name="RobotApp.Models.Moderator">
     <Position X="2" Y="7" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAARAAAAAAAAAgAAAAEAAAAgA=</HashCode>
@@ -16,10 +16,10 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="AppRobot.Models.User">
-    <Position X="5" Y="0.5" Width="3.75" />
+  <Class Name="RobotApp.Models.User">
+    <Position X="3.75" Y="0.5" Width="3.75" />
     <NestedTypes>
-      <Enum Name="AppRobot.Models.User.TypeUser" Collapsed="true">
+      <Enum Name="RobotApp.Models.User.TypeUser" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Models\User.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -30,29 +30,36 @@
       <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppRobot.Models.UserException">
-    <Position X="2.5" Y="3.25" Width="1.5" />
+  <Class Name="RobotApp.Models.Fonctionnalite">
+    <Position X="10.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\User.cs</FileName>
+      <HashCode>AAACAAAAAAAAAAAEAABAAAAABCAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Fonctionnalite.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppRobot.Models.Utilisateur">
+  <Class Name="RobotApp.Models.Utilisateur">
     <Position X="8" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Utilisateur.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppRobot.Models.Fonctionnalite">
-    <Position X="9.25" Y="2.25" Width="2.5" />
+  <Class Name="RobotApp.Classes.PasswordHelper">
+    <Position X="17.5" Y="1.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAEAABAAAAABCAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Fonctionnalite.cs</FileName>
+      <HashCode>AAAAAAAAAAAEAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\PasswordHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="AppRobot.Models.IPowerAdminModerator">
-    <Position X="12.75" Y="4.75" Width="2.25" />
+  <Class Name="RobotApp.Classes.DAL">
+    <Position X="11.75" Y="4.25" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAIEAQAAAAEFAAAAEQIAQCCSAAAABAGAEAABQAg=</HashCode>
+      <FileName>Classes\DAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="RobotApp.Models.IPowerAdminModerator">
+    <Position X="14.75" Y="1.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAEAAAAgA=</HashCode>
       <FileName>Models\IPowerAdminModerator.cs</FileName>

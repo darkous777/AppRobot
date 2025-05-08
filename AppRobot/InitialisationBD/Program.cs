@@ -6,9 +6,14 @@ using MySql.Data.MySqlClient;
 
 namespace InitialisationBD
 {
-
+    /// <summary>
+    /// This class is responsible for executing a SQL script to initialize a database.
+    /// </summary>
     class Program
     {
+        /// <summary>
+        /// Main method to execute the SQL script.
+        /// </summary>
         static void Main()
         {
             try

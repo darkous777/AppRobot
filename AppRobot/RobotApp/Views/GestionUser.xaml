@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RobotApp.Views" 
         xmlns:local1="clr-namespace:RobotApp.Classes"
-        xmlns:classes="clr-namespace:RobotApp.Classes"
         mc:Ignorable="d"
         Title="GestionUser" Height="750" Width="1100"
         WindowStyle="None"
@@ -15,9 +14,6 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown"
         >
-    <Window.Resources>
-        <classes:ImagePathToBitmapConverter x:Key="ImageConverter"/>
-    </Window.Resources>
 
     <Border CornerRadius="12">
         <Border.Background>
