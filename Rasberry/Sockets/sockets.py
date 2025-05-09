@@ -65,21 +65,6 @@ line_thread = None
 last_state = "stop"
 last_seen_direction = None
 
-# music = Music()
-
-# music.music_set_volume(90)
-
-# config_file = '/opt/picar-x/picar-x.conf'
-# config = fileDB(config_file, 777, 'root')
-
-# cali_dir_value = config.get('picarx_dir_motor', default_value='[1, 1]')
-# cali_dir_value = [int(i.strip()) for i in cali_dir_value.strip().strip('[]').split(',')]
-
-# cali_speed_value = config.get('picarx_speed_motor', default_value='[0, 0]')
-# cali_speed_value = [int(i.strip()) for i in cali_speed_value.strip().strip('[]').split(',')]
-
-# dir_cali_val = float(config.get('picarx_dir_servo', default_value=0))
-
 
 flask_process = None
 
