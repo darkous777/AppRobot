@@ -1,29 +1,68 @@
-# Nature et objectif du projet (type de projet, clientèle cible, etc.)
+# 420-08C-FX PROJET D'APPROFONDISSEMENT EN PROGRAMMATION - Vincent Rompré et Mohammed Amine Boumediene Blal
 
+# AppRobot!
+
+
+# Nature et objectif du projet (type de projet, clientèle cible, etc.)
 * Le projet AppRobot consiste à créer un petit robot mobile, surnommé Vezou, contrôlé à distance par une interface WPF en C#. Le "cerveau" de Vezou est en fait un Raspberry Pi sous un système d'exploitation Ubuntu et ses pièces proviennent du kit Picar-X de la compagnie SunFounder. Il est capable de se déplacer, détecter un obstacle devant lui et s'arrêter automatiquement, suivre un parcour de ruban noir placé au sol, jouer de la musique, diffuser une caméra en direct et réagir à différentes commandes envoyées par TCP via un réseau local. L’objectif principal était d’explorer concrètement la communication entre un logiciel d'interface et un système embarqué, en combinant programmation réseau, contrôle moteur, et interaction avec des capteurs physiques. Le projet s’adresse à un public étudiant ou simplement à ceux qui s’intéressent à la robotique, et qui veulent mettre en place un jouet concret, simple à contrôler, mais qui possède assez d'option et de potentiel pour toucher à plusieurs aspects du code et du matériel en même temps. Le projet permet de plonger à la fois dans de la théorie, du virtuelle et du matériel, en les reliant de façon concrète. Il ouvre aussi la porte à une foule de possibilités, autant pour apprendre que pour pousser plus loin selon l’imagination de ceux qui le développent.
 
-
 # Technologies utilisées :
-*
-*
-*
-*
+* Python 3.12 – pour le code qui controle tout le robot (fichier sockets.py)
+
+* C# avec WPF (.NET 8) – pour l'interface graphique de contrôle sur PC
+
+* Socket TCP/IP – pour la communication entre l’interface WPF et le Raspberry Pi
+
+* Pygame – pour la lecture de musique (via pygame.mixer) sur le robot
+
+* Flask – pour diffuser un flux vidéo depuis la caméra du robot pour ensuite aller le récupérer et l'afficher sur l'interface de controle WPF
+
+* OpenCV – utilisé indirectement pour la caméra (puisque picamera2 est incompatible avec Ubuntu)
+
+* SunFounder Picar-X SDK – bibliothèque Python utilisée pour contrôler les moteurs, servos, capteurs et autre
+
+* Ubuntu pour Raspberry Pi – système d’exploitation du robot (au lieu de Raspberry Pi OS pour compatibilité)
+
+* GPIOZero + PiGPIO – pour l’accès aux broches GPIO via réseau, les broches sont les points d'accès physique aux modules du robot.
+
 
 # Fonctionnalités servies par le projet :
-*
-*
-*
-*
-*
-*
-*
+* Contrôle directionnel complet du robot via des boutons (avancer, reculer, rotationner, tourner en diagonale dans tous les sens)
+
+* Suivi automatisé de ligne noir placé par terre avec arrêt lorsqu’elle est perdue
+
+* Diffusion d’un flux vidéo en direct à partir de la caméra embarquée
+
+* Joue de la musique préalablement télécharger sur le robot
+
+* Détection d’obstacle en temps réel avec évitement et envoi d’un message d’avertissement à l’interface
+
+* Création, connexion, modification et suppression de comptes pour les utilisateurs
+
+* Connexion au robot et retour de statut de communication actif
+
+* Système de rôles (utilisateur, modérateur, administrateur) avec interface de gestion dédiée pour l'administrateur
+
+* Interface d’administration pour :
+
+    * Octroyer ou retirer le statut de modérateur
+
+    * Bloquer, débloquer, supprimer des comptes utilisateurs ou modérateurs
+
+    * Activer ou suspendre des fonctionnalités du robot à des utilisateurs à distance
 
 
 # Degré de complétion :
+* Tous les fonctionnalités initiales planifiées ont été complété et fonctionnent.
+
 
 # Bogues persistants :
+* Lenteur de chargement de la caméra dans l'interface parce que le serveur Flask prend un certain temps à s'initialisé
+
 
 # Possibles amélioration :
+* La qualité de l'image et le niveaux de rafraichissment de l'image peuvent toujours être améliorer. La caméra embarquée fournie dans le kit n’offre pas une très haute définition ni une fluidité optimale, mais il serait tout à fait possible d’obtenir de meilleurs résultats en remplaçant le module par une caméra plus performante.
+
 
 # Procédure d'installation client
 
@@ -84,4 +123,5 @@
 * Assurez-vous d’être connecté au même réseau Wi-Fi que le robot.
 
 # Compte d'utilisateurs et mots de passes déjà prédéfinies avec leur niveau d'autorisation :
+
 * Utilisateur : Admin00000 | Mot de passe  : 12345QWERT* | Niveaux d'accès : Administrateur
