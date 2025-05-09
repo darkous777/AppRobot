@@ -495,7 +495,6 @@ namespace RobotApp.Views
 
                     EnvoyerEtRecevoirDonnees("camera_on");
 
-                    Thread.Sleep(2000);
 
                     string url = _configuration[CONNECTION_CAM_ROBOT];
 
