@@ -59,6 +59,9 @@
 # Bogues persistants :
 * Lenteur de chargement de la caméra dans l'interface parce que le serveur Flask prend un certain temps à s'initialisé
 
+* Le module de niveau de gris repose sur la détection de contraste entre le noir et le blanc et il peut mal réagir sur des surfaces non uniformes ou trop foncées comme des planchers de bois franc ou de la céramique texturée. C’est pourquoi on recommande fortement de placer une ligne de ruban électrique noir sur une surface entièrement blanche, afin d’assurer un suivi fiable et stable.
+
+
 
 # Possibles amélioration :
 * La qualité de l'image et le niveaux de rafraichissment de l'image peuvent toujours être améliorer. La caméra embarquée fournie dans le kit n’offre pas une très haute définition ni une fluidité optimale, mais il serait tout à fait possible d’obtenir de meilleurs résultats en remplaçant le module par une caméra plus performante.
