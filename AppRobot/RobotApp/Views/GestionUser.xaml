@@ -132,7 +132,43 @@
                             Grid.ColumnSpan="2" 
                             Background="Transparent"
                             Margin="10,15,10,10">
+                    <TabItem Margin="5,0,0,0" 
+                HorizontalAlignment="Center">
+                        <TabItem.Style>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TabItem.Style>
+                        <TabItem.Template>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
+                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                HorizontalAlignment="Center" Content="Information"/>
 
+                                </Border>
+                            </ControlTemplate>
+                        </TabItem.Template>
+                        <StackPanel>
+                            <MediaElement x:Name="videoExpliquative"
+                      Source="chemin/vers/video.mp4"
+                      LoadedBehavior="Manual"
+                      UnloadedBehavior="Manual"
+                      Stretch="Uniform"
+                      Width="600"
+                      Height="500"
+                      VerticalAlignment="Top"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Margin="0,60,0,0">
+                                <Button Content="▶️ Jouer" Click="Play_Click" Margin="5" Width="90"/>
+                                <Button Content="⏸ Pause" Click="Pause_Click" Margin="5" Width="90"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </TabItem>
                     <TabItem Margin="5,0,0,0" 
                                     HorizontalAlignment="Center">
                         <TabItem.Style>
@@ -172,7 +208,7 @@
                             Orientation="Vertical"
                             Margin="0,100,0,0" Grid.Column="0"
                             >
-                                    <TextBlock Text="Username"
+                                    <TextBlock Text="Nom d'utilisateur"
                                Foreground="DarkGray"
                                FontSize="12"
                                FontWeight="Medium"
@@ -203,7 +239,7 @@
 
 
 
-                                    <TextBlock Text="Date of birth"
+                                    <TextBlock Text="Date de naissance"
              Foreground="DarkGray"
              FontSize="12"
              FontWeight="Medium"
@@ -217,7 +253,7 @@
                                         </Border>
                                         <Button x:Name="btnModifierImage"
             BorderThickness="0"
-            Content="BROWSE"
+            Content="RECHERCHE"
             Foreground="White"
             FontSize="12"
             FontFamily="Montserrat"
@@ -251,7 +287,7 @@
                                 </StackPanel>
                                 <Button x:Name="btnModify"
                             BorderThickness="0"
-                            Content="MODIFY"
+                            Content="MODIFIER"
                             Foreground="White"
                             FontSize="12"
                             FontFamily="Montserrat"
@@ -288,7 +324,7 @@
                             Orientation="Vertical"
                             Margin="0,100,0,0"
                             >
-                                    <TextBlock Text="Old Password"
+                                    <TextBlock Text="Ancien mot de passe"
            Foreground="DarkGray"
            FontSize="12"
            FontWeight="Medium"
@@ -312,7 +348,7 @@
                     AlignmentX="Left"/>
                                         </PasswordBox.Background>
                                     </PasswordBox>
-                                    <TextBlock Text="New Password"
+                                    <TextBlock Text="Nouveau mot de passe"
            Foreground="DarkGray"
            FontSize="12"
            FontWeight="Medium"
@@ -337,7 +373,7 @@
                                         </PasswordBox.Background>
                                     </PasswordBox>
 
-                                    <TextBlock Text="Confirm New Password"
+                                    <TextBlock Text="Confirmation du nouveau mot de passe"
   Foreground="DarkGray"
   FontSize="12"
   FontWeight="Medium"
@@ -363,7 +399,7 @@ Padding="40,0,0,0">
                                     </PasswordBox>
                                     <Button x:Name="btnModifierPassword"
             BorderThickness="0"
-            Content="SAVE"
+            Content="SAUVEGARDER"
             Foreground="White"
             FontSize="12"
             FontFamily="Montserrat"
@@ -383,7 +419,7 @@ Padding="40,0,0,0">
                                         </Button.Style>
                                         <Button.Template>
                                             <ControlTemplate TargetType="Button">
-                                                <Border Width="80" Height="30"
+                                                <Border Width="90" Height="30"
                         CornerRadius="15"
                         Background="{TemplateBinding Background}">
                                                     <ContentPresenter VerticalAlignment="Center"
@@ -396,7 +432,7 @@ Padding="40,0,0,0">
                                 </StackPanel>
                                 <Button x:Name="btnDelete"
     BorderThickness="0"
-    Content="DELETE ACCOUNT"
+    Content="SUPPRIMER COMPTE"
     Foreground="White"
     FontSize="12"
     FontFamily="Montserrat"
@@ -472,7 +508,7 @@ Grid.Row="2"
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Right"
                                         Orientation="Vertical">
-                                <TextBlock Text="Search"
+                                <TextBlock Text="Recherche"
                                            Foreground="DarkGray"
                                            FontSize="12"
                                            FontWeight="Medium"
@@ -545,7 +581,7 @@ Grid.Row="2"
                             </Border>
                             <Button x:Name="btnDeleteUserSelected"
                                     BorderThickness="0"
-                                    Content="DELETE ACCOUNT"
+                                    Content="SUPPRIMER COMPTE"
                                     Foreground="White"
                                     FontSize="12"
                                     FontFamily="Montserrat"
@@ -576,7 +612,7 @@ Grid.Row="2"
                             </Button>
                             <Button x:Name="btnAttribuerModeratorSelected"
          BorderThickness="0"
-         Content="ASSIGN MODERATOR ROLE"
+         Content="ASSIGNER RÔLE DE MODÉRATEUR"
          Foreground="White"
          FontSize="12"
          FontFamily="Montserrat"
@@ -595,7 +631,7 @@ Grid.Row="2"
                                 </Button.Style>
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
-                                        <Border Width="170" Height="40"
+                                        <Border Width="200" Height="40"
                      CornerRadius="20"
                      Background="{TemplateBinding Background}">
                                             <ContentPresenter VerticalAlignment="Center"
@@ -607,7 +643,7 @@ Grid.Row="2"
                             </Button>
                             <Button x:Name="btnEnleverModeratorSelected"
 BorderThickness="0"
-Content="REVOKE MODERATOR ROLE"
+Content="RETIRER ROLE DE MODÉRATEUR"
 Foreground="White"
 FontSize="12"
 FontFamily="Montserrat"
@@ -626,7 +662,7 @@ Click="btnEnleverModeratorSelected_Click" Grid.ColumnSpan="3" Grid.RowSpan="2">
                                 </Button.Style>
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
-                                        <Border Width="170" Height="40"
+                                        <Border Width="190" Height="40"
             CornerRadius="20"
             Background="{TemplateBinding Background}">
                                             <ContentPresenter VerticalAlignment="Center"
@@ -638,7 +674,7 @@ Click="btnEnleverModeratorSelected_Click" Grid.ColumnSpan="3" Grid.RowSpan="2">
                             </Button>
                             <Button x:Name="btnBloquerUserSelected"
 BorderThickness="0"
-Content="BLOCK USER"
+Content="BLOQUER UTILISATEUR(E)"
 Foreground="White"
 FontSize="12"
 FontFamily="Montserrat"
@@ -677,7 +713,7 @@ Click="btnBloquerUserSelected_Click" Grid.ColumnSpan="2" Grid.Column="1" RenderT
                             </Button>
                             <Button x:Name="btnDeloquerUserSelected"
 BorderThickness="0"
-Content="UNBLOCK USER"
+Content="DÉBLOQUER UTILISATEUR(E)"
 Foreground="White"
 FontSize="12"
 FontFamily="Montserrat"
@@ -708,7 +744,7 @@ Click="btnDeloquerUserSelected_Click" Grid.ColumnSpan="3" Grid.RowSpan="2">
                             </Button>
                         </Grid>
                     </TabItem>
-                    <TabItem Margin="5,0,0,0" 
+                    <TabItem Margin="5,0,5,0" 
                  HorizontalAlignment="Center">
                         <TabItem.Style>
                             <Style TargetType="TabItem">

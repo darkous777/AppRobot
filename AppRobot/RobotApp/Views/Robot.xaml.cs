@@ -474,6 +474,7 @@ namespace RobotApp.Views
         private void btnRetourMenuConnection_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
+            this.Close();
         }
 
         /// <summary>
@@ -495,7 +496,6 @@ namespace RobotApp.Views
 
                     EnvoyerEtRecevoirDonnees("camera_on");
 
-                    Thread.Sleep(2000);
 
                     string url = _configuration[CONNECTION_CAM_ROBOT];
 

@@ -849,5 +849,14 @@ namespace RobotApp.Views
             else
                 MessageBox.Show("Vous devez sélectionner une fonctionnalité et un utilisateur!", "Bloquer une fonctionnalité", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+        private void Play_Click(object sender, RoutedEventArgs e)
+        {
+            videoExpliquative.Play();
+        }
+
+        private void Pause_Click(object sender, RoutedEventArgs e)
+        {
+            videoExpliquative.Pause();
+        }
     }
 }
