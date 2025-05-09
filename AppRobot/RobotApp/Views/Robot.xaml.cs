@@ -462,6 +462,8 @@ namespace RobotApp.Views
                     _frameCount = 0;
                     _cancellationTokenSource = new CancellationTokenSource();
 
+                    await Task.Delay(2000);
+
                     await Task.Run(() => ReadMjpegStreamAsync(url, _cancellationTokenSource.Token));
                 }
                 else

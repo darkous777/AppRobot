@@ -145,11 +145,14 @@
                             </Style>
                         </TabItem.Style>
                         <StackPanel>
-                            <MediaElement x:Name="videoExpliquative" 
+                            <Border   BorderThickness="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="700" Height="500">
+                                <MediaElement x:Name="videoExpliquative" 
                                               HorizontalAlignment="Center"
                                               LoadedBehavior="Manual"
                                               UnloadedBehavior="Manual"
                                               VerticalAlignment="Center"/>
+                            </Border>
+
                             
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Margin="0,60,0,0">
                                 <Button Content="▶️ Jouer" Click="Play_Click" Margin="5" Width="90"/>
