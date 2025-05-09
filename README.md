@@ -68,6 +68,7 @@
 
 
 # Procédure d'installation client
+## 1 - Installer l'application à partir du fichier .msi
 
 
 
