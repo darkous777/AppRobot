@@ -70,6 +70,7 @@
 # Procédure d'installation client
 ## 1 - Installer l'application à partir du fichier .msi
 
+* Assurer vous que le robot soit connecter sur le même réseaux WIFI que votre ordinateur , pous vous connetez dessus.
 
 
 # Procédure d'installation pour les développeurs :
