@@ -10,15 +10,11 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
-    <None Remove="Ressources\Videos\videoTest.mp4" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Ressources\Videos\videoTest.mp4">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

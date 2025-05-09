@@ -22,7 +22,7 @@ namespace InitialisationBD
                 string script = File.ReadAllText(cheminScript);
 
                 // Mot de ppasse de la base de données à changer pour champ vide
-                string connectionserver = "server=localhost;user=root;password=ZaqwsXcvbnm852*";
+                string connectionserver = "server=localhost;user=root;password=";
 
 
                 using (var connection = new MySqlConnection(connectionserver))

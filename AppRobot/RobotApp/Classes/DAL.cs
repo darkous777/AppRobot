@@ -707,10 +707,12 @@ namespace RobotApp.Classes
                                            _configuration[PRODUIT_IMAGES] + dr.GetString(5),
                                            dr.GetBoolean(6), null);
                 }
+                if(u is not null)
+                {
+                    user = User.ObtenirTypeUser(u);
 
-                user = User.ObtenirTypeUser(u);
-
-                user.ListeFonctionnalite = ChercherListeFonctionnaliteDisponibleParUser(user.Id);
+                    user.ListeFonctionnalite = ChercherListeFonctionnaliteDisponibleParUser(user.Id);
+                }
             }
             catch (Exception)
             {
@@ -877,10 +879,12 @@ namespace RobotApp.Classes
                                            _configuration[PRODUIT_IMAGES] + dr.GetString(5),
                                            dr.GetBoolean(6), null);
                 }
+                if (u is not null)
+                {
+                    user = User.ObtenirTypeUser(u);
 
-                user = User.ObtenirTypeUser(u);
-
-                user.ListeFonctionnalite = ChercherListeFonctionnaliteDisponibleParUser(user.Id);
+                    user.ListeFonctionnalite = ChercherListeFonctionnaliteDisponibleParUser(user.Id);
+                }
             }
             catch (Exception)
             {
