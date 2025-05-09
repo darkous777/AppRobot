@@ -129,46 +129,6 @@ namespace RobotApp.Views
                         btnMusic.IsEnabled = true;
                         break;
 
-                        //}
-                        //else
-                        //{
-                        //    switch (fonctionnalite.Nom)
-                        //    {
-                        //        case "Avancer":
-                        //            btnForward.IsEnabled = false;
-                        //            break;
-                        //        case "Avancer/Gauche":
-                        //            btnForwardLeft.IsEnabled = false;
-                        //            break;
-                        //        case "Avancer/Droite":
-                        //            btnForwardRight.IsEnabled = false;
-                        //            break;
-                        //        case "Reculer":
-                        //            btnBackward.IsEnabled = false;
-                        //            break;
-                        //        case "Reculer/Gauche":
-                        //            btnBackwardLeft.IsEnabled = false;
-                        //            break;
-                        //        case "Reculer/Droite":
-                        //            btnBackwardRight.IsEnabled = false;
-                        //            break;
-                        //        case "Rotation/Gauche":
-                        //            btnRotationLeft.IsEnabled = false;
-                        //            break;
-                        //        case "Rotation/Droite":
-                        //            btnRotationRight.IsEnabled = false;
-                        //            break;
-                        //        case "Suivre/Ligne":
-                        //            btnFollowLine.IsEnabled = false;
-                        //            break;
-                        //        case "Camera":
-                        //            btnStart.IsEnabled = false;
-                        //            btnStop.IsEnabled = false;
-                        //            break;
-                        //        case "Musique":
-                        //            btnMusic.IsEnabled = false;
-                        //            break;
-                        //    }
                 }
             }
 
