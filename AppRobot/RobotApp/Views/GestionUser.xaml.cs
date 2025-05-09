@@ -859,7 +859,7 @@ namespace RobotApp.Views
         }
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            videoExpliquative.Source = new Uri("/Ressources/Videos/videoExplicative.mp4", UriKind.Relative);
+            videoExpliquative.Source = new Uri("Ressources/Videos/videoExplicative.mp4", UriKind.Relative);
 
             videoExpliquative.Play();
         }
