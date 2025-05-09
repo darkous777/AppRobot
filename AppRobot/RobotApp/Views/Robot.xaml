@@ -16,7 +16,7 @@
         >
     <Border CornerRadius="12">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/fond-icon.jpg"
+            <ImageBrush ImageSource="/Ressources/Images/fond-icon.jpg"
                         Stretch="None"/>
         </Border.Background>
         <Border CornerRadius="10"

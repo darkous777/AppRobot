@@ -15,7 +15,7 @@
         >
     <Border CornerRadius="12">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/fond-icon.jpg"
+            <ImageBrush ImageSource="/Ressources/Images/fond-icon.jpg"
                         Stretch="None"/>
         </Border.Background>
         <Border CornerRadius="10"
@@ -123,7 +123,7 @@
                             Grid.Row="2"
                             Orientation="Vertical"
                             Margin="0,35,0,0">
-                    <Image Source="/Images/Logo-icon.png"
+                    <Image Source="/Ressources/Images/Logo-icon.png"
                            Width="100"
                            Height="100"/>
                     <TextBlock Text="Nom d'utilisateur"
@@ -145,7 +145,7 @@
                              Margin="0,5,0,0"
                              Padding="40,0,0,0">
                         <TextBox.Background>
-                            <ImageBrush ImageSource="/Images/user-icon.png"
+                            <ImageBrush ImageSource="/Ressources/Images/user-icon.png"
                                         Stretch="None"
                                         AlignmentX="Left"/>
                         </TextBox.Background>
@@ -170,7 +170,7 @@
                              Margin="0,5,0,0"
                              Padding="40,0,0,0">
                         <PasswordBox.Background>
-                            <ImageBrush ImageSource="/Images/key-icon.png"
+                            <ImageBrush ImageSource="/Ressources/Images/key-icon.png"
                                         Stretch="None"
                                         AlignmentX="Left"/>
                         </PasswordBox.Background>

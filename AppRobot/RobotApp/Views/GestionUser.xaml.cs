@@ -65,6 +65,14 @@ namespace RobotApp.Views
         public GestionUser(User user)
         {
             InitializeComponent();
+            videoExpliquative.MediaFailed += (sender, e) =>
+            {
+                MessageBox.Show($"Video failed to load: {e.ErrorException.Message}");
+            };
+            videoExpliquative.MediaOpened += (sender, e) =>
+            {
+                MessageBox.Show("Video loaded successfully!");
+            };
             try
             {
                 UserConnecter = User.ObtenirTypeUser(user);
@@ -851,6 +859,8 @@ namespace RobotApp.Views
         }
         private void Play_Click(object sender, RoutedEventArgs e)
         {
+            videoExpliquative.Source = new Uri("Resources/Videos/videoTest.mp4", UriKind.Relative);
+
             videoExpliquative.Play();
         }
 

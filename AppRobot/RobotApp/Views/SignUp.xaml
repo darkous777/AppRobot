@@ -14,7 +14,7 @@
         MouseDown="Window_MouseDown">
     <Border CornerRadius="12">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/fond-icon.jpg"
+            <ImageBrush ImageSource="/Ressources/Images/fond-icon.jpg"
                         Stretch="None"/>
         </Border.Background>
         <Border CornerRadius="10"
@@ -117,7 +117,7 @@
                     </Button>
                 </Grid>
 
-                <Image Source="/Images/Logo-icon.png"
+                <Image Source="/Ressources/Images/Logo-icon.png"
                        Width="100"
                        Height="100"
                        Grid.Row="1"
@@ -188,7 +188,7 @@
                                  Margin="0,0,0,0"
                                  Padding="40,0,0,0">
                             <TextBox.Background>
-                                <ImageBrush ImageSource="/Images/user-icon.png"
+                                <ImageBrush ImageSource="/Ressources/Images/user-icon.png"
                                             Stretch="None"
                                             AlignmentX="Left"/>
                             </TextBox.Background>
@@ -212,7 +212,7 @@
                                      VerticalAlignment="Center"
                                      Padding="40,0,0,0">
                             <PasswordBox.Background>
-                                <ImageBrush ImageSource="/Images/key-icon.png"
+                                <ImageBrush ImageSource="/Ressources/Images/key-icon.png"
                                             Stretch="None"
                                             AlignmentX="Left"/>
                             </PasswordBox.Background>
@@ -236,7 +236,7 @@
                                      VerticalAlignment="Center"
                                      Padding="40,0,0,0">
                             <PasswordBox.Background>
-                                <ImageBrush ImageSource="/Images/key-icon.png"
+                                <ImageBrush ImageSource="/Ressources/Images/key-icon.png"
                                             Stretch="None"
                                             AlignmentX="Left"/>
                             </PasswordBox.Background>

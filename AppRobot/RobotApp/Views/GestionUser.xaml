@@ -17,7 +17,7 @@
 
     <Border CornerRadius="12">
         <Border.Background>
-            <ImageBrush ImageSource="/Images/fond-icon.jpg"
+            <ImageBrush ImageSource="/Ressources/Images/fond-icon.jpg"
                         Stretch="None"/>
         </Border.Background>
         <Border CornerRadius="10"
@@ -132,8 +132,8 @@
                             Grid.ColumnSpan="2" 
                             Background="Transparent"
                             Margin="10,15,10,10">
-                    <TabItem Margin="5,0,0,0" 
-                HorizontalAlignment="Center">
+                    <TabItem Header="Information" Margin="5,0,0,0" HorizontalAlignment="Center">
+                        <!-- Style seulement pour la couleur -->
                         <TabItem.Style>
                             <Style TargetType="TabItem">
                                 <Setter Property="Background" Value="#462AD8"/>
@@ -144,25 +144,15 @@
                                 </Style.Triggers>
                             </Style>
                         </TabItem.Style>
-                        <TabItem.Template>
-                            <ControlTemplate TargetType="TabItem">
-                                <Border Width="Auto" Height="30" Padding="5,0,5,0"
-                    Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                HorizontalAlignment="Center" Content="Information"/>
-
-                                </Border>
-                            </ControlTemplate>
-                        </TabItem.Template>
                         <StackPanel>
-                            <MediaElement x:Name="videoExpliquative"
-                      Source="chemin/vers/video.mp4"
-                      LoadedBehavior="Manual"
-                      UnloadedBehavior="Manual"
-                      Stretch="Uniform"
-                      Width="600"
-                      Height="500"
-                      VerticalAlignment="Top"/>
+                            <Border BorderBrush="Black" BorderThickness="2" Margin="0,15,0,0" Background="Gray" 
+        Width="600" Height="500" HorizontalAlignment="Center" VerticalAlignment="Top" Panel.ZIndex="10">
+                                <MediaElement x:Name="videoExpliquative" 
+                                              HorizontalAlignment="Center"
+                                              LoadedBehavior="Manual"
+                                              UnloadedBehavior="Manual"
+                                              VerticalAlignment="Center"/>
+                            </Border>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Margin="0,60,0,0">
                                 <Button Content="▶️ Jouer" Click="Play_Click" Margin="5" Width="90"/>
                                 <Button Content="⏸ Pause" Click="Pause_Click" Margin="5" Width="90"/>
@@ -227,7 +217,7 @@
                              Margin="0,5,0,0"
                              Padding="40,0,0,0">
                                         <TextBox.Background>
-                                            <ImageBrush ImageSource="/Images/user-icon.png"
+                                            <ImageBrush ImageSource="/Ressources/Images/user-icon.png"
                                         Stretch="None"
                                         AlignmentX="Left"/>
                                         </TextBox.Background>
@@ -343,7 +333,7 @@
          Margin="0,5,0,0"
          Padding="40,0,0,0">
                                         <PasswordBox.Background>
-                                            <ImageBrush ImageSource="/Images/key-icon.png"
+                                            <ImageBrush ImageSource="/Ressources/Images/key-icon.png"
                     Stretch="None"
                     AlignmentX="Left"/>
                                         </PasswordBox.Background>
@@ -367,7 +357,7 @@
          Margin="0,5,0,0"
          Padding="40,0,0,0">
                                         <PasswordBox.Background>
-                                            <ImageBrush ImageSource="/Images/key-icon.png"
+                                            <ImageBrush ImageSource="/Ressources/Images/key-icon.png"
                     Stretch="None"
                     AlignmentX="Left"/>
                                         </PasswordBox.Background>
@@ -392,7 +382,7 @@ VerticalAlignment="Center"
 Margin="0,5,0,0"
 Padding="40,0,0,0">
                                         <PasswordBox.Background>
-                                            <ImageBrush ImageSource="/Images/key-icon.png"
+                                            <ImageBrush ImageSource="/Ressources/Images/key-icon.png"
            Stretch="None"
            AlignmentX="Left"/>
                                         </PasswordBox.Background>
@@ -535,7 +525,7 @@ Grid.Row="2"
                                             Background="Transparent"
                                             Click="btnRechercherUser_Click"
                                             Margin="0,0,30,0">
-                                        <Image Source="/Images/search-icon.png" Width="25" Margin="5"/>
+                                        <Image Source="/Ressources/Images/search-icon.png" Width="25" Margin="5"/>
                                     </Button>
                                 </StackPanel>
                             </StackPanel>

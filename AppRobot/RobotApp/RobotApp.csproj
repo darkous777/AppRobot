@@ -10,11 +10,15 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Ressources\Videos\videoTest.mp4" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\Videos\videoTest.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -26,22 +30,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\fond-icon.jpg">
+    <Resource Include="Ressources\Images\fond-icon.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\key-icon.png">
+    <Resource Include="Ressources\Images\key-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\Logo-icon.ico">
+    <Resource Include="Ressources\Images\Logo-icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\Logo-icon.png">
+    <Resource Include="Ressources\Images\Logo-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\search-icon.png">
+    <Resource Include="Ressources\Images\search-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\user-icon.png">
+    <Resource Include="Ressources\Images\user-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
