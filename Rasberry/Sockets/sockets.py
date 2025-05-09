@@ -42,7 +42,6 @@ active_conn = None
 trig = 'D2'
 echo = 'D3'
 
-# ultrasonic = Ultrasonic(Pin(trig), Pin(echo, mode=Pin.IN, pull=Pin.PULL_DOWN))
 
 px = Picarx()
 
@@ -140,7 +139,6 @@ def stop_moving():
     is_moving = False
 
 def jouerHorn():
-    # music.sound_play('/home/robot/AppRobot/Rasberry/sounds/car-horn.wav')
     time.sleep(0.05)
 
 def jouerMusic():
@@ -150,9 +148,6 @@ def jouerMusic():
 def arreterMusic():
 
     pygame.mixer.music.stop()
-    # music.music_play('/home/robot/AppRobot/Rasberry/musics/music.mp3')
-    # time.sleep(5)
-    # music.music_stop()
 
 
 def follow_line():
@@ -212,7 +207,6 @@ def follow_line():
             last_state = 'left'
             last_seen_direction = "right"
         else:
-            # ligne probablement centrée ou en fourche : avancer droit par défaut
             px.set_dir_servo_angle(0)
             move_forward()
             last_state = 'forward'
