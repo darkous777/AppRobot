@@ -127,11 +127,29 @@ namespace RobotApp.Views
             lstUsers.ItemsSource = null;
             if (user is Admin admin)
             {
-                lstUsers.ItemsSource = admin.ListUser(admin, usernameRechercher);
+                List<User> a = admin.ListUser(admin, usernameRechercher);
+
+                foreach( User b in a)
+                {
+                    if(b.Image is null)
+                    {
+                        b.Image = "pack://application:,,,/Ressources/Images/user-icon.png";
+                    }
+                }
+                lstUsers.ItemsSource = a;
             }
             else if (user is Moderator moderator)
             {
-                lstUsers.ItemsSource = moderator.ListUser(moderator, usernameRechercher);
+                List<User> a = moderator.ListUser(moderator, usernameRechercher);
+
+                foreach (User b in a)
+                {
+                    if (b.Image is null)
+                    {
+                        b.Image = "pack://application:,,,/Ressources/Images/user-icon.png";
+                    }
+                }
+                lstUsers.ItemsSource = a;
             }
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -259,6 +277,11 @@ namespace RobotApp.Views
         /// <param name="cheminFichier">Chemin d'accès à l'image</param>
         private void AfficherImage(string cheminFichier)
         {
+            if (cheminFichier == null)
+            {
+                return;
+            }
+
             BitmapImage bi = new BitmapImage();
             bi.BeginInit();
 

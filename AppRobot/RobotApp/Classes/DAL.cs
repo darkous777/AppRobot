@@ -79,6 +79,9 @@ namespace RobotApp.Classes
 
                 user = User.ObtenirTypeUser(utilisateur);
 
+                if (!File.Exists(user.Image))
+                    user.Image = null;
+
             }
             catch (Exception)
             {
@@ -393,6 +396,9 @@ namespace RobotApp.Classes
                     user = User.ObtenirTypeUser(u);
 
                     user.ListeFonctionnalite = ChercherListeFonctionnaliteDisponibleParUser(user.Id);
+
+                    if (!File.Exists(user.Image))
+                    { user.Image = null; }
 
                     users.Add(user);
                 }
