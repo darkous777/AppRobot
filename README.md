@@ -158,12 +158,20 @@
 
 * Dans le dossier BD du projet, importez le fichier app-robot-data.sql dans le schéma app-robot-data que vous avez créé précédemment via MySQL Workbench.
 
-## 6 - Connexion au robot
+## 6 - Préparation avant la connexion avec le robot
+
+* Avant de lancer le projet, il y aura 2 choses à prendre en compte, il faudra rentrer dans votre projet cloner dans le chemin suivant :
+
+* <code>\AppRobot\AppRobot\RobotApp\Ressources\Videos</code>
+
+* Et vous devrez dézipper le fichier nommé : videoExplicative.7z .
+
+* Par la suite pour tester le exe vous aurez le setup.exe à votre disposition dans le fichier Setup ou sinon vous pourrez dézipper le fichier Setup.7z qui vous permettera d'utiliser le .msi
+
+## 7 - Connexion au robot
 
 * Assurez-vous d’être connecté au même réseau Wi-Fi que le robot.
 
 # Compte d'utilisateurs et mots de passes déjà prédéfinies avec leur niveau d'autorisation :
 
 * Utilisateur : Admin00000 | Mot de passe  : 12345QWERT* | Niveaux d'accès : Administrateur
-*
-*
