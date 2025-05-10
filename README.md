@@ -67,13 +67,46 @@
 * La qualité de l'image et le niveaux de rafraichissment de l'image peuvent toujours être améliorer. La caméra embarquée fournie dans le kit n’offre pas une très haute définition ni une fluidité optimale, mais il serait tout à fait possible d’obtenir de meilleurs résultats en remplaçant le module par une caméra plus performante.
 
 
-# Procédure d'installation client
-## 1 - Installer l'application à partir du fichier .msi
+# Procédure d'installation client :
 
-* Assurer vous que le robot soit connecter sur le même réseaux WIFI que votre ordinateur , pous vous connetez dessus.
-  
+## A) - Procédure pour démarrer le robot :
+* Étape 1 : Allumer l’alimentation principale
+    Mettre le robot sous tension en basculant l’interrupteur principal vers la position de marche. Ce bouton se retrouve à l'avant sur le dessus du Robot Hat, la plaquette blanche de contrôle montée sur le Raspberry Pi.
+    Une lumière verte devrait s’allumer sur le dessus du robot pour confirmer que le courant passe.
+
+    Si aucun voyant ne s’allume, il est probable que la batterie soit déchargée. Dans ce cas :
+    * Brancher le port USB-C situé sur le Robot Hat à une source d’alimentation (comme un chargeur mural ou un ordinateur).
+    * Attendre environ 5 à 10 minutes pour laisser la batterie se recharger.
+    * Recommencer l’opération d’allumage.
+
+    Une fois l’indicateur vert allumé, patienter environ 2 à 5 minutes, le temps que le système du robot démarre complètement.
+
+* Étape 2 : Connecter le robot au réseau (première utilisation seulement)
+    Lors de la toute première utilisation, il est nécessaire de brancher un écran, un clavier et une souris au Raspberry Pi. Pour utiliser le fil HDMI classique de votre écran, il est nécessaire d'utiliser l'adapteur HDMI—micro-HDMI et de brancher le port micro-HDMI dans un des ports prévus à cette effet du RaspberryPie. Un clavier et une souris peuvent être brancher à l'arrière par port USB.
+
+    Cela permet d'avoir une vue du système du robot et de le connecter à un réseau Wi-Fi.
+    Une fois connecté :
+    * Cocher l’option « Se connecter automatiquement à ce réseau » (ou équivalent) si le réseau est de confiance (exemple : le wifi de  votre maison).
+    * Cela évitera d’avoir à refaire cette opération à chaque redémarrage.
+
+* Étape 3 : Activer le haut-parleur
+    Le haut-parleur est la petite boule noire placée au centre du robot, entre la caméra et les composants électroniques (le Raspberry Pi et le Robot Hat). Il possède un interrupteur à trois positions situé sur le dessus, qui agit à la fois comme bouton d’alimentation et de volume.
+
+    Voici comment il fonctionne :
+    * Position complètement à droite : haut-parleur éteint.
+    * Position du milieu : haut-parleur allumé avec un volume moyen.
+    * Position complètement à gauche : haut-parleur allumé avec le volume au maximum.
+
+    Dès que le bouton est tourné vers le milieu ou vers la gauche, le haut-parleur s’allume. Le voyant lumineux à sa base passe alors de rouge à bleu-mauve, indiquant qu’il est prêt à diffuser du son.
+
+
+## B) - Installer l'application à partir du fichier .msi
+
 * Par la suite télécharger le .msi et installer l'application.
 
+* Cliquer sur le fichier ayant l'extension ".exe" et l'application de l'interface devrait démarrer.
+
+* Ensuite vous n'avez qu'à vous créer un compte, suivre le tutoriel et vous amusez!
 
 # Procédure d'installation pour les développeurs :
 ## 1 - Cloner le projet dans l'endroit de votre choix
@@ -125,7 +158,17 @@
 
 * Dans le dossier BD du projet, importez le fichier app-robot-data.sql dans le schéma app-robot-data que vous avez créé précédemment via MySQL Workbench.
 
-## 6 - Connexion au robot
+## 6 - Préparation avant la connexion avec le robot
+
+* Avant de lancer le projet, il y aura 2 choses à prendre en compte, il faudra rentrer dans votre projet cloner dans le chemin suivant :
+
+* <code>\AppRobot\AppRobot\RobotApp\Ressources\Videos</code>
+
+* Et vous devrez dézipper le fichier nommé : videoExplicative.7z .
+
+* Par la suite pour tester le exe vous aurez le setup.exe à votre disposition dans le fichier Setup ou sinon vous pourrez dézipper le fichier Setup.7z qui vous permettera d'utiliser le .msi
+
+## 7 - Connexion au robot
 
 * Assurez-vous d’être connecté au même réseau Wi-Fi que le robot.
 
