@@ -450,7 +450,7 @@ namespace RobotApp.Views
                 {
                     if (_cancellationTokenSource != null)
                     {
-                        _cancellationTokenSource.Cancel();
+                        _cancellationTokenSource.Cancel();a
                         _cancellationTokenSource = null;
                     }
 
