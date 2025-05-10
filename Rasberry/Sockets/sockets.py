@@ -12,7 +12,6 @@ from gpiozero import Device
 from gpiozero.pins.pigpio import PiGPIOFactory
 Device.pin_factory = PiGPIOFactory()
 
-# Initialisation sécurisée de l'audio pygame
 try:
     os.environ["SDL_AUDIODRIVER"] = "pulseaudio"
     pygame.mixer.init()
@@ -42,7 +41,6 @@ active_conn = None
 trig = 'D2'
 echo = 'D3'
 
-# ultrasonic = Ultrasonic(Pin(trig), Pin(echo, mode=Pin.IN, pull=Pin.PULL_DOWN))
 
 px = Picarx()
 
@@ -64,21 +62,6 @@ line_following = False
 line_thread = None
 last_state = "stop"
 last_seen_direction = None
-
-# music = Music()
-
-# music.music_set_volume(90)
-
-# config_file = '/opt/picar-x/picar-x.conf'
-# config = fileDB(config_file, 777, 'root')
-
-# cali_dir_value = config.get('picarx_dir_motor', default_value='[1, 1]')
-# cali_dir_value = [int(i.strip()) for i in cali_dir_value.strip().strip('[]').split(',')]
-
-# cali_speed_value = config.get('picarx_speed_motor', default_value='[0, 0]')
-# cali_speed_value = [int(i.strip()) for i in cali_speed_value.strip().strip('[]').split(',')]
-
-# dir_cali_val = float(config.get('picarx_dir_servo', default_value=0))
 
 
 flask_process = None
@@ -155,7 +138,6 @@ def stop_moving():
     is_moving = False
 
 def jouerHorn():
-    # music.sound_play('/home/robot/AppRobot/Rasberry/sounds/car-horn.wav')
     time.sleep(0.05)
 
 def jouerMusic():
@@ -165,9 +147,6 @@ def jouerMusic():
 def arreterMusic():
 
     pygame.mixer.music.stop()
-    # music.music_play('/home/robot/AppRobot/Rasberry/musics/music.mp3')
-    # time.sleep(5)
-    # music.music_stop()
 
 
 def follow_line():
@@ -195,7 +174,6 @@ def follow_line():
                     send(active_conn, "Suivi interrompu : ligne perdue.")
                 break
 
-            # tentative de récupération
             if last_seen_direction == 'right':
                 px.set_dir_servo_angle(20)
                 move_backward()
@@ -209,7 +187,7 @@ def follow_line():
             time.sleep(0.05)
             continue
         else:
-            time_lost = 0  # ligne retrouvée
+            time_lost = 0  
 
         if gm_state[1] == 1 and gm_state[0] == 0 and gm_state[2] == 0:
             px.set_dir_servo_angle(0)
@@ -227,7 +205,6 @@ def follow_line():
             last_state = 'left'
             last_seen_direction = "right"
         else:
-            # ligne probablement centrée ou en fourche : avancer droit par défaut
             px.set_dir_servo_angle(0)
             move_forward()
             last_state = 'forward'
@@ -253,8 +230,8 @@ def stop_line_following():
 def move_forward():
     start_moving()
 
-    px.set_motor_speed(1, 10) # ici on compense la vitesse du moteur gauche parce que sinon pour une raison X la roue gauche tourne moin vite que la roue droite
-    px.set_motor_speed(2, -9) # on inverse la vitesse pour que le moteur tourne dans l'autre sens parce que les moteurs sont placés en miroir sur le chassis
+    px.set_motor_speed(1, 10) 
+    px.set_motor_speed(2, -9) 
 
 def move_backward():
     start_moving()
